@@ -8,6 +8,7 @@ export function Budget() {
         <Wrapper>
             <Title>Budget</Title>
             <Link to="/register">register</Link>
+            <Link to="/login">login</Link>
             <Category>
                 <Category_Title>Immediate Obligations</Category_Title>
                 <Category_Item>Rent</Category_Item>
