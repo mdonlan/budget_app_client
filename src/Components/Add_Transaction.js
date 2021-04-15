@@ -1,34 +1,33 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+import { useSelector } from 'react-redux';
 import styled from 'styled-components'
 import superagent from 'superagent'
+import { get_categories, create_transaction } from '../api';
 
 export function Add_Transaction() {
 
     const [is_active, set_is_active] = useState(false);
     const transaction_ref = useRef(null);
+    const categories = useSelector(state => state.default.categories)
 
     const [transaction, set_transaction] = useState({
         name: "",
-        created_date: new Date,
-        amount: "",
+        created_date: "",
+        amount: 0,
         type: "",
         note: "",
+        category: ""
         // is_complete: false,
         // completed_date: ""
-    })
+    });
+
+    useEffect(() => {
+        get_categories();
+    }, []);
 
     function clicked_add_transaction() {
         console.log('clicked add transaction');
         set_is_active(true);
-    }
-
-    function create_transaction() {
-        console.log(transaction_ref)
-        superagent.post('http://localhost:3000/create_transaction')
-        .send(transaction)
-        .then(() => {
-            console.log('completed post')
-        })
     }
 
     function handle_change(e) {
@@ -41,16 +40,21 @@ export function Add_Transaction() {
             {is_active &&
                 <New_Transaction ref={transaction_ref}>
                     <Name name="name" placeholder="transaction name" value={transaction.name} onChange={handle_change}/>
-                    <Created_Date name="created_date" value={transaction.created_date} onChange={handle_change}/>
+                    {/* <Created_Date name="created_date" value={transaction.created_date} onChange={handle_change}/> */}
                     <Amount name="amount" placeholder="amount" value={transaction.amount} onChange={handle_change}/>
                     <Type>
                         <option>inflow</option>
                         <option>outflow</option>
                     </Type>
+                    <select name="categories" onChange={handle_change}>
+                        {categories.map(cat => {
+                            return <option value={cat.name}>{cat.name}</option>
+                        })}
+                    </select>
                     <Note name="note" placeholder="note" value={transaction.note} onChange={handle_change}/>
                     {/* <Is_Complete name="is_complete" value={transaction.is_complete} onChange={handle_change}/> */}
                     {/* <Completed_Date name="completed_date" value={transaction.completed_date} onChange={handle_change}/> */}
-                    <div onClick={create_transaction}>create</div>
+                    <div onClick={() => {create_transaction(transaction)}}>create</div>
                     <div>cancel</div>
                 </New_Transaction>
             }

@@ -4,7 +4,9 @@ const default_slice = createSlice({
     name: 'slice',
     initialState: {
         logged_in: false,
-        balance: 0
+        balance: 0,
+        token: null,
+        categories: []
     },
     reducers: {
         set_balance: (state, action) => {
@@ -13,7 +15,12 @@ const default_slice = createSlice({
         set_logged_in: (state, action) => {
             state.logged_in = action.payload;
         },
-
+        set_token: (state, action) => {
+            state.token = action.payload;
+        },
+        set_categories: (state, action) => {
+            state.categories = action.payload;
+        },
         // set_username: (state, action) => {
         //     state.username = action.payload;
         // },
@@ -31,8 +38,8 @@ const reducer = combineReducers({
 export const {
     set_balance,
     set_logged_in,
-    // set_username,
-    // set_food_items_today
+    set_token,
+    set_categories,
 } = default_slice.actions;
 
 export default default_slice.reducer;

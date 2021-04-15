@@ -8,6 +8,8 @@ import { Add_Transaction } from './Add_Transaction'
 import { Budget } from './Budget'
 import { Register } from './Register'
 import { Login } from './Login'
+import { Top_Nav } from './Top_Nav'
+import { Transactions } from './Transactions'
 import { validate_token } from '../api'
 
 export function App() {
@@ -23,7 +25,7 @@ export function App() {
             validate_token(token);
         }
         // get_data_from_db();
-    }, [logged_in])
+    }, [])
 
 
     // useEffect(() => {
@@ -41,10 +43,10 @@ export function App() {
     return (
         <Wrapper>
             <Router>
-                {/* <Top_Nav /> */}
+                <Top_Nav />
                 <Switch>
                     <Route path="/" exact component={Budget} /> 
-                    {/* <Route path="/food" component={Food} />  */}
+                    <Route path="/transactions" component={Transactions} /> 
                     <Route path="/register" component={Register} /> 
                     <Route path="/login" component={Login} /> 
                 </Switch>
@@ -52,7 +54,6 @@ export function App() {
             {/* <div>
                 <div>balance: {balance}</div>
             </div>
-            <Add_Transaction />
             <div>Transactions</div>
             {transactions.map((t, i) => {
                 return <div key={i}>{t.name}</div>
