@@ -16,14 +16,24 @@ export function Budget() {
         <Wrapper>
             <Title>Budget</Title>
             <Add_Category />
+            <Header>INFLOW</Header>
             {categories.filter(c  => c.type == 'Inflow').map(cat => {
                 return (
-                    <Category>
+                    <Category key={cat.id}>
                         <Category_Title>{cat.name}</Category_Title>
                         <div>{cat.type}</div>
                         <div>{cat.current}</div>
                         <div>{cat.total}</div>
-
+                    </Category>
+                )
+            })}
+            <Header>OUTFLOW</Header>
+            {categories.filter(c  => c.type == 'Outflow').map(cat => {
+                return (
+                    <Category key={cat.id}>
+                        <Category_Title>{cat.name}</Category_Title>
+                        <Item_Current>{cat.current}</Item_Current>
+                        <Item_Total>{cat.total}</Item_Total>
                     </Category>
                 )
             })}
@@ -62,16 +72,24 @@ const Title = styled.div`
     font-size: 18px;
 `
 
-const Category = styled.div``
-
-const Category_Title = styled.div`
-    background: #dddddd;
+const Header = styled.div`
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-size: 18px;
 `
 
-const Category_Item = styled.div`
-    margin-left: 5px;
+const Category = styled.div`
     display: flex;
 `
+
+const Category_Title = styled.div`
+    /* background: #dddddd; */
+`
+
+// const Category_Item = styled.div`
+//     margin-left: 5px;
+//     /* display: flex; */
+// `
 
 const Item_Name = styled.div`
     margin-left: 5px;

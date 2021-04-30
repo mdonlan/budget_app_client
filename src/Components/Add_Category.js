@@ -20,8 +20,8 @@ export function Add_Category() {
     }
 
     return (
-        <div>
-            <div onClick={() => {set_is_active(true)}}>add category</div>
+        <Wrapper>
+            <Btn onClick={() => {set_is_active(true)}}>add category</Btn>
             {is_active &&
                 <div>
                     <Name name="name" placeholder="category name" value={category.name} onChange={handle_change}/>
@@ -34,11 +34,22 @@ export function Add_Category() {
                     <div onClick={() => {set_is_active(false)}}>cancel</div>
                 </div>
             }
-        </div>
+        </Wrapper>
     )
 }
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+    display: flex;
+`
+
+const Btn = styled.div`
+    background: lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+`
 
 const Name = styled.input``
 const Total_Amount = styled.input``
