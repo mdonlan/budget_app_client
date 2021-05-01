@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import superagent from 'superagent'
 import styled from "styled-components"
 import { set_balance } from '../store'
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, useHistory, useLocation } from "react-router-dom";
 import { Add_Transaction } from './Add_Transaction'
 import { Budget } from './Budget'
 import { Register } from './Register'
@@ -17,6 +17,8 @@ export function App() {
     const [transactions, set_transactions] = useState([]);
     const balance = useSelector(state => state.default.balance);
     const dispatch = useDispatch();
+    const location = useLocation();
+    const [path, set_path] = useState(null);
 
     useEffect(() => {
         console.log('logged_in: ' + logged_in)
@@ -42,15 +44,13 @@ export function App() {
 
     return (
         <Wrapper>
-            <Router>
-                <Top_Nav />
+                <Top_Nav location={location}/>
                 <Switch>
                     <Route path="/" exact component={Budget} /> 
                     <Route path="/transactions" component={Transactions} /> 
                     <Route path="/register" component={Register} /> 
                     <Route path="/login" component={Login} /> 
                 </Switch>
-            </Router>
             {/* <div>
                 <div>balance: {balance}</div>
             </div>

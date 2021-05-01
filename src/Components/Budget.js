@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { get_categories } from '../api'
@@ -8,14 +8,21 @@ import { Register } from './Register'
 export function Budget() {
     const categories = useSelector(state => state.default.categories);
 
+    const [is_deleting, set_is_deleting] = useState(false);
+
     useEffect(() => {
         get_categories();
     }, [])
+
+    function delete_category(category) {
+        console.log(category)
+    }
 
     return (
         <Wrapper>
             <Title>Budget</Title>
             <Add_Category />
+            <div onClick={() => {set_is_deleting(!is_deleting)}}>{is_deleting ? "cancel" : "delete category"}</div>
             <Header>INFLOW</Header>
             {categories.filter(c  => c.type == 'Inflow').map(cat => {
                 return (
@@ -24,6 +31,9 @@ export function Budget() {
                         <div>{cat.type}</div>
                         <div>{cat.current}</div>
                         <div>{cat.total}</div>
+                        {is_deleting && 
+                            <div onClick={() => {delete_category(cat)}}>delete</div>
+                        }
                     </Category>
                 )
             })}
@@ -73,8 +83,8 @@ const Title = styled.div`
 `
 
 const Header = styled.div`
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     font-size: 18px;
 `
 
