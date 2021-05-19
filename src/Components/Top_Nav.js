@@ -28,6 +28,7 @@ export function Top_Nav(props) {
             {logged_in &&
                 <React.Fragment>
                     <Styled_Link path={props.location.pathname} to="/transactions">transactions</Styled_Link>
+                    <Styled_Link path={props.location.pathname} to="/accounts">accounts</Styled_Link>
                 </React.Fragment>
             }
         </Wrapper>
@@ -45,6 +46,6 @@ const Styled_Link = styled(Link)`
     margin-left: 8px;
     margin-right: 8px;
     text-decoration: none;
-    color: ${props => props.path == props.to ? "white" : "lightblue"};
+    color: ${props => props.path == props.to ? "white" : "gray"};
     cursor: pointer;
 `

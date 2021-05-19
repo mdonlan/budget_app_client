@@ -88,3 +88,21 @@ export function get_transactions() {
         store.dispatch(set_transactions(res.body.transactions));
     })   
 }
+
+export function get_accounts() {
+    const token = localStorage.getItem("token");
+    return superagent.post('http://localhost:3000/get_accounts')
+    .send({token: token})
+    .then(res => {
+        store.dispatch(set_accounts(res.body.transactions));
+    })   
+}
+
+export function create_account(account) {
+    const token = localStorage.getItem("token");
+    superagent.post('http://localhost:3000/create_account')
+    .send({account: account, token: token})
+    .then(() => {
+        // console.log('completed post')
+    })
+}

@@ -7,7 +7,8 @@ const default_slice = createSlice({
         balance: 0,
         token: null,
         categories: [],
-        transactions: []
+        transactions: [],
+        accounts: []
     },
     reducers: {
         set_balance: (state, action) => {
@@ -24,6 +25,9 @@ const default_slice = createSlice({
         },
         set_transactions: (state, action) => {
             state.transactions = action.payload;
+        },
+        set_accounts: (state, action) => {
+            state.accounts = action.payload;
         },
         // set_username: (state, action) => {
         //     state.username = action.payload;
@@ -45,6 +49,7 @@ export const {
     set_token,
     set_categories,
     set_transactions,
+    set_accounts,
 } = default_slice.actions;
 
 export default default_slice.reducer;

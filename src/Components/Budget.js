@@ -23,27 +23,26 @@ export function Budget() {
             <Title>Budget</Title>
             <Add_Category />
             <div onClick={() => {set_is_deleting(!is_deleting)}}>{is_deleting ? "cancel" : "delete category"}</div>
-            <Header>INFLOW</Header>
+            {/* <Header>INFLOW</Header>
             {categories.filter(c  => c.type == 'Inflow').map(cat => {
                 return (
                     <Category key={cat.id}>
                         <Category_Title>{cat.name}</Category_Title>
-                        <div>{cat.type}</div>
-                        <div>{cat.current}</div>
-                        <div>{cat.total}</div>
+                        <Item_Current>{cat.current_amount}</Item_Current>
+                        <Item_Total>{cat.total_amount}</Item_Total>
                         {is_deleting && 
                             <div onClick={() => {delete_category(cat)}}>delete</div>
                         }
                     </Category>
                 )
             })}
-            <Header>OUTFLOW</Header>
+            <Header>OUTFLOW</Header> */}
             {categories.filter(c  => c.type == 'Outflow').map(cat => {
                 return (
                     <Category key={cat.id}>
-                        <Category_Title>{cat.name}</Category_Title>
-                        <Item_Current>{cat.current}</Item_Current>
-                        <Item_Total>{cat.total}</Item_Total>
+                        <Item_Name>{cat.name}</Item_Name>
+                        <Item_Current>Spent: {cat.current_amount}</Item_Current>
+                        <Item_Total>Budgeted: {cat.total_amount}</Item_Total>
                     </Category>
                 )
             })}
@@ -92,21 +91,13 @@ const Category = styled.div`
     display: flex;
 `
 
-const Category_Title = styled.div`
-    /* background: #dddddd; */
-`
-
-// const Category_Item = styled.div`
-//     margin-left: 5px;
-//     /* display: flex; */
-// `
-
 const Item_Name = styled.div`
-    margin-left: 5px;
+    width: 200px;
 `
 
 const Item_Current = styled.div`
-    margin-left: 5px;
+    width: 200px;
 `
 
-const Item_Total = styled.div``
+const Item_Total = styled.div`
+`

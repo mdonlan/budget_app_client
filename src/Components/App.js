@@ -10,6 +10,7 @@ import { Register } from './Register'
 import { Login } from './Login'
 import { Top_Nav } from './Top_Nav'
 import { Transactions } from './Transactions'
+import { Accounts } from './Accounts'
 import { validate_token } from '../api'
 
 export function App() {
@@ -48,6 +49,7 @@ export function App() {
                 <Switch>
                     <Route path="/" exact component={Budget} /> 
                     <Route path="/transactions" component={Transactions} /> 
+                    <Route path="/accounts" component={Accounts} /> 
                     <Route path="/register" component={Register} /> 
                     <Route path="/login" component={Login} /> 
                 </Switch>
