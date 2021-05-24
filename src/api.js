@@ -1,5 +1,12 @@
 import superagent from 'superagent'
-import { store, set_logged_in, set_token, set_categories, set_transactions } from './store'
+import { 
+    store, 
+    set_logged_in, 
+    set_token, 
+    set_categories, 
+    set_transactions,
+    set_accounts
+} from './store'
 
 export function register_user(data) {
     return superagent.post('http://localhost:3000/register_user')
@@ -94,7 +101,7 @@ export function get_accounts() {
     return superagent.post('http://localhost:3000/get_accounts')
     .send({token: token})
     .then(res => {
-        store.dispatch(set_accounts(res.body.transactions));
+        store.dispatch(set_accounts(res.body.accounts));
     })   
 }
 

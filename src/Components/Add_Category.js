@@ -21,7 +21,7 @@ export function Add_Category() {
 
     return (
         <Wrapper>
-            <Btn onClick={() => {set_is_active(true)}}>add category</Btn>
+            <Btn onClick={() => {set_is_active(true)}}>Add New Category</Btn>
             {is_active &&
                 <div>
                     <Name name="name" placeholder="category name" value={category.name} onChange={handle_change}/>
@@ -43,12 +43,13 @@ const Wrapper = styled.div`
 `
 
 const Btn = styled.div`
-    background: lightblue;
+    background: #3271a8;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 8px;
     cursor: pointer;
+    margin: 8px;
 `
 
 const Name = styled.input``

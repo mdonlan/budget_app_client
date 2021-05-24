@@ -16,11 +16,14 @@ export function Accounts() {
 
             <div>accounts</div>
 
-            {/* {transactions.map(t => {
+            {accounts.map(t => {
                 return (
-                    <div key={t.id}>{t.name}</div>
+                    <div key={t.id}>
+                        <div>{t.name}</div>
+                        <div>{t.amount}</div>
+                    </div>
                 )
-            })} */}
+            })}
         </div>
     )
 }

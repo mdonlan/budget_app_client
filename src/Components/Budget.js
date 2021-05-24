@@ -20,65 +20,51 @@ export function Budget() {
 
     return (
         <Wrapper>
-            <Title>Budget</Title>
-            <Add_Category />
-            <div onClick={() => {set_is_deleting(!is_deleting)}}>{is_deleting ? "cancel" : "delete category"}</div>
-            {/* <Header>INFLOW</Header>
-            {categories.filter(c  => c.type == 'Inflow').map(cat => {
-                return (
-                    <Category key={cat.id}>
-                        <Category_Title>{cat.name}</Category_Title>
-                        <Item_Current>{cat.current_amount}</Item_Current>
-                        <Item_Total>{cat.total_amount}</Item_Total>
-                        {is_deleting && 
-                            <div onClick={() => {delete_category(cat)}}>delete</div>
-                        }
-                    </Category>
-                )
-            })}
-            <Header>OUTFLOW</Header> */}
-            {categories.filter(c  => c.type == 'Outflow').map(cat => {
-                return (
-                    <Category key={cat.id}>
-                        <Item_Name>{cat.name}</Item_Name>
-                        <Item_Current>Spent: {cat.current_amount}</Item_Current>
-                        <Item_Total>Budgeted: {cat.total_amount}</Item_Total>
-                    </Category>
-                )
-            })}
-            {/* {categories.map((cat, i) => {
-                return (
-                    <Category key={i}>
-                        <Category_Title>{cat.name}</Category_Title>
-                    </Category>
-                )
-            })} */}
-            {/* <Category>
-                <Category_Title>Immediate Obligations</Category_Title>
-                <Category_Item>
-                    <Item_Name>Rent</Item_Name>
-                    <Item_Current>650</Item_Current>
-                    <div>/</div>
-                    <Item_Total>650</Item_Total>
-                </Category_Item>
-                <Category_Item>Electric</Category_Item>
-                <Category_Item>Water</Category_Item>
-                <Category_Item>Heat</Category_Item>
-                <Category_Item>Groceries</Category_Item>
-                <Category_Item>Gas/Transportation</Category_Item>
-            </Category>
-            <Category>
-                <Category_Title>True Expenses</Category_Title>
-                <Category_Item>Credit Card Payments</Category_Item>
-            </Category> */}
+            <Top>
+                <Add_Category />
+                <Edit_Btn onClick={() => {set_is_deleting(!is_deleting)}}>{is_deleting ? "Stop Editing" : "Edit"}</Edit_Btn>
+            </Top>
+            <Bottom>
+                {/* fake category for col names */}
+                <Category column_names={true}>
+                    <Item_Name>Name</Item_Name>
+                    <Item_Current>Current Amount</Item_Current>
+                    <Item_Total>Total Amount</Item_Total>
+                </Category>
+                {categories.filter(c  => c.type == 'Outflow').map(cat => {
+                    return (
+                        <Category key={cat.id}>
+                            <Item_Name>{cat.name}</Item_Name>
+                            <Item_Current>Spent: {cat.current_amount}</Item_Current>
+                            <Item_Total>Budgeted: {cat.total_amount}</Item_Total>
+                        </Category>
+                    )
+                })}
+            </Bottom>
         </Wrapper>
     )
 }
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+const Top = styled.div`
+    display: flex;
+`
 
-const Title = styled.div`
-    font-size: 18px;
+const Bottom = styled.div`
+
+`
+
+const Edit_Btn = styled.div`
+    background: #3271a8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+    margin: 8px;
 `
 
 const Header = styled.div`
@@ -89,6 +75,13 @@ const Header = styled.div`
 
 const Category = styled.div`
     display: flex;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 8px;
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: ${props => props.column_names ? "#555555" : "#dddddd"};
+    /* margin-right: 4px; */
 `
 
 const Item_Name = styled.div`

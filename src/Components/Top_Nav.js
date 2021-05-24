@@ -36,16 +36,21 @@ export function Top_Nav(props) {
 }
 
 const Wrapper = styled.div`
-    background: #444444;
-    height: 50px;
+    background: #1c1c1c;
+    height: 70px;
     display: flex;
     align-items: center;
 `
 
 const Styled_Link = styled(Link)`
-    margin-left: 8px;
-    margin-right: 8px;
+    margin-left: 14px;
+    margin-right: 14px;
+    padding-left: 5px;
+    padding-right: 5px;
     text-decoration: none;
     color: ${props => props.path == props.to ? "white" : "gray"};
     cursor: pointer;
+    font-size: 18px;
+    /* text-decoration: ${props => props.path == props.to ? "underline" : "none"}; */
+    border-bottom: ${props => props.path == props.to ? "1px solid" : "none"};
 `

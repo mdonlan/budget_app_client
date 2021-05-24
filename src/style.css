@@ -1,5 +1,7 @@
 html, body {
     margin: 0px;
     padding: 0px;
-    background: #fbfbfb;
+    /* background: #fbfbfb; */
+    background: #222222;
+    color: #dddddd;
 }
