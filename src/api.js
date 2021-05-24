@@ -105,10 +105,29 @@ export function get_accounts() {
     })   
 }
 
+// refers to a budget account, not user account
 export function create_account(account) {
     const token = localStorage.getItem("token");
     superagent.post('http://localhost:3000/create_account')
     .send({account: account, token: token})
+    .then(() => {
+        // console.log('completed post')
+    })
+}
+
+export function delete_category(category) {
+    const token = localStorage.getItem("token");
+    superagent.post('http://localhost:3000/delete_category')
+    .send({category: category, token: token})
+    .then(() => {
+        // console.log('completed post')
+    })
+}
+
+export function delete_transaction(transaction) {
+    const token = localStorage.getItem("token");
+    superagent.post('http://localhost:3000/delete_transaction')
+    .send({transaction: transaction, token: token})
     .then(() => {
         // console.log('completed post')
     })

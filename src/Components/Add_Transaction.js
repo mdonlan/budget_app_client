@@ -35,9 +35,7 @@ export function Add_Transaction() {
     }
 
     function handle_change(e) {
-        console.log(e)
         set_transaction({...transaction, [e.target.name]: e.target.value});
-        console.log(transaction)
     }
 
     function handle_submit(e) {
@@ -49,7 +47,7 @@ export function Add_Transaction() {
 
     return (
         <Wrapper >
-            <div onClick={clicked_add_transaction}>Add Transaction</div>
+            <Add_Transaction_Btn onClick={clicked_add_transaction}>Add Transaction</Add_Transaction_Btn>
             {is_active &&
                 <New_Transaction ref={transaction_ref}>
                     <Name name="name" placeholder="transaction name" value={transaction.name} onChange={handle_change}/>
@@ -82,6 +80,17 @@ export function Add_Transaction() {
 }
 
 const Wrapper = styled.div``
+
+const Add_Transaction_Btn = styled.div`
+    background: #3271a8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+    margin: 8px;
+`
+
 const New_Transaction = styled.div``
 
 const styled_input = styled.input`

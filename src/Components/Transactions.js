@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { get_transactions } from '../api';
+import { get_transactions, delete_transaction } from '../api';
 import { Add_Transaction } from './Add_Transaction';
 
 export function Transactions() {
-
     const transactions = useSelector(state => state.default.transactions);
+    const [is_deleting, set_is_deleting] = useState(false);
 
     useEffect(() => {
         get_transactions();
@@ -14,12 +14,10 @@ export function Transactions() {
 
     return (
         <Wrapper>
-            <Page_Title>Transactions</Page_Title>
-
             <Add_Transaction />
-
+            <Is_Deleting_Btn onClick={() => {set_is_deleting(!is_deleting)}}>{is_deleting ? "Stop Editing" : "Edit"}</Is_Deleting_Btn>
             {/* top row to show names of columns */}
-            <Transaction>
+            <Transaction column_names={true}>
                 <Transaction_Item>Name</Transaction_Item>
                 <Transaction_Item>Amount</Transaction_Item>
                 <Transaction_Item>Type</Transaction_Item>
@@ -36,6 +34,9 @@ export function Transactions() {
                         <Transaction_Item>{t.type}</Transaction_Item>
                         <Transaction_Item>{t.category}</Transaction_Item>
                         <Transaction_Item>{t.account}</Transaction_Item>
+                        {is_deleting &&
+                                <Delete_Btn onClick={() => {delete_transaction(t)}}>Del</Delete_Btn>
+                            }
                     </Transaction>
                 )
             })}
@@ -45,13 +46,17 @@ export function Transactions() {
 
 const Wrapper = styled.div``
 
-const Page_Title = styled.div`
-    font-size: 24px;
-    padding: 5px;
-`
+const Is_Deleting_Btn = styled.div``
+const Delete_Btn = styled.div``
 
 const Transaction = styled.div`
     display: flex;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 8px;
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: ${props => props.column_names ? "#555555" : "#dddddd"};
 `
 
 const Transaction_Item = styled.div`

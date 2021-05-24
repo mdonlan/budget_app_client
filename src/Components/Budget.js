@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { get_categories } from '../api'
+import { delete_category, get_categories } from '../api'
 import { Add_Category } from './Add_Category'
 import { Register } from './Register'
 
@@ -14,10 +14,6 @@ export function Budget() {
         get_categories();
     }, [])
 
-    function delete_category(category) {
-        console.log(category)
-    }
-
     return (
         <Wrapper>
             <Top>
@@ -28,15 +24,20 @@ export function Budget() {
                 {/* fake category for col names */}
                 <Category column_names={true}>
                     <Item_Name>Name</Item_Name>
+                    <Item_Name>Type</Item_Name>
                     <Item_Current>Current Amount</Item_Current>
                     <Item_Total>Total Amount</Item_Total>
                 </Category>
-                {categories.filter(c  => c.type == 'Outflow').map(cat => {
+                {categories.map(cat => {
                     return (
                         <Category key={cat.id}>
                             <Item_Name>{cat.name}</Item_Name>
-                            <Item_Current>Spent: {cat.current_amount}</Item_Current>
-                            <Item_Total>Budgeted: {cat.total_amount}</Item_Total>
+                            <Item_Name>{cat.type}</Item_Name>
+                            <Item_Current>{cat.current_amount}</Item_Current>
+                            <Item_Total>{cat.total_amount}</Item_Total>
+                            {is_deleting &&
+                                <Delete_Btn onClick={() => {delete_category(cat)}}>Del</Delete_Btn>
+                            }
                         </Category>
                     )
                 })}
@@ -93,4 +94,8 @@ const Item_Current = styled.div`
 `
 
 const Item_Total = styled.div`
+`
+
+const Delete_Btn = styled.div`
+
 `
