@@ -14,8 +14,10 @@ export function Transactions() {
 
     return (
         <Wrapper>
-            <Add_Transaction />
-            <Is_Deleting_Btn onClick={() => {set_is_deleting(!is_deleting)}}>{is_deleting ? "Stop Editing" : "Edit"}</Is_Deleting_Btn>
+            <Buttons>
+                <Add_Transaction />
+                <Is_Deleting_Btn onClick={() => {set_is_deleting(!is_deleting)}}>{is_deleting ? "Stop Editing" : "Edit"}</Is_Deleting_Btn>
+            </Buttons>
             {/* top row to show names of columns */}
             <Transaction column_names={true}>
                 <Transaction_Item>Name</Transaction_Item>
@@ -46,8 +48,29 @@ export function Transactions() {
 
 const Wrapper = styled.div``
 
-const Is_Deleting_Btn = styled.div``
-const Delete_Btn = styled.div``
+const Buttons = styled.div`
+    display: flex;
+`
+
+const Is_Deleting_Btn = styled.div`
+    background: #3271a8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+    margin: 8px;
+    width: 200px;
+`
+
+const Delete_Btn = styled.div`
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+    color: red;
+    cursor: pointer;
+`
 
 const Transaction = styled.div`
     display: flex;

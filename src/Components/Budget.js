@@ -97,5 +97,10 @@ const Item_Total = styled.div`
 `
 
 const Delete_Btn = styled.div`
-
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+    color: red;
+    cursor: pointer;
 `

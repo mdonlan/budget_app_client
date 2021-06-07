@@ -21,14 +21,14 @@ export function Top_Nav(props) {
             <Styled_Link path={props.location.pathname} to="/" >Budget</Styled_Link>
             {!logged_in &&
                 <React.Fragment>
-                    <Styled_Link path={props.location.pathname} to="/register">register</Styled_Link>
-                    <Styled_Link path={props.location.pathname} to="/login">login</Styled_Link>
+                    <Styled_Link path={props.location.pathname} to="/register">Register</Styled_Link>
+                    <Styled_Link path={props.location.pathname} to="/login">Login</Styled_Link>
                 </React.Fragment>
             }
             {logged_in &&
                 <React.Fragment>
-                    <Styled_Link path={props.location.pathname} to="/transactions">transactions</Styled_Link>
-                    <Styled_Link path={props.location.pathname} to="/accounts">accounts</Styled_Link>
+                    <Styled_Link path={props.location.pathname} to="/transactions">Transactions</Styled_Link>
+                    <Styled_Link path={props.location.pathname} to="/accounts">Accounts</Styled_Link>
                 </React.Fragment>
             }
         </Wrapper>
@@ -53,4 +53,5 @@ const Styled_Link = styled(Link)`
     font-size: 18px;
     /* text-decoration: ${props => props.path == props.to ? "underline" : "none"}; */
     border-bottom: ${props => props.path == props.to ? "1px solid" : "none"};
+    font-variant:  small-caps;
 `
