@@ -2,19 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
+import { logout } from '../api'
 
 export function Top_Nav(props) {
 
-    // const history = useHistory();
+    const history = useHistory();
     const logged_in = useSelector(state => state.default.logged_in);
     // const [path, set_path] = useState(null);
 
+    // useEffect(() => {
+    //     console.log('render top_nav')
+    //     // set_path(history.location.pathname);
+    //     // console.log(path)
+    //     console.log('location: ' + props.location.pathname)
+    //     console.log('logged_in: ' + logged_in)
+    // }, [props.location.pathname])
+
     useEffect(() => {
-        console.log('render top_nav')
-        // set_path(history.location.pathname);
-        // console.log(path)
-        console.log('location: ' + props.location.pathname)
-    }, [props.location.pathname])
+        console.log('logged_in update');
+    }, [logged_in])
 
     return (
         <Wrapper>
@@ -30,6 +36,7 @@ export function Top_Nav(props) {
                     <Styled_Link path={props.location.pathname} to="/budget" >Budget</Styled_Link>
                     <Styled_Link path={props.location.pathname} to="/transactions">Transactions</Styled_Link>
                     <Styled_Link path={props.location.pathname} to="/accounts">Accounts</Styled_Link>
+                    <Logout_Btn onClick={() => {logout(history)}}>Log Out</Logout_Btn>
                 </React.Fragment>
             }
         </Wrapper>
@@ -56,3 +63,5 @@ const Styled_Link = styled(Link)`
     border-bottom: ${props => props.path == props.to ? "1px solid" : "none"};
     font-variant:  small-caps;
 `
+
+const Logout_Btn = styled.div``

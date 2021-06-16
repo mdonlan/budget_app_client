@@ -28,6 +28,7 @@ export function App() {
         console.log('logged_in: ' + logged_in)
         const token = localStorage.getItem("token");
         if (token) {
+            console.log('checking token')
             validate_token(token);
         }
         // get_data_from_db();
@@ -51,7 +52,7 @@ export function App() {
               ) : (
                 <Redirect
                   to={{
-                    pathname: "/homepage",
+                    pathname: "/",
                     state: { from: location }
                   }}
                 />
@@ -81,8 +82,8 @@ export function App() {
                     {/* <RequireAuth> */}
                         {/* <Route path="/transactions" component={Transactions} />  */}
                     {/* </RequireAuth> */}
-                    <Route path="/accounts" component={Accounts} /> 
-                    <Route path="/budget" component={Budget} />
+                    <Auth_Route path="/accounts" /> 
+                    <Auth_Route path="/budget" />
                     <Route path="/register" component={Register} /> 
                     <Route path="/login" component={Login} /> 
                     <Route path="/homepage" component={Homepage} /> 

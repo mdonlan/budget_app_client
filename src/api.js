@@ -47,7 +47,8 @@ export function login(data, history) {
         console.log(res);
         console.log('logged in')
         localStorage.setItem("token", res.body.token);
-        store.dispatch(set_token(token));
+        store.dispatch(set_token(res.body.token));
+        store.dispatch(set_logged_in(true));
         history.push("/");
         return res.body.message;
     })
@@ -55,6 +56,14 @@ export function login(data, history) {
         console.log(e)
         return e.message;
     })
+}
+
+export function logout(history) {
+    console.log('logout')
+    localStorage.removeItem("token");
+    store.dispatch(set_token(null));
+    store.dispatch(set_logged_in(false));
+    history.push("/");
 }
 
 export function create_category(category, token) {
