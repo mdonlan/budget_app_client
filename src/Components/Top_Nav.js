@@ -18,7 +18,7 @@ export function Top_Nav(props) {
 
     return (
         <Wrapper>
-            <Styled_Link path={props.location.pathname} to="/" >Budget</Styled_Link>
+            <Styled_Link path={props.location.pathname} to="/" >Home</Styled_Link>
             {!logged_in &&
                 <React.Fragment>
                     <Styled_Link path={props.location.pathname} to="/register">Register</Styled_Link>
@@ -27,6 +27,7 @@ export function Top_Nav(props) {
             }
             {logged_in &&
                 <React.Fragment>
+                    <Styled_Link path={props.location.pathname} to="/budget" >Budget</Styled_Link>
                     <Styled_Link path={props.location.pathname} to="/transactions">Transactions</Styled_Link>
                     <Styled_Link path={props.location.pathname} to="/accounts">Accounts</Styled_Link>
                 </React.Fragment>

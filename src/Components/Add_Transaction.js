@@ -60,45 +60,27 @@ export function Add_Transaction() {
                     </Row>
                     <Row>
                         <Field_name>Category</Field_name>
-                        <select name="category" onChange={handle_change}>
+                        <Category name="category" onChange={handle_change}>
                             {categories.map(cat => {
                                 return <option key={cat.id} value={cat.name}>{cat.name}</option>
                             })}
-                        </select>
+                        </Category>
                     </Row>
                     <Row>
                         <Field_name>Account</Field_name>
-                        <select name="account" onChange={handle_change}>
+                        <Account name="account" onChange={handle_change}>
                             {accounts.map(account => {
                                 return <option key={account.id} value={account.name}>{account.name}</option>
                             })}
-                        </select>
+                        </Account>
                     </Row>
                     <Row>
                         <Field_name>Note</Field_name>
                         <Note name="note" placeholder="note" value={transaction.note} onChange={handle_change}/>
                     </Row>
-                    {/* <Created_Date name="created_date" value={transaction.created_date} onChange={handle_change}/> */}
-                    {/* <select name="type" onChange={handle_change}> */}
-                        {/* <option value="Inflow">Inflow</option> */}
-                        {/* <option value="Outflow">Outflow</option> */}
-                    {/* </select> */}
-                    {/* <select name="category" onChange={handle_change}>
-                        {categories.map(cat => {
-                            return <option key={cat.id} value={cat.name}>{cat.name}</option>
-                        })}
-                    </select> */}
-
-                    {/* <select name="account" onChange={handle_change}>
-                        {accounts.map(account => {
-                            return <option key={account.id} value={account.name}>{account.name}</option>
-                        })}
-                    </select> */}
-                    
-                    {/* <Is_Complete name="is_complete" value={transaction.is_complete} onChange={handle_change}/> */}
-                    {/* <Completed_Date name="completed_date" value={transaction.completed_date} onChange={handle_change}/> */}
-                    <div onClick={handle_submit}>create</div>
-                    <div>cancel</div>
+                   
+                    <Create_Btn onClick={handle_submit}>create</Create_Btn>
+                    <Cancel_Btn>cancel</Cancel_Btn>
                 </New_Transaction>
             }
         </Wrapper>
@@ -132,9 +114,16 @@ const New_Transaction = styled.div`
 
 const Row = styled.div`
     display: flex;
+    margin-top: 8px;
+    padding: 8px;
+    width: 75%;
 `
 
-const Field_name = styled.div``
+const Field_name = styled.div`
+    margin-right: 8px;
+    width: 50%;
+    text-align: center;
+`
 
 const styled_input = styled.input`
     background: #384245;
@@ -142,13 +131,34 @@ const styled_input = styled.input`
     border: none;
     outline: none;
     color: #dddddd;
+    width: 50%;
+`
+
+const styled_select = styled.select`
+    width: 50%;
 `
 
 const Name = styled(styled_input)``
 const Amount = styled(styled_input)``
 
 
-const Type = styled.select``
+const Category = styled(styled_select)``
+const Account = styled(styled_select)``
+
 const Note = styled(styled_input)``
 const Is_Complete = styled(styled_input)``
 const Completed_Date = styled(styled_input)``
+
+const Create_Btn = styled.div`
+    padding: 8px;
+    margin: 8px;
+    background: #186e2c;
+    cursor: pointer;
+`
+
+const Cancel_Btn = styled.div`
+    padding: 8px;
+    margin: 8px;
+    background: #702618;
+    cursor: pointer;
+`
