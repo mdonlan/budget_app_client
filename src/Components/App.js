@@ -13,6 +13,7 @@ import { Transactions } from './Transactions'
 import { Accounts } from './Accounts'
 import { login, validate_token } from '../api'
 import { Homepage } from './Homepage'
+import { Protected_Route } from './Protected_Route'
 
 
 
@@ -82,12 +83,12 @@ export function App() {
                     {/* <RequireAuth> */}
                         {/* <Route path="/transactions" component={Transactions} />  */}
                     {/* </RequireAuth> */}
-                    <Auth_Route path="/accounts" /> 
-                    <Auth_Route path="/budget" />
+                    <Protected_Route exact path="/accounts" component={Accounts}/> 
+                    <Protected_Route exact path="/budget" component={Budget}/>
                     <Route path="/register" component={Register} /> 
                     <Route path="/login" component={Login} /> 
                     <Route path="/homepage" component={Homepage} /> 
-                    <Auth_Route exact path="/transactions" />
+                    <Protected_Route exact path="/transactions" component={Transactions}/>
                 </Switch>
             {/* <div>
                 <div>balance: {balance}</div>

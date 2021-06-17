@@ -18,10 +18,6 @@ export function Top_Nav(props) {
     //     console.log('logged_in: ' + logged_in)
     // }, [props.location.pathname])
 
-    useEffect(() => {
-        console.log('logged_in update');
-    }, [logged_in])
-
     return (
         <Wrapper>
             <Styled_Link path={props.location.pathname} to="/" >Home</Styled_Link>
