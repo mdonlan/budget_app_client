@@ -25,13 +25,12 @@ export function App() {
     const location = useLocation();
     const [path, set_path] = useState(null);
 
-    useEffect(() => {
-        console.log('logged_in: ' + logged_in)
-        const token = localStorage.getItem("token");
-        if (token) {
-            console.log('checking token')
-            validate_token(token);
-        }
+    useEffect(async () => {
+        // const token = localStorage.getItem("token");
+        // console.log('before call')
+        // const token_is_valid = await validate_token(token);
+        // console.log('after call')
+
         // get_data_from_db();
     }, [])
 
@@ -43,25 +42,25 @@ export function App() {
     //     return children;
     //   };
 
-    const Auth_Route = ({ children, ...rest }) => {
-        return (
-          <Route
-            {...rest}
-            render={({ location }) =>
-              logged_in ? (
-                children
-              ) : (
-                <Redirect
-                  to={{
-                    pathname: "/",
-                    state: { from: location }
-                  }}
-                />
-              )
-            }
-          />
-        );
-      }
+    // const Auth_Route = ({ children, ...rest }) => {
+    //     return (
+    //       <Route
+    //         {...rest}
+    //         render={({ location }) =>
+    //           logged_in ? (
+    //             children
+    //           ) : (
+    //             <Redirect
+    //               to={{
+    //                 pathname: "/",
+    //                 state: { from: location }
+    //               }}
+    //             />
+    //           )
+    //         }
+    //       />
+    //     );
+    //   }
 
     // useEffect(() => {
     //     dispatch(set_balance(150));

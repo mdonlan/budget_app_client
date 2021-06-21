@@ -30,7 +30,6 @@ export function Add_Transaction() {
     }, []);
 
     function clicked_add_transaction() {
-        console.log('clicked add transaction');
         set_is_active(true);
     }
 
@@ -43,6 +42,11 @@ export function Add_Transaction() {
         if (transaction.account == "") transaction.account = accounts[0].name;
         if (transaction.type == "") transaction.type = "Inflow";
         create_transaction(transaction);
+        set_is_active(false);
+    }
+
+    function handle_cancel() {
+        set_is_active(false);
     }
 
     return (
@@ -80,7 +84,7 @@ export function Add_Transaction() {
                     </Row>
                    
                     <Create_Btn onClick={handle_submit}>create</Create_Btn>
-                    <Cancel_Btn>cancel</Cancel_Btn>
+                    <Cancel_Btn onClick={handle_cancel}>cancel</Cancel_Btn>
                 </New_Transaction>
             }
         </Wrapper>

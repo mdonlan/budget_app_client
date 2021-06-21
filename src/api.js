@@ -19,22 +19,39 @@ export function register_user(data) {
     })
 }
 
-export function validate_token(token) {
-    console.log("validate_token");
-    console.log(token)
-    return superagent.post('http://localhost:3000/validate_token')
-    .send({ token: token })
-    .then(res => {
-        console.log(res);
-        if (res.body.valid_token) {
-            store.dispatch(set_logged_in(true));
-            store.dispatch(set_token(token));
-            // store.dispatch(set_username(res.data.username));
-        }
-    })
-    .catch(e => {
-        console.log(e);
-    })
+export async function validate_token() {
+    console.log("attemping to validate token...");
+    const token = localStorage.getItem("token");
+    const response = await superagent.post('http://localhost:3000/validate_token').send({ token: token });
+    if (response.body.valid_token) {
+        console.log('token is valid');
+        // store.dispatch(set_logged_in(true));
+        // store.dispatch(set_token(token));
+        return true;
+    } else {
+        console.log('token is NOT valid')
+        return false;
+    }
+
+
+    // return await superagent.post('http://localhost:3000/validate_token')
+    // .send({ token: token })
+    // .then(res => {
+    //     if (res.body.valid_token) {
+    //         console.log('token is valid')
+    //         store.dispatch(set_logged_in(true));
+    //         store.dispatch(set_token(token));
+    //         return true;
+    //         // store.dispatch(set_username(res.data.username));
+    //     }
+    //     else {
+    //         console.log('token is not valid');
+    //         return false;
+    //     }
+    // })
+    // .catch(e => {
+    //     console.log(e);
+    // })
 }
 
 export function login(data, history) {
