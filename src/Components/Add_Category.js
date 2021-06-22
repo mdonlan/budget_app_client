@@ -1,12 +1,12 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
-import { create_category } from '../api';
+import { create_category, get_categories, get_accounts } from '../api';
 
 export function Add_Category() {
     // const [name, set_name] = useState("");
     const [is_active, set_is_active] = useState(false);
-    const token = useSelector(state => state.default.token);
+    // const token = useSelector(state => state.default.token);
 
     const [category, set_category] = useState({
         name: "",
@@ -14,6 +14,11 @@ export function Add_Category() {
         current_amount: 0,
         total_amount: 0
     });
+
+    useEffect(() => {
+        get_categories();
+        get_accounts();
+    }, []);
 
     function handle_change(e) {
         set_category({...category, [e.target.name]: e.target.value});
@@ -30,7 +35,7 @@ export function Add_Category() {
                         <option>Inflow</option>
                         <option>Outflow</option>
                     </select>
-                    <div onClick={() => {create_category(category, token)}}>submit</div>
+                    <div onClick={() => {create_category(category)}}>submit</div>
                     <div onClick={() => {set_is_active(false)}}>cancel</div>
                 </div>
             }

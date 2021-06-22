@@ -25,8 +25,8 @@ export async function validate_token() {
     const response = await superagent.post('http://localhost:3000/validate_token').send({ token: token });
     if (response.body.valid_token) {
         console.log('token is valid');
-        // store.dispatch(set_logged_in(true));
-        // store.dispatch(set_token(token));
+        store.dispatch(set_logged_in(true));
+        store.dispatch(set_token(token));
         return true;
     } else {
         console.log('token is NOT valid')
@@ -83,11 +83,13 @@ export function logout(history) {
     history.push("/");
 }
 
-export function create_category(category, token) {
+export function create_category(category) {
+    const token = localStorage.getItem("token");
     superagent.post('http://localhost:3000/create_category')
     .send({category: category, token: token})
     .then(res => {
-
+        console.log('fuck yes')
+        get_categories();
     })
 }
 
@@ -99,7 +101,7 @@ export function get_categories() {
     return superagent.post('http://localhost:3000/get_categories')
     .send({token: token})
     .then(res => {
-        console.log(res);
+        // console.log(res);
         store.dispatch(set_categories(res.body.categories));
     })   
 }
@@ -110,6 +112,7 @@ export function create_transaction(transaction) {
     .send({transaction: transaction, token: token})
     .then(() => {
         // console.log('completed post')
+        get_transactions();
     })
 }
 
@@ -147,6 +150,7 @@ export function delete_category(category) {
     .send({category: category, token: token})
     .then(() => {
         // console.log('completed post')
+        get_categories();
     })
 }
 
@@ -156,5 +160,6 @@ export function delete_transaction(transaction) {
     .send({transaction: transaction, token: token})
     .then(() => {
         // console.log('completed post')
+        get_transactions();
     })
 }

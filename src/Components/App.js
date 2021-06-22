@@ -32,6 +32,8 @@ export function App() {
         // console.log('after call')
 
         // get_data_from_db();
+
+        validate_token();
     }, [])
 
     // const RequireAuth = ({ children }) => {

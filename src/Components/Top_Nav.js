@@ -16,7 +16,7 @@ export function Top_Nav(props) {
     //     // console.log(path)
     //     console.log('location: ' + props.location.pathname)
     //     console.log('logged_in: ' + logged_in)
-    // }, [props.location.pathname])
+    // }, [])
 
     return (
         <Wrapper>

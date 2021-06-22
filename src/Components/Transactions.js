@@ -9,7 +9,9 @@ export function Transactions() {
     const [is_deleting, set_is_deleting] = useState(false);
 
     useEffect(() => {
+        // console.log('hello')
         get_transactions();
+        console.log('# transactions: ' + transactions.length)
     }, [])
 
     return (

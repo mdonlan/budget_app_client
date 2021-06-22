@@ -12,6 +12,7 @@ export function Budget() {
 
     useEffect(() => {
         get_categories();
+        console.log('# categories: ' + categories.length)
     }, [])
 
     return (
