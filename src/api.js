@@ -157,7 +157,7 @@ export function delete_category(category) {
 export function delete_transaction(transaction) {
     const token = localStorage.getItem("token");
     superagent.post('http://localhost:3000/delete_transaction')
-    .send({transaction: transaction, token: token})
+    .send({transaction_id: transaction.id, token: token})
     .then(() => {
         // console.log('completed post')
         get_transactions();
