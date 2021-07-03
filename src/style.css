@@ -2,6 +2,13 @@ html, body {
     margin: 0px;
     padding: 0px;
     /* background: #fbfbfb; */
-    background: #222222;
+    background: #aa2424;
     color: #dddddd;
+    height: 100%;
+}
+
+#root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }

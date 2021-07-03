@@ -78,7 +78,10 @@ export function App() {
 
     return (
         <Wrapper>
+            <Top>
                 <Top_Nav location={location}/>
+            </Top>
+            <Bottom>
                 <Switch>
                     <Route exact path="/" component={Homepage} /*exact component={Budget} */ />
                     {/* <RequireAuth> */}
@@ -91,6 +94,8 @@ export function App() {
                     <Route path="/homepage" component={Homepage} /> 
                     <Protected_Route exact path="/transactions" component={Transactions}/>
                 </Switch>
+            </Bottom>
+                
             {/* <div>
                 <div>balance: {balance}</div>
             </div>
@@ -103,5 +108,14 @@ export function App() {
 }
 
 const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+`
 
+const Top = styled.div`
+    
+`
+const Bottom = styled.div`
+    height: calc(100% - 70px);
 `

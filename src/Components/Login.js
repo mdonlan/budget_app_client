@@ -28,8 +28,8 @@ export function Login() {
     return (
         <Wrapper>
             <Form>
-                <input onChange={e => {set_username(e.target.value)}} value={username} placeholder='username'></input>
-                <input onChange={e => {set_password(e.target.value)}} value={password} placeholder='password' type='password'></input>
+                <Styled_Input onChange={e => {set_username(e.target.value)}} value={username} placeholder='username'></Styled_Input>
+                <Styled_Input onChange={e => {set_password(e.target.value)}} value={password} placeholder='password' type='password'></Styled_Input>
                 <div onClick={() => {handle_submit({ username: username, password: password })}}>login</div>
 
                 {status &&
@@ -40,10 +40,22 @@ export function Login() {
     )
 }
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+`
+
 const Form = styled.form`
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+`
+
+const Styled_Input = styled.input`
+    border: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 24px;
+    font-size: 18px;
 `
