@@ -8,14 +8,17 @@ import {
     set_accounts
 } from './store'
 
-export function register_user(data) {
+export async function register_user(data) {
     return superagent.post('http://localhost:3000/register_user')
     .send(data)
     .then(res => {
-        // console.log(res);
-        localStorage.setItem("token", res.body.token);
-        store.dispatch(set_token(token));
-        return res.body.message;
+        console.log(res)
+        if (res.body.token) {
+            localStorage.setItem("token", res.body.token);
+            store.dispatch(set_token(res.body.token));
+        }
+
+        return res.body.message;            
     })
 }
 
