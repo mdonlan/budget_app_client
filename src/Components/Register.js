@@ -8,23 +8,26 @@ export function Register() {
     const [email, set_email] = useState('');
     const [username, set_username] = useState('');
     const [password, set_password] = useState('');
-    // const logged_in = useSelector(state => state.default.logged_in);
+    const logged_in = useSelector(state => state.default.logged_in);
     const [registration_error, set_registration_error] = useState(null);
     const history = useHistory();
 
     async function handle_submit(event) {
         event.preventDefault();
         const result = await register_user({ username: username, email: email, password: password });
-        // console.log(result)
-        set_registration_error(result);
+        if (result.success) {
+            history.push("/");
+        } else {
+            set_registration_error(result);
+        }
     }
 
-     // redirect the user off the register page if their account is created
-    //  useEffect(() => {
+    // redirect the user off the register page if their account is created
+    // useEffect(() => {
     //     if (logged_in) {
     //         history.push('/homepage');
     //     }
-    // }, [logged_in, registration_error]);
+    // }, [logged_in]);
 
     return (
         <Wrapper>

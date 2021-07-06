@@ -16,9 +16,12 @@ export async function register_user(data) {
         if (res.body.token) {
             localStorage.setItem("token", res.body.token);
             store.dispatch(set_token(res.body.token));
+            store.dispatch(set_logged_in(true));
+            // history.push("/");
+            return { success: true, message: res.body.message};
+        } else {
+            return { success: false, message: res.body.message };
         }
-
-        return res.body.message;            
     })
 }
 
@@ -35,46 +38,24 @@ export async function validate_token() {
         console.log('token is NOT valid')
         return false;
     }
-
-
-    // return await superagent.post('http://localhost:3000/validate_token')
-    // .send({ token: token })
-    // .then(res => {
-    //     if (res.body.valid_token) {
-    //         console.log('token is valid')
-    //         store.dispatch(set_logged_in(true));
-    //         store.dispatch(set_token(token));
-    //         return true;
-    //         // store.dispatch(set_username(res.data.username));
-    //     }
-    //     else {
-    //         console.log('token is not valid');
-    //         return false;
-    //     }
-    // })
-    // .catch(e => {
-    //     console.log(e);
-    // })
 }
 
-export function login(data, history) {
+export function login(data) {
     console.log('login');
-    console.log(data);
 
     return superagent.post('http://localhost:3000/login')
     .send({ username: data.username, password: data.password })
     .then(res => {
-        console.log(res);
-        console.log('logged in')
+        // console.log('logged in')
         localStorage.setItem("token", res.body.token);
         store.dispatch(set_token(res.body.token));
         store.dispatch(set_logged_in(true));
-        history.push("/");
-        return res.body.message;
+        // history.push("/");
+        return { success: true, message: res.body.message};
     })
     .catch(e => {
         console.log(e)
-        return e.message;
+        return { success: false, message: e.message};
     })
 }
 

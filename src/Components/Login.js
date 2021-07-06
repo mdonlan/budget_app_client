@@ -14,17 +14,27 @@ export function Login() {
 
     async function handle_submit(event) {
         event.preventDefault();
-        const result = await login({ username: username, password: password }, history);
-        // console.log(result)
-        set_login_error(result);
+        const result = await login({ username: username, password: password });
+        console.log(result)
+        if (result.success) {
+            history.push('/');
+        } else {
+            set_login_error(result.message);
+        }
     }
 
+    // useEffect(() => {
+    //     return () => {
+            
+    //     }
+    // })
+
     // redirect the user off the login page if their account is logged in
-    useEffect(() => {
-        if (logged_in) {
-            history.push('/homepage');
-        }
-    }, [logged_in, login_error]);
+    // useEffect(() => {
+    //     if (logged_in) {
+    //         history.push('/homepage');
+    //     }
+    // }, [logged_in]);
 
     return (
         <Wrapper>
@@ -35,10 +45,7 @@ export function Login() {
                 <Login_Btn type="submit" value="Login"/>
 
                 {login_error &&
-                    // <div>{login_error}</div>
-                    <div>
-                        <div>Error: Wrong Username/Password</div>
-                    </div>
+                    <div>{login_error}</div>
                 }
             </Form>
         </Wrapper>
