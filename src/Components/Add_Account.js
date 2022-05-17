@@ -12,7 +12,7 @@ export function Add_Account() {
     const [account, set_account] = useState({
         name: "",
         created_date: "",
-        amount: 0,
+        amount: "",
     });
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export function Add_Account() {
 
     return (
         <Wrapper >
-            <div onClick={clicked_add_account}>Add Account</div>
+            <Add_Account_Btn onClick={clicked_add_account}>Add Account</Add_Account_Btn>
             {is_active &&
                 <New_Account ref={account_ref}>
                     <Name name="name" placeholder="account name" value={account.name} onChange={handle_change}/>
@@ -48,8 +48,8 @@ export function Add_Account() {
                     {/* <Note name="note" placeholder="note" value={transaction.note} onChange={handle_change}/> */}
                     {/* <Is_Complete name="is_complete" value={transaction.is_complete} onChange={handle_change}/> */}
                     {/* <Completed_Date name="completed_date" value={transaction.completed_date} onChange={handle_change}/> */}
-                    <div onClick={() => {create_account(account)}}>create</div>
-                    <div>cancel</div>
+                    <Create_Btn onClick={() => {create_account(account)}}>Create</Create_Btn>
+                    <Cancel_Btn>Cancel</Cancel_Btn>
                 </New_Account>
             }
         </Wrapper>
@@ -63,10 +63,39 @@ const styled_input = styled.input`
     /* width: 150px; */
 `
 
-const Name = styled(styled_input)``
+const Name = styled(styled_input)`
+    border: none;
+`
 const Created_Date = styled(styled_input)``
-const Amount = styled(styled_input)``
+const Amount = styled(styled_input)`
+    border: none;
+`
 const Type = styled.select``
 const Note = styled(styled_input)``
 const Is_Complete = styled(styled_input)``
 const Completed_Date = styled(styled_input)``
+
+const Add_Account_Btn = styled.div`
+    background: #3271a8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+    margin: 8px;
+    width: 200px;
+`
+
+const Create_Btn = styled.div`
+    padding: 8px;
+    margin: 8px;
+    background: #186e2c;
+    cursor: pointer;
+`
+
+const Cancel_Btn = styled.div`
+    padding: 8px;
+    margin: 8px;
+    background: #702618;
+    cursor: pointer;
+`

@@ -18,7 +18,7 @@ export function Register() {
         if (result.success) {
             history.push("/");
         } else {
-            set_registration_error(result);
+            set_registration_error(result.message);
         }
     }
 

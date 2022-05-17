@@ -96,6 +96,8 @@ export function create_transaction(transaction) {
     .send({transaction: transaction, token: token})
     .then(() => {
         // console.log('completed post')
+        console.log('creating new transaction');
+        console.log(transaction);
         get_transactions();
     })
 }

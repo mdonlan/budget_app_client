@@ -40,7 +40,9 @@ export function Add_Transaction() {
     function handle_submit(e) {
         if (transaction.category == "") transaction.category = categories[0].name;
         if (transaction.account == "") transaction.account = accounts[0].name;
-        if (transaction.type == "") transaction.type = "Inflow";
+        const type = categories.find(e => e.name == transaction.category).type;
+        // console.log('cat type: ' + type);
+        transaction.type = type;
         create_transaction(transaction);
         set_is_active(false);
     }
