@@ -5,6 +5,12 @@ import superagent from 'superagent'
 import { get_categories, create_transaction, get_accounts } from '../api';
 import { Transactions } from './Transactions';
 
+const existing_tags = [
+    "test_1",
+    "blah",
+    "hello world"
+]
+
 export function Add_Transaction() {
 
     const [is_active, set_is_active] = useState(false);
@@ -16,13 +22,18 @@ export function Add_Transaction() {
         name: "",
         created_date: "",
         amount: 0,
-        type: "",
-        note: "",
-        category: "",
-        account: ""
-        // is_complete: false,
-        // completed_date: ""
+        tags: []
+        // type: "",
+        // note: "",
+        // category: "",
+        // account: ""
     });
+
+    // const [adding_new_tag, set_adding_new_tag] = useState(false);
+    const [current_tag, set_current_tag] = useState("");
+    const [matching_tags, set_matching_tags] = useState([]);
+    const [active_matching_tag, set_active_matching_tag] = useState(null);
+    const [matching_tags_index, set_matching_tags_index] = useState(0);
 
     useEffect(() => {
         get_categories();
@@ -51,6 +62,49 @@ export function Add_Transaction() {
         set_is_active(false);
     }
 
+    function new_tag_keydown(event) {
+        if (event.keyCode == 13) { // enter
+            add_new_tag();
+        } else if (event.keyCode == 27) { // escape
+           clear_new_tag()
+        } else if (event.keyCode == 38) { // up arrow key
+            let index = matching_tags_index - 1;
+            if (index < 0) index = 0;
+            set_matching_tags_index(index);
+        } else if (event.keyCode == 40) { // down arrow key
+            let index = matching_tags_index + 1;
+            if (index > matching_tags.length - 1) index = matching_tags.length - 1;
+            set_matching_tags_index(index);
+        }
+    }
+
+    function add_new_tag() {
+        const tag = matching_tags[matching_tags_index];
+        const tags = transaction.tags;
+        tags.push(tag);
+        set_transaction({...transaction, tags: tags});
+        // set_adding_new_tag(false);
+        clear_new_tag()
+    }
+
+    function clear_new_tag() {
+        set_current_tag("");
+        set_matching_tags([]);
+        set_matching_tags_index(0);
+    }
+
+    function handle_new_tag_change(e) {
+        const input_text = e.target.value;
+        const matching = [];
+        existing_tags.forEach(tag => {
+            if (tag.includes(input_text)) {
+                matching.push(tag);
+            }
+        })
+        set_matching_tags(matching);
+        set_current_tag(e.target.value)
+    }
+
     return (
         <Wrapper >
             <Add_Transaction_Btn onClick={clicked_add_transaction}>Add Transaction</Add_Transaction_Btn>
@@ -64,26 +118,28 @@ export function Add_Transaction() {
                         <Field_name>Amount</Field_name>
                         <Amount name="amount" placeholder="amount" value={transaction.amount} onChange={handle_change}/>
                     </Row>
-                    <Row>
-                        <Field_name>Category</Field_name>
-                        <Category name="category" onChange={handle_change}>
-                            {categories.map(cat => {
-                                return <option key={cat.id} value={cat.name}>{cat.name}</option>
+                    {/* <Row> */}
+                        <Field_name>Tags</Field_name>
+                        <Tags>
+                            
+                            
+                            {transaction.tags.map((tag, i) => {
+                                return (
+                                    <Tag key={i} >{tag}</Tag>
+                                )
                             })}
-                        </Category>
-                    </Row>
-                    <Row>
-                        <Field_name>Account</Field_name>
-                        <Account name="account" onChange={handle_change}>
-                            {accounts.map(account => {
-                                return <option key={account.id} value={account.name}>{account.name}</option>
+
+                            
+                            
+                            {/* <div onClick={() => {set_adding_new_tag(true)}}>+</div> */}
+                        </Tags>
+                        <div>
+                            <input value={current_tag} onChange={handle_new_tag_change} onKeyDown={new_tag_keydown} />
+                            {matching_tags.map((tag, i) => {
+                                return <Matching_Tag active={i == matching_tags_index ? true : false} key={i} onClick={() => {add_new_tag()}}>{tag}</Matching_Tag>
                             })}
-                        </Account>
-                    </Row>
-                    <Row>
-                        <Field_name>Note</Field_name>
-                        <Note name="note" placeholder="note" value={transaction.note} onChange={handle_change}/>
-                    </Row>
+                        </div>
+                    {/* </Row> */}
                    
                     <Create_Btn onClick={handle_submit}>create</Create_Btn>
                     <Cancel_Btn onClick={handle_cancel}>cancel</Cancel_Btn>
@@ -111,7 +167,7 @@ const New_Transaction = styled.div`
     top: calc(50% - 200px);
     left: calc(50% - 200px);
     width: 400px;
-    height: 400px;
+    height: 300px;
     background: #23292b;
     display: flex;
     flex-direction: column;
@@ -147,14 +203,6 @@ const styled_select = styled.select`
 const Name = styled(styled_input)``
 const Amount = styled(styled_input)``
 
-
-const Category = styled(styled_select)``
-const Account = styled(styled_select)``
-
-const Note = styled(styled_input)``
-const Is_Complete = styled(styled_input)``
-const Completed_Date = styled(styled_input)``
-
 const Create_Btn = styled.div`
     padding: 8px;
     margin: 8px;
@@ -167,4 +215,25 @@ const Cancel_Btn = styled.div`
     margin: 8px;
     background: #702618;
     cursor: pointer;
+`
+
+const Tags = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+`
+
+const Tag = styled.div`
+    background: red;
+    border-radius: 3px;
+    padding: 3px;
+    margin: 3px;
+
+    :hover {
+        background: pink;
+    }
+`
+
+const Matching_Tag = styled.div`
+    background: ${props => props.active ? "blue" : "red"};
 `

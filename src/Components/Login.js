@@ -23,27 +23,12 @@ export function Login() {
         }
     }
 
-    // useEffect(() => {
-    //     return () => {
-            
-    //     }
-    // })
-
-    // redirect the user off the login page if their account is logged in
-    // useEffect(() => {
-    //     if (logged_in) {
-    //         history.push('/homepage');
-    //     }
-    // }, [logged_in]);
-
     return (
         <Wrapper>
             <Form onSubmit={handle_submit}>
                 <Styled_Input onChange={e => {set_username(e.target.value)}} value={username} placeholder='username'></Styled_Input>
                 <Styled_Input onChange={e => {set_password(e.target.value)}} value={password} placeholder='password' type='password'></Styled_Input>
-                {/* <Login_Btn onClick={() => {handle_submit({ username: username, password: password })}}>login</Login_Btn> */}
                 <Login_Btn type="submit" value="Login"/>
-
                 {login_error &&
                     <div>{login_error}</div>
                 }

@@ -7,6 +7,7 @@ import {
     set_transactions,
     set_accounts
 } from './store'
+import history from './history'
 
 export async function register_user(data) {
     return superagent.post('http://localhost:3000/register_user')
@@ -33,10 +34,12 @@ export async function validate_token() {
         console.log('token is valid');
         store.dispatch(set_logged_in(true));
         store.dispatch(set_token(token));
-        return true;
+        // return true;
     } else {
         console.log('token is NOT valid')
-        return false;
+        store.dispatch(set_logged_in(false));
+        // store.dispatch(set_token(token));
+        // return false;
     }
 }
 
@@ -59,7 +62,7 @@ export function login(data) {
     })
 }
 
-export function logout(history) {
+export function logout() {
     console.log('logout')
     localStorage.removeItem("token");
     store.dispatch(set_token(null));

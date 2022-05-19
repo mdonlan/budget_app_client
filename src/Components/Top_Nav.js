@@ -1,22 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { logout } from '../api'
 
 export function Top_Nav(props) {
-
-    const history = useHistory();
     const logged_in = useSelector(state => state.default.logged_in);
-    // const [path, set_path] = useState(null);
-
-    // useEffect(() => {
-    //     console.log('render top_nav')
-    //     // set_path(history.location.pathname);
-    //     // console.log(path)
-    //     console.log('location: ' + props.location.pathname)
-    //     console.log('logged_in: ' + logged_in)
-    // }, [])
 
     return (
         <Wrapper>
@@ -35,7 +24,7 @@ export function Top_Nav(props) {
                         <Styled_Link path={props.location.pathname} to="/accounts">Accounts</Styled_Link>
                     </Left>
                     <Right>
-                        <Logout_Btn onClick={() => {logout(history)}}>Log Out</Logout_Btn>
+                        <Logout_Btn onClick={() => {logout()}}>Log Out</Logout_Btn>
                     </Right>
                 </React.Fragment>
             }

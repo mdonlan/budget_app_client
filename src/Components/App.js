@@ -18,63 +18,11 @@ import { Protected_Route } from './Protected_Route'
 
 
 export function App() {
-    const logged_in = useSelector(state => state.default.logged_in);
-    const [transactions, set_transactions] = useState([]);
-    const balance = useSelector(state => state.default.balance);
-    const dispatch = useDispatch();
     const location = useLocation();
-    const [path, set_path] = useState(null);
 
     useEffect(async () => {
-        // const token = localStorage.getItem("token");
-        // console.log('before call')
-        // const token_is_valid = await validate_token(token);
-        // console.log('after call')
-
-        // get_data_from_db();
-
         validate_token();
     }, [])
-
-    // const RequireAuth = ({ children }) => {
-    //     // if (!logged_in) {
-    //     //   return <Redirect path="/login" />;
-    //     // }
-      
-    //     return children;
-    //   };
-
-    // const Auth_Route = ({ children, ...rest }) => {
-    //     return (
-    //       <Route
-    //         {...rest}
-    //         render={({ location }) =>
-    //           logged_in ? (
-    //             children
-    //           ) : (
-    //             <Redirect
-    //               to={{
-    //                 pathname: "/",
-    //                 state: { from: location }
-    //               }}
-    //             />
-    //           )
-    //         }
-    //       />
-    //     );
-    //   }
-
-    // useEffect(() => {
-    //     dispatch(set_balance(150));
-    //     (async () => {
-    //         try {
-    //             const response = await superagent.get('http://localhost:3000');
-    //             set_transactions(response.body);    
-    //         } catch (error) {
-    //             console.log(error)
-    //         }
-    //     })();
-    // }, [])
 
     return (
         <Wrapper>
@@ -84,9 +32,6 @@ export function App() {
             <Bottom>
                 <Switch>
                     <Route exact path="/" component={Homepage} /*exact component={Budget} */ />
-                    {/* <RequireAuth> */}
-                        {/* <Route path="/transactions" component={Transactions} />  */}
-                    {/* </RequireAuth> */}
                     <Protected_Route exact path="/accounts" component={Accounts}/> 
                     <Protected_Route exact path="/budget" component={Budget}/>
                     <Route path="/register" component={Register} /> 
@@ -95,14 +40,6 @@ export function App() {
                     <Protected_Route exact path="/transactions" component={Transactions}/>
                 </Switch>
             </Bottom>
-                
-            {/* <div>
-                <div>balance: {balance}</div>
-            </div>
-            <div>Transactions</div>
-            {transactions.map((t, i) => {
-                return <div key={i}>{t.name}</div>
-            })} */}
         </Wrapper>
     )
 }

@@ -3,7 +3,7 @@ import { combineReducers, configureStore, createReducer, createSlice } from '@re
 const default_slice = createSlice({
     name: 'slice',
     initialState: {
-        logged_in: false,
+        logged_in: null,
         balance: 0,
         token: null,
         categories: [],
