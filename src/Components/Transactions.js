@@ -23,10 +23,8 @@ export function Transactions() {
             {/* top row to show names of columns */}
             <Transaction column_names={true}>
                 <Transaction_Item>Name</Transaction_Item>
-                <Transaction_Item>Amount</Transaction_Item>
-                <Transaction_Item>Type</Transaction_Item>
-                <Transaction_Item>Category</Transaction_Item>
-                <Transaction_Item>Account</Transaction_Item>
+                <Transaction_Item>Value</Transaction_Item>
+                <Transaction_Item>Tags</Transaction_Item>
             </Transaction>
 
 
@@ -34,10 +32,8 @@ export function Transactions() {
                 return (
                     <Transaction key={t.id}>
                         <Transaction_Item>{t.name}</Transaction_Item>
-                        <Transaction_Item>{t.amount}</Transaction_Item>
-                        <Transaction_Item>{t.type}</Transaction_Item>
-                        <Transaction_Item>{t.category}</Transaction_Item>
-                        <Transaction_Item>{t.account}</Transaction_Item>
+                        <Transaction_Item>{t.value}</Transaction_Item>
+                        <Transaction_Item>{t.tags}</Transaction_Item>
                         {is_deleting &&
                                 <Delete_Btn onClick={() => {delete_transaction(t)}}>Del</Delete_Btn>
                             }

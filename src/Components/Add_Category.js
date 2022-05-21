@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
-import { create_category, get_categories, get_accounts } from '../api';
+import { create_category } from '../api';
 
 export function Add_Category() {
     const [is_active, set_is_active] = useState(false);
@@ -14,8 +14,8 @@ export function Add_Category() {
     });
 
     useEffect(() => {
-        get_categories();
-        get_accounts();
+        // get_categories();
+        // get_accounts();
     }, []);
 
     function clicked_add_category() {

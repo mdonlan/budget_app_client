@@ -70,29 +70,6 @@ export function logout() {
     history.push("/");
 }
 
-export function create_category(category) {
-    const token = localStorage.getItem("token");
-    superagent.post('http://localhost:3000/create_category')
-    .send({category: category, token: token})
-    .then(res => {
-        console.log('fuck yes')
-        get_categories();
-    })
-}
-
-export function get_categories() {
-    // const state = store.getState().default;
-    // const token = state.token;
-    // console.log(token)
-    const token = localStorage.getItem("token");
-    return superagent.post('http://localhost:3000/get_categories')
-    .send({token: token})
-    .then(res => {
-        // console.log(res);
-        store.dispatch(set_categories(res.body.categories));
-    })   
-}
-
 export function create_transaction(transaction) {
     const token = localStorage.getItem("token");
     superagent.post('http://localhost:3000/create_transaction')
@@ -133,15 +110,15 @@ export function create_account(account) {
     })
 }
 
-export function delete_category(category) {
-    const token = localStorage.getItem("token");
-    superagent.post('http://localhost:3000/delete_category')
-    .send({category: category, token: token})
-    .then(() => {
-        // console.log('completed post')
-        get_categories();
-    })
-}
+// export function delete_category(category) {
+//     const token = localStorage.getItem("token");
+//     superagent.post('http://localhost:3000/delete_category')
+//     .send({category: category, token: token})
+//     .then(() => {
+//         // console.log('completed post')
+//         get_categories();
+//     })
+// }
 
 export function delete_transaction(transaction) {
     const token = localStorage.getItem("token");

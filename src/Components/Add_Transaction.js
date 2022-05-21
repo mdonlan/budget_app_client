@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
 import superagent from 'superagent'
-import { get_categories, create_transaction, get_accounts } from '../api';
+import { create_transaction } from '../api';
 import { Transactions } from './Transactions';
 
 const existing_tags = [
@@ -20,13 +20,8 @@ export function Add_Transaction() {
 
     const [transaction, set_transaction] = useState({
         name: "",
-        created_date: "",
-        amount: 0,
-        tags: []
-        // type: "",
-        // note: "",
-        // category: "",
-        // account: ""
+        tags: [],
+        value: 0
     });
 
     // const [adding_new_tag, set_adding_new_tag] = useState(false);
@@ -36,8 +31,8 @@ export function Add_Transaction() {
     const [matching_tags_index, set_matching_tags_index] = useState(0);
 
     useEffect(() => {
-        get_categories();
-        get_accounts();
+        // get_categories();
+        // get_accounts();
     }, []);
 
     function clicked_add_transaction() {
@@ -49,11 +44,11 @@ export function Add_Transaction() {
     }
 
     function handle_submit(e) {
-        if (transaction.category == "") transaction.category = categories[0].name;
-        if (transaction.account == "") transaction.account = accounts[0].name;
-        const type = categories.find(e => e.name == transaction.category).type;
+        // if (transaction.category == "") transaction.category = categories[0].name;
+        // if (transaction.account == "") transaction.account = accounts[0].name;
+        // const type = categories.find(e => e.name == transaction.category).type;
         // console.log('cat type: ' + type);
-        transaction.type = type;
+        // transaction.type = type;
         create_transaction(transaction);
         set_is_active(false);
     }
@@ -116,7 +111,7 @@ export function Add_Transaction() {
                     </Row>
                     <Row>
                         <Field_name>Amount</Field_name>
-                        <Amount name="amount" placeholder="amount" value={transaction.amount} onChange={handle_change}/>
+                        <Amount name="value" placeholder="value" value={transaction.value} onChange={handle_change}/>
                     </Row>
                     {/* <Row> */}
                         <Field_name>Tags</Field_name>

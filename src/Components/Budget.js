@@ -11,8 +11,8 @@ export function Budget() {
     const [is_deleting, set_is_deleting] = useState(false);
 
     useEffect(() => {
-        get_categories();
-        console.log('# categories: ' + categories.length)
+        // get_categories();
+        // console.log('# categories: ' + categories.length)
     }, [])
 
     return (
