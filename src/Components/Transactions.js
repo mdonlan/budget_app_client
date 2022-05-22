@@ -21,7 +21,7 @@ export function Transactions() {
                 <Is_Deleting_Btn onClick={() => {set_is_deleting(!is_deleting)}}>{is_deleting ? "Stop Editing" : "Edit"}</Is_Deleting_Btn>
             </Buttons>
             {/* top row to show names of columns */}
-            <Transaction column_names={true}>
+            <Transaction>
                 <Transaction_Item>Name</Transaction_Item>
                 <Transaction_Item>Value</Transaction_Item>
                 <Transaction_Item>Tags</Transaction_Item>
@@ -77,7 +77,7 @@ const Transaction = styled.div`
     margin-left: 8px;
     padding: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    color: ${props => props.column_names ? "#555555" : "#dddddd"};
+    // color: ${props => props.column_names ? "#555555" : "#dddddd"};
 `
 
 const Transaction_Item = styled.div`

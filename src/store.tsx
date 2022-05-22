@@ -1,4 +1,4 @@
-import { combineReducers, configureStore, createReducer, createSlice } from '@reduxjs/toolkit'
+import { combineReducers, configureStore, createSlice } from '@reduxjs/toolkit'
 
 const default_slice = createSlice({
     name: 'slice',
@@ -37,9 +37,12 @@ const default_slice = createSlice({
     }
 });
 
+export type RootState = ReturnType<typeof store.getState>
+
 const reducer = combineReducers({
     default: default_slice.reducer
 })
+
 
 export const {
     // set_balance,

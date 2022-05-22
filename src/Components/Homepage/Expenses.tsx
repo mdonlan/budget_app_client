@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { get_month_data, get_week_data, get_day_data } from '../../api';
 import styled from 'styled-components';
 
 export function Expenses() {
-    const [month_expenses, set_month_expenses] = useState(0);
-    const [week_expenses, set_week_expenses] = useState(0);
-    const [day_expenses, set_day_expenses] = useState(0);
+    const [month_expenses, set_month_expenses] = useState<number>(0);
+    const [week_expenses, set_week_expenses] = useState<number>(0);
+    const [day_expenses, set_day_expenses] = useState<number>(0);
 
     useEffect(() => {
         async function get_data() {
@@ -31,15 +30,15 @@ export function Expenses() {
             <Expenses_Bot>
                 <Time_Period>
                     <Expense_Time_Title>Day</Expense_Time_Title>
-                    <Expense_Value>{day_expenses}</Expense_Value>
+                    <Expense_Value><Dollar_Sign>$</Dollar_Sign>{day_expenses.toFixed(2)}</Expense_Value>
                 </Time_Period>
                 <Time_Period>
                     <Expense_Time_Title>Week</Expense_Time_Title>
-                    <Expense_Value>{week_expenses}</Expense_Value>
+                    <Expense_Value><Dollar_Sign>$</Dollar_Sign>{week_expenses.toFixed(2)}</Expense_Value>
                 </Time_Period>
                 <Time_Period>
                     <Expense_Time_Title>Month</Expense_Time_Title>
-                    <Expense_Value>{month_expenses}</Expense_Value>
+                    <Expense_Value><Dollar_Sign>$</Dollar_Sign>{month_expenses.toFixed(2)}</Expense_Value>
                 </Time_Period>
             </Expenses_Bot>
             
@@ -53,7 +52,7 @@ const Expenses_Wrapper = styled.div`
     flex-direction: column;
     padding: 20px;
     background: rgba(255, 255, 255, 0.09);
-    width: 300px;
+    width: 400px;
 `
 
 const Expenses_Title = styled.div`
@@ -79,6 +78,8 @@ const Time_Period = styled.div`
     flex-direction: column;
     align-items: center;
     width: 33%;
+    padding-left: 5px;
+    padding-right: 5px;
 `
 
 
@@ -88,4 +89,8 @@ const Expense_Time_Title = styled.div`
 `
 const Expense_Value = styled.div`
     font-size: 30px;
+`
+
+const Dollar_Sign = styled.sup`
+    font-size: 16px;
 `

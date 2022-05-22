@@ -3,9 +3,10 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { logout } from '../api'
+import { RootState } from '../store';
 
 export function Top_Nav(props) {
-    const logged_in = useSelector(state => state.default.logged_in);
+    const logged_in = useSelector<RootState>(state => state.default.logged_in);
 
     return (
         <Wrapper>
@@ -37,7 +38,7 @@ const Wrapper = styled.div`
     align-items: center;
 `
 
-const Styled_Link = styled(Link)`
+const Styled_Link = styled(Link)<{path: string}>`
     margin-left: 14px;
     margin-right: 14px;
     padding-left: 5px;
