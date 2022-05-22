@@ -4,31 +4,29 @@ const default_slice = createSlice({
     name: 'slice',
     initialState: {
         logged_in: null,
-        balance: 0,
+        // balance: 0,
         token: null,
-        categories: [],
         transactions: [],
-        accounts: []
     },
     reducers: {
-        set_balance: (state, action) => {
-            state.balance = action.payload;
-        },
+        // set_balance: (state, action) => {
+        //     state.balance = action.payload;
+        // },
         set_logged_in: (state, action) => {
             state.logged_in = action.payload;
         },
         set_token: (state, action) => {
             state.token = action.payload;
         },
-        set_categories: (state, action) => {
-            state.categories = action.payload;
-        },
+        // set_categories: (state, action) => {
+        //     state.categories = action.payload;
+        // },
         set_transactions: (state, action) => {
             state.transactions = action.payload;
         },
-        set_accounts: (state, action) => {
-            state.accounts = action.payload;
-        },
+        // set_accounts: (state, action) => {
+        //     state.accounts = action.payload;
+        // },
         // set_username: (state, action) => {
         //     state.username = action.payload;
         // },
@@ -44,12 +42,12 @@ const reducer = combineReducers({
 })
 
 export const {
-    set_balance,
+    // set_balance,
     set_logged_in,
     set_token,
-    set_categories,
+    // set_categories,
     set_transactions,
-    set_accounts,
+    // set_accounts,
 } = default_slice.actions;
 
 export default default_slice.reducer;

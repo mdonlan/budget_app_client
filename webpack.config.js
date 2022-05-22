@@ -34,4 +34,6 @@ module.exports = {
     contentBase: './',
     hot: true
  },
+ devtool: 'source-map'
+
 };

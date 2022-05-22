@@ -1,12 +1,5 @@
 import superagent from 'superagent'
-import { 
-    store, 
-    set_logged_in, 
-    set_token, 
-    set_categories, 
-    set_transactions,
-    set_accounts
-} from './store'
+import { store, set_logged_in, set_token, set_transactions } from './store'
 import history from './history'
 
 export async function register_user(data) {
@@ -44,16 +37,12 @@ export async function validate_token() {
 }
 
 export function login(data) {
-    console.log('login');
-
     return superagent.post('http://localhost:3000/login')
     .send({ username: data.username, password: data.password })
     .then(res => {
-        // console.log('logged in')
         localStorage.setItem("token", res.body.token);
         store.dispatch(set_token(res.body.token));
         store.dispatch(set_logged_in(true));
-        // history.push("/");
         return { success: true, message: res.body.message};
     })
     .catch(e => {
@@ -63,7 +52,6 @@ export function login(data) {
 }
 
 export function logout() {
-    console.log('logout')
     localStorage.removeItem("token");
     store.dispatch(set_token(null));
     store.dispatch(set_logged_in(false));
@@ -91,41 +79,42 @@ export function get_transactions() {
     })   
 }
 
-export function get_accounts() {
-    const token = localStorage.getItem("token");
-    return superagent.post('http://localhost:3000/get_accounts')
-    .send({token: token})
-    .then(res => {
-        store.dispatch(set_accounts(res.body.accounts));
-    })   
-}
-
-// refers to a budget account, not user account
-export function create_account(account) {
-    const token = localStorage.getItem("token");
-    superagent.post('http://localhost:3000/create_account')
-    .send({account: account, token: token})
-    .then(() => {
-        // console.log('completed post')
-    })
-}
-
-// export function delete_category(category) {
-//     const token = localStorage.getItem("token");
-//     superagent.post('http://localhost:3000/delete_category')
-//     .send({category: category, token: token})
-//     .then(() => {
-//         // console.log('completed post')
-//         get_categories();
-//     })
-// }
-
 export function delete_transaction(transaction) {
     const token = localStorage.getItem("token");
     superagent.post('http://localhost:3000/delete_transaction')
     .send({transaction_id: transaction.id, token: token})
-    .then(() => {
+    .then(res => {
         // console.log('completed post')
         get_transactions();
+    })
+}
+
+export function get_month_data() {
+    const token = localStorage.getItem("token");
+    return superagent.post('http://localhost:3000/get_month_data')
+    .send({ token: token })
+    .then(res => {
+        // console.log(res.body);
+        return res.body;
+    })
+}
+
+export function get_week_data() {
+    const token = localStorage.getItem("token");
+    return superagent.post('http://localhost:3000/get_week_data')
+    .send({ token: token })
+    .then(res => {
+        // console.log(res.body);
+        return res.body;
+    })
+}
+
+export function get_day_data() {
+    const token = localStorage.getItem("token");
+    return superagent.post('http://localhost:3000/get_day_data')
+    .send({ token: token })
+    .then(res => {
+        // console.log(res.body);
+        return res.body;
     })
 }

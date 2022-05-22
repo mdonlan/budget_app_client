@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { get_transactions, delete_transaction } from '../api';
+import { delete_transaction } from '../api';
 import { Add_Transaction } from './Add_Transaction';
 
 export function Transactions() {
@@ -10,8 +10,8 @@ export function Transactions() {
 
     useEffect(() => {
         // console.log('hello')
-        get_transactions();
-        console.log('# transactions: ' + transactions.length)
+        
+        // console.log('# transactions: ' + transactions.length)
     }, [])
 
     return (

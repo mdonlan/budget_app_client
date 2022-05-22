@@ -19,9 +19,7 @@ export function Top_Nav(props) {
             {logged_in &&
                 <React.Fragment>
                     <Left>
-                        <Styled_Link path={props.location.pathname} to="/budget" >Budget</Styled_Link>
                         <Styled_Link path={props.location.pathname} to="/transactions">Transactions</Styled_Link>
-                        <Styled_Link path={props.location.pathname} to="/accounts">Accounts</Styled_Link>
                     </Left>
                     <Right>
                         <Logout_Btn onClick={() => {logout()}}>Log Out</Logout_Btn>

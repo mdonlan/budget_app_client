@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
-import superagent from 'superagent'
 import { create_transaction } from '../api';
-import { Transactions } from './Transactions';
+// import { Transactions } from './Transactions';
 
 const existing_tags = [
     "test_1",
