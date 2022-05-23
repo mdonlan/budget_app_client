@@ -97,6 +97,7 @@ export function get_month_data() {
         // console.log(res.body);
         return res.body;
     })
+    .catch(e => console.log(e))
 }
 
 export function get_week_data() {
@@ -107,6 +108,7 @@ export function get_week_data() {
         // console.log(res.body);
         return res.body;
     })
+    .catch(e => console.log(e))
 }
 
 export function get_day_data() {
@@ -117,4 +119,16 @@ export function get_day_data() {
         // console.log(res.body);
         return res.body;
     })
+    .catch(e => console.log(e))
+}
+
+export function get_transaction_numbers_data() {
+    const token = localStorage.getItem("token");
+    return superagent.post('http://localhost:3000/get_transaction_numbers_data')
+    .send({ token: token })
+    .then(res => {
+        // console.log(res.body)
+        return res.body;
+    })
+    .catch(e => console.log(e))
 }
