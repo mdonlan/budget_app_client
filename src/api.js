@@ -1,5 +1,5 @@
 import superagent from 'superagent'
-import { store, set_logged_in, set_token, set_transactions } from './store'
+import { store, set_logged_in, set_token, set_transactions, set_tags } from './store'
 import history from './history'
 
 export async function register_user(data) {
@@ -129,6 +129,17 @@ export function get_transaction_numbers_data() {
     .then(res => {
         // console.log(res.body)
         return res.body;
+    })
+    .catch(e => console.log(e))
+}
+
+export function get_tags() {
+    const token = localStorage.getItem("token");
+    return superagent.post('http://localhost:3000/get_tags')
+    .send({ token: token })
+    .then(res => {
+        console.log(res.body)
+        store.dispatch(set_tags(res.body.tags));
     })
     .catch(e => console.log(e))
 }

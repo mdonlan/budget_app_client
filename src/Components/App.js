@@ -8,7 +8,7 @@ import { Transactions } from './Transactions'
 import { validate_token } from '../api'
 import { Homepage } from './Homepage/Homepage'
 import { Protected_Route } from './Protected_Route'
-import { get_transactions } from '../api';
+import { get_transactions, get_tags } from '../api';
 
 
 export function App() {
@@ -17,6 +17,7 @@ export function App() {
     useEffect(async () => {
         await validate_token();
         get_transactions();
+        get_tags();
     }, [])
 
     return (

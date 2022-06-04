@@ -4,11 +4,11 @@ import styled from 'styled-components'
 import { create_transaction } from '../api';
 // import { Transactions } from './Transactions';
 
-const existing_tags = [
-    "test_1",
-    "blah",
-    "hello world"
-]
+// const existing_tags = [
+//     "test_1",
+//     "blah",
+//     "hello world"
+// ]
 
 export function Add_Transaction() {
 
@@ -16,6 +16,7 @@ export function Add_Transaction() {
     const transaction_ref = useRef(null);
     const categories = useSelector(state => state.default.categories);
     const accounts = useSelector(state => state.default.accounts);
+    const existing_tags = useSelector(state => state.default.tags);
 
     const [transaction, set_transaction] = useState({
         name: "",
@@ -73,12 +74,19 @@ export function Add_Transaction() {
     }
 
     function add_new_tag() {
-        const tag = matching_tags[matching_tags_index];
+        let tag = null;
+        const matching_tag = matching_tags[matching_tags_index];
+        if (matching_tag) {
+            tag = matching_tag;
+        } else {
+            tag = current_tag;
+        }
+
         const tags = transaction.tags;
         tags.push(tag);
         set_transaction({...transaction, tags: tags});
         // set_adding_new_tag(false);
-        clear_new_tag()
+        clear_new_tag();
     }
 
     function clear_new_tag() {
@@ -91,8 +99,8 @@ export function Add_Transaction() {
         const input_text = e.target.value;
         const matching = [];
         existing_tags.forEach(tag => {
-            if (tag.includes(input_text)) {
-                matching.push(tag);
+            if (tag.value.includes(input_text)) {
+                matching.push(tag.value);
             }
         })
         set_matching_tags(matching);
@@ -166,6 +174,7 @@ const New_Transaction = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 `
 
 const Row = styled.div`
