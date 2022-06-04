@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { get_transaction_numbers_data } from '../../api';
+import { get_popular_tags } from '../../api';
 import styled from 'styled-components';
+
+interface Popular_Tag {
+    value: string;
+    count: number;
+};
+
 
 export function Popular_Tags() {
     // const [month, set_month] = useState<number>(0);
     // const [week, set_week] = useState<number>(0);
     // const [day, set_day] = useState<number>(0);
+    const [popular_tags, set_popular_tags] = useState<Popular_Tag[]>([]);
 
     useEffect(() => {
         async function get_data() {
-            // const data = await get_transaction_numbers_data();
-            // // console.log(data)
-            // set_month(data.num_month_transactions);
-            // set_week(data.num_week_transactions);
-            // set_day(data.num_day_transactions);
+            const data = await get_popular_tags();
+            console.log(data.popular_tags);
+            set_popular_tags(data.popular_tags);
         }
         
         get_data();
@@ -25,18 +30,14 @@ export function Popular_Tags() {
                 <Title>Popular Tags</Title>
             </Top>
             <Bot>
-                {/* <Column>
-                    <Name>Day</Name>
-                    <Value>{day}</Value>
-                </Column>
-                <Column>
-                    <Name>Week</Name>
-                    <Value>{week}</Value>
-                </Column>
-                <Column>
-                    <Name>Month</Name>
-                    <Value>{month}</Value>
-                </Column> */}
+                {popular_tags.map((tag: Popular_Tag, i: number) => {
+                    return (
+                        <Tag key={i}>
+                            <Tag_Name>{tag.value}</Tag_Name>
+                            <Tag_Count>{tag.count}</Tag_Count>
+                        </Tag>
+                    )
+                })}
             </Bot>
             
             
@@ -45,15 +46,15 @@ export function Popular_Tags() {
 }
 
 const Popular_Tags_Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    padding-bottom: 50px;
-    background: rgba(255, 255, 255, 0.09);
-    width: 400px;
-    margin-left: 10px;
-    margin-right: 10px;
-    border-radius: 3px;
+    // display: flex;
+    // flex-direction: column;
+    // padding: 20px;
+    // padding-bottom: 50px;
+    // background: rgba(255, 255, 255, 0.09);
+    // width: 400px;
+    // margin-left: 10px;
+    // margin-right: 10px;
+    // border-radius: 3px;
 `
 
 const Title = styled.div`
@@ -70,23 +71,16 @@ const Top = styled.div`
 
 const Bot = styled.div`
     display: flex;
-    // justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
     color: #dddddd;
 `
 
-const Column = styled.div`
+const Tag = styled.div`
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 33%;
-    padding-left: 5px;
-    padding-right: 5px;
+    justify-content: space-around;
+    width: 75%;
 `
 
-const Name = styled.div`
-    color: #b5b5b5;
-    margin-bottom: 10px;
-`
-const Value = styled.div`
-    font-size: 30px;
-`
+const Tag_Name = styled.div``
+const Tag_Count = styled.div``

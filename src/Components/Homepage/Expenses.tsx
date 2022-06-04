@@ -48,14 +48,14 @@ export function Expenses() {
 }
 
 const Expenses_Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.09);
-    width: 400px;
-    margin-left: 10px;
-    margin-right: 10px;
-    border-radius: 3px;
+    // display: flex;
+    // flex-direction: column;
+    // padding: 20px;
+    // background: rgba(255, 255, 255, 0.09);
+    // width: 400px;
+    // margin-left: 10px;
+    // margin-right: 10px;
+    // border-radius: 3px;
 `
 
 const Expenses_Title = styled.div`

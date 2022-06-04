@@ -1,14 +1,29 @@
 import { combineReducers, configureStore, createSlice } from '@reduxjs/toolkit'
 
+export interface Transaction {
+    id: number;
+    name: string;
+    value: number;
+    tags: string[];
+}
+
+export interface Initial_State {
+    logged_in: boolean;
+    token: string;
+    transactions: Transaction[];
+    tags: string[];
+}
+
+const initial_state: Initial_State = {
+    logged_in: null,
+    token: null,
+    transactions: [],
+    tags: []
+};
+
 const default_slice = createSlice({
     name: 'slice',
-    initialState: {
-        logged_in: null,
-        // balance: 0,
-        token: null,
-        transactions: [],
-        tags: []
-    },
+    initialState: initial_state,
     reducers: {
         // set_balance: (state, action) => {
         //     state.balance = action.payload;
@@ -42,6 +57,7 @@ const default_slice = createSlice({
 });
 
 export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
 
 const reducer = combineReducers({
     default: default_slice.reducer

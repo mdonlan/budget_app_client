@@ -143,3 +143,13 @@ export function get_tags() {
     })
     .catch(e => console.log(e))
 }
+
+export function get_popular_tags() {
+    const token = localStorage.getItem("token");
+    return superagent.post('http://localhost:3000/get_popular_tags')
+    .send({ token: token })
+    .then(res => {
+        return res.body;
+    })
+    .catch(e => console.log(e))
+}

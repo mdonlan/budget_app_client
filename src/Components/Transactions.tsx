@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { delete_transaction } from '../api';
 import { Add_Transaction } from './Add_Transaction';
+import { RootState } from '../store';
+
+
 
 export function Transactions() {
-    const transactions = useSelector(state => state.default.transactions);
+    const transactions = useSelector((state: RootState) => state.default.transactions);
     const [is_deleting, set_is_deleting] = useState(false);
-
-    useEffect(() => {
-        // console.log('hello')
-        
-        // console.log('# transactions: ' + transactions.length)
-    }, [])
 
     return (
         <Wrapper>
@@ -21,23 +18,28 @@ export function Transactions() {
                 <Is_Deleting_Btn onClick={() => {set_is_deleting(!is_deleting)}}>{is_deleting ? "Stop Editing" : "Edit"}</Is_Deleting_Btn>
             </Buttons>
             {/* top row to show names of columns */}
-            <Transaction>
+            <Transaction_Wrapper>
                 <Transaction_Item>Name</Transaction_Item>
                 <Transaction_Item>Value</Transaction_Item>
                 <Transaction_Item>Tags</Transaction_Item>
-            </Transaction>
+            </Transaction_Wrapper>
 
 
-            {transactions.map(t => {
+            {transactions.map((t) => {
                 return (
-                    <Transaction key={t.id}>
+                    <Transaction_Wrapper key={t.id}>
                         <Transaction_Item>{t.name}</Transaction_Item>
                         <Transaction_Item>{t.value}</Transaction_Item>
-                        <Transaction_Item>{t.tags}</Transaction_Item>
+                        {/* <Transaction_Item>{t.tags}</Transaction_Item> */}
+                        {t.tags.map((tag, i) => {
+                            return (
+                                <Tag key={i}>{tag}</Tag>
+                            )
+                        })}
                         {is_deleting &&
                                 <Delete_Btn onClick={() => {delete_transaction(t)}}>Del</Delete_Btn>
                             }
-                    </Transaction>
+                    </Transaction_Wrapper>
                 )
             })}
         </Wrapper>
@@ -70,16 +72,19 @@ const Delete_Btn = styled.div`
     cursor: pointer;
 `
 
-const Transaction = styled.div`
+const Transaction_Wrapper = styled.div`
     display: flex;
     margin-top: 8px;
     margin-bottom: 8px;
     margin-left: 8px;
     padding: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    // color: ${props => props.column_names ? "#555555" : "#dddddd"};
 `
 
 const Transaction_Item = styled.div`
     width: 20%;
+`
+
+const Tag = styled.div`
+    margin-right: 15px;
 `
