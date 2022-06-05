@@ -14,7 +14,7 @@ export function Recent_Transactions() {
                 <Title>Recent Transactions</Title>
             </Top>
             <Bot>
-               {transactions.slice(transactions.length - 5).map((transaction, i) => {
+               {transactions.slice(transactions.length - 5).reverse().map((transaction, i) => {
                    return (
                         <Transaction key={i}>
                             <Name>{transaction.name}</Name>

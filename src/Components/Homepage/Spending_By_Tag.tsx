@@ -1,51 +1,52 @@
 import React, { useEffect, useState } from 'react';
-import { get_popular_tags } from '../../api';
+import { get_amount_spent_by_tags } from '../../api';
 import styled from 'styled-components';
 
-interface Popular_Tag {
-    value: string;
-    count: number;
+// interface Popular_Tag {
+//     value: string;
+//     count: number;
+// };
+
+interface Spending_Tag {
+    name: string;
+    amount: number;
 };
 
-
-export function Popular_Tags() {
-    // const [month, set_month] = useState<number>(0);
-    // const [week, set_week] = useState<number>(0);
-    // const [day, set_day] = useState<number>(0);
-    const [popular_tags, set_popular_tags] = useState<Popular_Tag[]>([]);
+export function Spending_By_Tag() {
+    const [spending_tags, set_spending_tags] = useState<Spending_Tag[]>([]);
 
     useEffect(() => {
         async function get_data() {
-            const data = await get_popular_tags();
-            console.log(data.popular_tags);
-            set_popular_tags(data.popular_tags);
+            const data = await get_amount_spent_by_tags();
+            // console.log(data.spending_tags);
+            set_spending_tags(data.spending_tags);
         }
         
         get_data();
     }, []);
 
     return (
-        <Popular_Tags_Wrapper>
+        <Spending_By_Tag_Wrapper>
             <Top>
-                <Title>Popular Tags</Title>
+                <Title>Spending By Tag</Title>
             </Top>
             <Bot>
-                {popular_tags.map((tag: Popular_Tag, i: number) => {
+                {spending_tags.map((tag: Spending_Tag, i: number) => {
                     return (
                         <Tag key={i}>
-                            <Tag_Name>{tag.value}</Tag_Name>
-                            <Tag_Count>{tag.count}</Tag_Count>
+                            <Tag_Name>{tag.name}</Tag_Name>
+                            <Tag_Count>{tag.amount}</Tag_Count>
                         </Tag>
                     )
                 })}
             </Bot>
             
             
-        </Popular_Tags_Wrapper>
+        </Spending_By_Tag_Wrapper>
     )
 }
 
-const Popular_Tags_Wrapper = styled.div`
+const Spending_By_Tag_Wrapper = styled.div`
     // display: flex;
     // flex-direction: column;
     // padding: 20px;

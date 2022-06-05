@@ -1,5 +1,11 @@
 import { combineReducers, configureStore, createSlice } from '@reduxjs/toolkit'
 
+export interface Tag {
+    id: number;
+    value: string;
+    username: string;
+};
+
 export interface Transaction {
     id: number;
     name: string;
@@ -11,7 +17,7 @@ export interface Initial_State {
     logged_in: boolean;
     token: string;
     transactions: Transaction[];
-    tags: string[];
+    tags: Tag[];
 }
 
 const initial_state: Initial_State = {

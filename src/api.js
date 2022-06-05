@@ -153,3 +153,14 @@ export function get_popular_tags() {
     })
     .catch(e => console.log(e))
 }
+
+export function get_amount_spent_by_tags() {
+    const token = localStorage.getItem("token");
+    return superagent.post('http://localhost:3000/get_amount_spent_by_tags')
+    .send({ token: token })
+    .then(res => {
+        console.log('get_amount_spend_by_tags call return')
+        return res.body;
+    })
+    .catch(e => console.log(e))
+}

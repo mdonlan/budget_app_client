@@ -13,6 +13,8 @@ export function Expenses() {
             set_month_expenses(month_data.transactions.reduce((total, t) => total + t.value, 0));
 
             const week_data = await get_week_data();
+            console.log('week data');
+            console.log(week_data);
             set_week_expenses(week_data.transactions.reduce((total, t) => total + t.value, 0));
 
             const day_data = await get_day_data();

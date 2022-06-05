@@ -3,26 +3,28 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components'
 import { create_transaction } from '../api';
 // import { Transactions } from './Transactions';
+import { RootState, Tag } from '../store';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-// const existing_tags = [
-//     "test_1",
-//     "blah",
-//     "hello world"
-// ]
+interface Matching_Tag_Props {
+    active: boolean;
+};
 
 export function Add_Transaction() {
 
     const [is_active, set_is_active] = useState(false);
     const transaction_ref = useRef(null);
-    const categories = useSelector(state => state.default.categories);
-    const accounts = useSelector(state => state.default.accounts);
-    const existing_tags = useSelector(state => state.default.tags);
+    const existing_tags = useSelector((state: RootState) => state.default.tags);
 
     const [transaction, set_transaction] = useState({
         name: "",
         tags: [],
-        value: 0
+        value: 0,
+        date: new Date()
     });
+
+    // const [startDate, setStartDate] = useState(new Date());
 
     // const [adding_new_tag, set_adding_new_tag] = useState(false);
     const [current_tag, set_current_tag] = useState("");
@@ -44,11 +46,6 @@ export function Add_Transaction() {
     }
 
     function handle_submit(e) {
-        // if (transaction.category == "") transaction.category = categories[0].name;
-        // if (transaction.account == "") transaction.account = accounts[0].name;
-        // const type = categories.find(e => e.name == transaction.category).type;
-        // console.log('cat type: ' + type);
-        // transaction.type = type;
         create_transaction(transaction);
         set_is_active(false);
     }
@@ -107,33 +104,42 @@ export function Add_Transaction() {
         set_current_tag(e.target.value)
     }
 
+    function remove_tag(tag) {
+        const new_tags = transaction.tags.filter(t => {
+            return t !== tag;
+        });
+
+        set_transaction({...transaction, tags: new_tags});
+    }
+
     return (
         <Wrapper >
             <Add_Transaction_Btn onClick={clicked_add_transaction}>Add Transaction</Add_Transaction_Btn>
             {is_active &&
                 <New_Transaction ref={transaction_ref}>
                     <Row>
-                        <Field_name>Name</Field_name>
+                        <Field_Name>Name</Field_Name>
                         <Name name="name" placeholder="transaction name" value={transaction.name} onChange={handle_change}/>    
                     </Row>
                     <Row>
-                        <Field_name>Amount</Field_name>
+                        <Field_Name>Date</Field_Name>
+                        <DatePicker selected={transaction.date} onChange={(date:Date) => set_transaction({...transaction, ["date"]: date}) } />
+                    </Row>
+                    <Row>
+                        <Field_Name>Amount</Field_Name>
                         <Amount name="value" placeholder="value" value={transaction.value} onChange={handle_change}/>
                     </Row>
                     {/* <Row> */}
-                        <Field_name>Tags</Field_name>
+                        <Field_Name>Tags</Field_Name>
                         <Tags>
-                            
-                            
                             {transaction.tags.map((tag, i) => {
                                 return (
-                                    <Tag key={i} >{tag}</Tag>
+                                    <Tag key={i}>
+                                        <Tag_Name>{tag}</Tag_Name>
+                                        <Tag_Remove_Btn onClick={() => {remove_tag(tag)}} >x</Tag_Remove_Btn>
+                                    </Tag>
                                 )
                             })}
-
-                            
-                            
-                            {/* <div onClick={() => {set_adding_new_tag(true)}}>+</div> */}
                         </Tags>
                         <div>
                             <input value={current_tag} onChange={handle_new_tag_change} onKeyDown={new_tag_keydown} />
@@ -184,7 +190,7 @@ const Row = styled.div`
     width: 75%;
 `
 
-const Field_name = styled.div`
+const Field_Name = styled.div`
     margin-right: 8px;
     width: 50%;
     text-align: center;
@@ -227,16 +233,24 @@ const Tags = styled.div`
 `
 
 const Tag = styled.div`
-    background: red;
+    background: #3b8fd9;
     border-radius: 3px;
     padding: 3px;
     margin: 3px;
 
+    display: flex;
+
     :hover {
-        background: pink;
+        background: #61a9e8;
     }
 `
 
-const Matching_Tag = styled.div`
+const Tag_Name = styled.div`
+    margin-right: 5px;
+`
+
+const Tag_Remove_Btn = styled.div``
+
+const Matching_Tag = styled.div<Matching_Tag_Props>`
     background: ${props => props.active ? "blue" : "red"};
 `

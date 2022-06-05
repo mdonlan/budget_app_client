@@ -4,6 +4,7 @@ import { Expenses } from './Expenses';
 import { Num_Transactions } from './Num_Transactions';
 import { Popular_Tags } from './Popular_Tags';
 import { Recent_Transactions } from './Recent_Transactions';
+import { Spending_By_Tag } from './Spending_By_Tag';
 
 export function Homepage() {
     return (
@@ -20,6 +21,9 @@ export function Homepage() {
             <Homepage_Item>
                 <Recent_Transactions />
             </Homepage_Item>
+            <Homepage_Item>
+                <Spending_By_Tag />
+            </Homepage_Item>
         </Homepage_Wrapper>
     )
 }
@@ -35,7 +39,7 @@ const Homepage_Item = styled.div`
     padding: 20px;
     padding-bottom: 50px;
     background: rgba(255, 255, 255, 0.09);
-    width: 400px;
+    width: 375px;
     margin-left: 10px;
     margin-right: 10px;
     border-radius: 3px;
