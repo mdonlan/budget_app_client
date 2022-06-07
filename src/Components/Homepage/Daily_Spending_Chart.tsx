@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ChartOptions } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ChartOptions, ChartData, DatasetController } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { get_week_data } from '../../api';
 import { startOfWeek, nextDay, isSameDay, toDate, startOfDay, format, subDays } from 'date-fns';
@@ -21,19 +21,20 @@ interface Day_Of_Week {
     amount: number
 };
 
-interface Dataset {
-    label: string;
-    data: any;
-    border_color: string;
-    background_color: string;
-};
+// interface Dataset {
+//     label: string;
+//     data: any;
+//     borderColor: string;
+//     background_color: string;
+// };
 
-interface Chart_Data {
-    labels: string[],
-    datasets: Dataset[];
-};
 
-const starting_chart_data: Chart_Data = {
+// interface Chart_Data {
+//     labels: string[],
+//     datasets: [];
+// };
+
+const starting_chart_data: ChartData = {
     labels: [],
     datasets: []
 };
@@ -45,15 +46,15 @@ interface Chart_Options {
 const starting_options = {
     scales: {
         y: {
-            min: -200,
-            max: 200
+            // min: -200,
+            // max: 200
         }
     }
 };
 
 export function Daily_Spending_Chart() {
 
-    const [chart_data, set_chart_data] = useState<Chart_Data>(starting_chart_data);
+    const [chart_data, set_chart_data] = useState<any>(starting_chart_data);
     const [options, set_options] = useState<any>(starting_options);
     const chart_ref = useRef(null);
    
@@ -95,14 +96,15 @@ export function Daily_Spending_Chart() {
 
             // console.log(days);
 
-            const new_chart_data: Chart_Data = {
-                labels: days.map(d => format(d.date, 'MM/dd/yyyy')),
+            const new_chart_data: ChartData = {
+                labels: days.map(d => format(d.date, 'E')),
                 datasets: [
                     {
-                        label: "test",
+                        label: "Daily Spending",
                         data: days.map(d => d.amount),
-                        border_color: "red",
-                        background_color: "blue"
+                        borderColor: "red",
+                        borderWidth: 1
+                        // backgroundColor: "orange"
                     }
                 ]
             }
@@ -121,7 +123,6 @@ export function Daily_Spending_Chart() {
 
     return (
         <Daily_Spending_Chart_Wrapper>
-            <div>test</div>
             <Line options={options} data={chart_data} ref={chart_ref}/>
         </Daily_Spending_Chart_Wrapper>
     )
