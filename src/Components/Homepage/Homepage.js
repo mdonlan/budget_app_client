@@ -5,6 +5,7 @@ import { Num_Transactions } from './Num_Transactions';
 import { Popular_Tags } from './Popular_Tags';
 import { Recent_Transactions } from './Recent_Transactions';
 import { Spending_By_Tag } from './Spending_By_Tag';
+import { Daily_Spending_Chart } from './Daily_Spending_Chart';
 
 export function Homepage() {
     return (
@@ -23,6 +24,9 @@ export function Homepage() {
             </Homepage_Item>
             <Homepage_Item>
                 <Spending_By_Tag />
+            </Homepage_Item>
+            <Homepage_Item>
+                <Daily_Spending_Chart />
             </Homepage_Item>
         </Homepage_Wrapper>
     )

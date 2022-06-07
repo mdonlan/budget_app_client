@@ -17,7 +17,7 @@ export function Popular_Tags() {
     useEffect(() => {
         async function get_data() {
             const data = await get_popular_tags();
-            console.log(data.popular_tags);
+            // console.log(data.popular_tags);
             set_popular_tags(data.popular_tags);
         }
         

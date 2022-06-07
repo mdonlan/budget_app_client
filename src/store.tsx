@@ -11,6 +11,8 @@ export interface Transaction {
     name: string;
     value: number;
     tags: string[];
+    username: string;
+    date: Date;
 }
 
 export interface Initial_State {

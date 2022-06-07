@@ -138,7 +138,7 @@ export function get_tags() {
     return superagent.post('http://localhost:3000/get_tags')
     .send({ token: token })
     .then(res => {
-        console.log(res.body)
+        // console.log(res.body)
         store.dispatch(set_tags(res.body.tags));
     })
     .catch(e => console.log(e))

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { delete_transaction } from '../api';
 import { Add_Transaction } from './Add_Transaction';
 import { RootState } from '../store';
-
+import { format } from 'date-fns';
 
 
 export function Transactions() {
@@ -20,6 +20,7 @@ export function Transactions() {
             {/* top row to show names of columns */}
             <Transaction_Wrapper>
                 <Transaction_Item>Name</Transaction_Item>
+                <Transaction_Item>Date</Transaction_Item>
                 <Transaction_Item>Value</Transaction_Item>
                 <Transaction_Item>Tags</Transaction_Item>
             </Transaction_Wrapper>
@@ -29,6 +30,7 @@ export function Transactions() {
                 return (
                     <Transaction_Wrapper key={t.id}>
                         <Transaction_Item>{t.name}</Transaction_Item>
+                        <Transaction_Item>{format(new Date(t.date), 'MM/dd/yyyy')}</Transaction_Item>
                         <Transaction_Item>{t.value}</Transaction_Item>
                         {/* <Transaction_Item>{t.tags}</Transaction_Item> */}
                         {t.tags.map((tag, i) => {
