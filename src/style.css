@@ -12,3 +12,20 @@ html, body {
     display: flex;
     flex-direction: column;
 }
+
+/* .container {
+    background-color: red;
+    width: 1000px;
+    height: 3000px;
+    background-image: repeating-linear-gradient(#ccc 0 1px, transparent 1px 100%),
+      repeating-linear-gradient(90deg, #ccc 0 1px, transparent 1px 100%);
+    background-size: 50px 50px;
+  }
+  
+  .react-grid-layout {
+    background: none !important;
+  } */
+
+  /* .react-grid-item {
+    background: rgb(173, 62, 62);
+  } */

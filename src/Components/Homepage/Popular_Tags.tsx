@@ -18,7 +18,7 @@ export function Popular_Tags() {
         async function get_data() {
             const data = await get_popular_tags();
             // console.log(data.popular_tags);
-            set_popular_tags(data.popular_tags);
+            set_popular_tags(data.popular_tags.slice(0, 5));
         }
         
         get_data();
