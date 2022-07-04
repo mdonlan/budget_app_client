@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { logout } from '../api'
 import { RootState } from '../store';
+import { Add_Transaction } from './Add_Transaction';
 
 export function Top_Nav(props) {
     const logged_in = useSelector<RootState>(state => state.default.logged_in);
@@ -21,6 +22,7 @@ export function Top_Nav(props) {
                 <React.Fragment>
                     <Left>
                         <Styled_Link path={props.location.pathname} to="/transactions">Transactions</Styled_Link>
+                        <Add_Transaction />
                     </Left>
                     <Right>
                         <Logout_Btn onClick={() => {logout()}}>Log Out</Logout_Btn>
@@ -71,6 +73,8 @@ const Logout_Btn = styled.div`
 
 const Left = styled.div`
     width: 50%;
+    display: flex;
+    align-items: center;
 `
 const Right = styled.div`
     display: flex;

@@ -2,6 +2,7 @@ import superagent from 'superagent'
 import { store, set_logged_in, set_token, set_transactions, set_tags } from './store'
 import history from './history'
 
+
 export async function register_user(data) {
     return superagent.post('http://localhost:3000/register_user')
     .send(data)
@@ -60,6 +61,10 @@ export function logout() {
 
 export function create_transaction(transaction) {
     const token = localStorage.getItem("token");
+    if (!token) return;
+    
+    transaction.date = transaction.date.toUTCString();
+    
     superagent.post('http://localhost:3000/create_transaction')
     .send({transaction: transaction, token: token})
     .then(() => {
@@ -72,6 +77,7 @@ export function create_transaction(transaction) {
 
 export function get_transactions() {
     const token = localStorage.getItem("token");
+    if (!token) return;
     return superagent.post('http://localhost:3000/get_transactions')
     .send({token: token})
     .then(res => {
@@ -81,6 +87,7 @@ export function get_transactions() {
 
 export function delete_transaction(transaction) {
     const token = localStorage.getItem("token");
+    if (!token) return;
     superagent.post('http://localhost:3000/delete_transaction')
     .send({transaction_id: transaction.id, token: token})
     .then(res => {
@@ -91,6 +98,7 @@ export function delete_transaction(transaction) {
 
 export function get_month_data() {
     const token = localStorage.getItem("token");
+    if (!token) return;
     return superagent.post('http://localhost:3000/get_month_data')
     .send({ token: token })
     .then(res => {
@@ -102,6 +110,7 @@ export function get_month_data() {
 
 export function get_week_data() {
     const token = localStorage.getItem("token");
+    if (!token) return;
     return superagent.post('http://localhost:3000/get_week_data')
     .send({ token: token })
     .then(res => {
@@ -113,6 +122,7 @@ export function get_week_data() {
 
 export function get_day_data() {
     const token = localStorage.getItem("token");
+    if (!token) return;
     return superagent.post('http://localhost:3000/get_day_data')
     .send({ token: token })
     .then(res => {
@@ -124,6 +134,7 @@ export function get_day_data() {
 
 export function get_transaction_numbers_data() {
     const token = localStorage.getItem("token");
+    if (!token) return;
     return superagent.post('http://localhost:3000/get_transaction_numbers_data')
     .send({ token: token })
     .then(res => {
@@ -135,6 +146,7 @@ export function get_transaction_numbers_data() {
 
 export function get_tags() {
     const token = localStorage.getItem("token");
+    if (!token) return;
     return superagent.post('http://localhost:3000/get_tags')
     .send({ token: token })
     .then(res => {
@@ -146,6 +158,7 @@ export function get_tags() {
 
 export function get_popular_tags() {
     const token = localStorage.getItem("token");
+    if (!token) return;
     return superagent.post('http://localhost:3000/get_popular_tags')
     .send({ token: token })
     .then(res => {
@@ -156,6 +169,7 @@ export function get_popular_tags() {
 
 export function get_amount_spent_by_tags() {
     const token = localStorage.getItem("token");
+    if (!token) return;
     return superagent.post('http://localhost:3000/get_amount_spent_by_tags')
     .send({ token: token })
     .then(res => {

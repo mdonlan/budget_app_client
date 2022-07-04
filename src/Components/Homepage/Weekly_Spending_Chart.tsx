@@ -80,12 +80,12 @@ export function Weekly_Spending_Chart() {
             };
             weeks.push(last_week);
            
-            console.log(weeks)
+            // console.log(weeks)
             
             
             transactions.forEach(t => {
                 const week_in_month = getWeekOfMonth(new Date(t.date));
-                console.log(week_in_month)
+                // console.log(week_in_month)
                 weeks[week_in_month - 1].amount += t.value;
             });
 

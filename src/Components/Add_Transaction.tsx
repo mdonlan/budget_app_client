@@ -48,6 +48,7 @@ export function Add_Transaction() {
     function handle_submit(e) {
         create_transaction(transaction);
         set_is_active(false);
+        set_transaction({name: "", tags: [], value: 0, date: new Date()});
     }
 
     function handle_cancel() {
@@ -168,6 +169,10 @@ const Add_Transaction_Btn = styled.div`
     cursor: pointer;
     margin: 8px;
     width: 200px;
+
+    :hover {
+        background: #428ac9;
+    }
 `
 
 const New_Transaction = styled.div`
@@ -181,6 +186,7 @@ const New_Transaction = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index: 3;
 `
 
 const Row = styled.div`

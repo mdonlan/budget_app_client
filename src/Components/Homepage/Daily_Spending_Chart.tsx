@@ -21,19 +21,6 @@ interface Day_Of_Week {
     amount: number
 };
 
-// interface Dataset {
-//     label: string;
-//     data: any;
-//     borderColor: string;
-//     background_color: string;
-// };
-
-
-// interface Chart_Data {
-//     labels: string[],
-//     datasets: [];
-// };
-
 const starting_chart_data: ChartData = {
     labels: [],
     datasets: []
@@ -43,19 +30,19 @@ interface Chart_Options {
 
 };
 
-const starting_options = {
-    scales: {
-        y: {
-            // min: -200,
-            // max: 200
-        }
-    }
-};
+// const starting_options = {
+//     scales: {
+//         y: {
+//             // min: -200,
+//             // max: 200
+//         }
+//     }
+// };
 
 export function Daily_Spending_Chart() {
 
     const [chart_data, set_chart_data] = useState<any>(starting_chart_data);
-    const [options, set_options] = useState<any>(starting_options);
+    // const [options, set_options] = useState<any>(starting_options);
     const chart_ref = useRef(null);
    
     useEffect(() => {
@@ -123,7 +110,7 @@ export function Daily_Spending_Chart() {
 
     return (
         <Daily_Spending_Chart_Wrapper>
-            <Line options={options} data={chart_data} ref={chart_ref}/>
+            <Line data={chart_data} ref={chart_ref}/>
         </Daily_Spending_Chart_Wrapper>
     )
 }
