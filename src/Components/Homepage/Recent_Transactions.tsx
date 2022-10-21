@@ -42,8 +42,10 @@ const Recent_Transactions_Wrapper = styled.div`
 `
 
 const Title = styled.div`
-    color: #b5b5b5;
-    margin-bottom: 30px;
+    color: #dddddd;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-size: 24px;
 `;
 
 const Top = styled.div`

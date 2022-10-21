@@ -114,8 +114,9 @@ export function Spending_By_Tag_Chart() {
 }
 
 const Spending_By_Tag_Chart_Wrapper = styled.div`
-    width: 100%;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
 
 const Chart = styled.div``

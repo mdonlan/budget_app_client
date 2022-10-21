@@ -1,4 +1,5 @@
 import { combineReducers, configureStore, createSlice } from '@reduxjs/toolkit'
+import { getMonth } from 'date-fns';
 
 export interface Tag {
     id: number;
@@ -20,13 +21,15 @@ export interface Initial_State {
     token: string;
     transactions: Transaction[];
     tags: Tag[];
+    active_month: string; // date string
 }
 
 const initial_state: Initial_State = {
     logged_in: null,
     token: null,
     transactions: [],
-    tags: []
+    tags: [],
+    active_month: new Date(new Date().getFullYear(), new Date().getMonth()).toISOString() // first day of current month
 };
 
 const default_slice = createSlice({

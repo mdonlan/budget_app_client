@@ -15,6 +15,7 @@ import RGL, { WidthProvider } from "react-grid-layout";
 // const ResponsiveReactGridLayout = WidthProvider(Responsive);
 // import "../../sty"
 import "react-grid-layout/css/styles.css";
+import { format, parse, parseISO } from 'date-fns';
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -32,10 +33,10 @@ const items = [
     {key: "popular_tags", x: 6, y: 0, w: 3, h: 5, component: Popular_Tags},
     {key: "recent_transactions", x: 9, y: 0, w: 3, h: 4, component: Recent_Transactions},
     {key: "spending_by_tag", x: 0, y: 3, w: 3, h: 4, component: Spending_By_Tag},
-    {key: "daily_spending_chart", x: 0, y: 6, w: 3, h: 4, component: Daily_Spending_Chart},
-    {key: "weekly_spending_chart", x: 3, y: 6, w: 3, h: 4, component: Weekly_Spending_Chart},
+    {key: "daily_spending_chart", x: 0, y: 6, w: 3, h: 5, component: Daily_Spending_Chart},
+    {key: "weekly_spending_chart", x: 3, y: 6, w: 3, h: 5, component: Weekly_Spending_Chart},
     {key: "spending_by_tag_chart", x: 6, y: 6, w: 3, h: 6, component: Spending_By_Tag_Chart},
-    {key: "spending_by_transaction_chart", x: 0, y: 9, w: 3, h: 6, component: Spending_By_Transaction_Chart},
+    {key: "spending_by_transaction_chart", x: 9, y: 6, w: 3, h: 6, component: Spending_By_Transaction_Chart},
 ];
 
  {/*   <Homepage_Item area={"2 / 3 / 3 / 3"}>
@@ -65,6 +66,8 @@ export function Homepage() {
     //     {i: "num_transactions", x: 5, y: 0, w: 4, h: 1},
     //     {i: "popular_tags", x: 0, y: 4, w: 4, h: 1}
     // ]);
+
+    const active_month = useSelector(state => state.default.active_month);
 
     useEffect(() => {
         // set_layout(gen_layout());
@@ -119,14 +122,22 @@ export function Homepage() {
     
     
     return (
-        <ReactGridLayout
-        layout={layout}
-        onLayoutChange={onLayoutChange}
-        {...defaultProps}
-        // {...this.props}
-        >
-        {generateDOM()}
-        </ReactGridLayout>
+        <Homepage_Wrapper>
+            <Top>
+                <Active_Month>{format(parseISO(active_month), "MMMM yyyy")}</Active_Month>
+                <Active_Month_Btn>&lt;</Active_Month_Btn>
+                <Active_Month_Btn>&gt;</Active_Month_Btn>
+            </Top>
+            <ReactGridLayout
+                layout={layout}
+                onLayoutChange={onLayoutChange}
+                margin={[20, 20]}
+                {...defaultProps}
+                // {...this.props}
+                >
+                {generateDOM()}
+            </ReactGridLayout>
+        </Homepage_Wrapper>
     );
     
     
@@ -194,29 +205,49 @@ const Homepage_Wrapper = styled.div`
     // grid-auto-rows: minmax(100px, auto);
     // grid-column-gap: 0px;
     // grid-row-gap: 0px; 
-    width: 100%;
-    min-height: 100%;
+    // width: 100%;
+    // min-height: 100%;
 `
 
 const Homepage_Item = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    padding-bottom: 50px;
-    background: rgba(255, 255, 255, 0.09);
-    // width: 375px;
-    margin-left: 10px;
-    margin-right: 10px;
-    border-radius: 3px;
-    margin: 25px;
-    // grid-column-start: ${props => props.col_start};
-    // grid-column-end: ${props => props.col_end};
-    // grid-area: ${props => props.area};
-    // .div1 { grid-area: 2 / 2 / 3 / 3; } 
-    // min-width: 0;
-    // min-height: 0;
+    // display: flex;
+    // flex-direction: column;
+    // padding: 20px;
+    // padding-bottom: 50px;
+    // // background: rgba(255, 255, 255, 0.09);
+    // // width: 375px;
+    // margin-left: 10px;
+    // margin-right: 10px;
+    // border-radius: 3px;
+    // margin: 25px;
+    // // grid-column-start: ${props => props.col_start};
+    // // grid-column-end: ${props => props.col_end};
+    // // grid-area: ${props => props.area};
+    // // .div1 { grid-area: 2 / 2 / 3 / 3; } 
+    // // min-width: 0;
+    // // min-height: 0;
 `
 
 const Layout_Item = styled.div`
-    background: rgba(55, 158, 222, 0.2);
+    background: rgba(0, 64, 82, 0.5);
+    // margin: 10px;
+`
+const Active_Month = styled.div`
+    margin-right: 20px;
+    font-size: 24px;
+    // font-variant: small-caps;
+`
+
+const Top = styled.div`
+    display: flex;
+    margin-left: 30px;
+`
+
+const Active_Month_Btn = styled.div`
+    line-height; 24px;
+    display: flex;
+    align-items: center;
+    margin-left: 3px;
+    marign-right: 3px;
+    cursor: pointer;
 `

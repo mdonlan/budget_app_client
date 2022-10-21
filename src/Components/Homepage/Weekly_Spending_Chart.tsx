@@ -11,7 +11,7 @@ ChartJS.register(
     LinearScale,
     PointElement,
     LineElement,
-    Title,
+    // Title,
     Tooltip,
     Legend
 );
@@ -33,7 +33,13 @@ export function Weekly_Spending_Chart() {
         labels: [],
         datasets: []
     });
-    const [options, set_options] = useState<any>({});
+    const [options, set_options] = useState<any>({
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    });
     // const chart_ref = useRef(null);
    
     useEffect(() => {
@@ -93,7 +99,7 @@ export function Weekly_Spending_Chart() {
                 labels: weeks.map(w => w.name + " - " + format(w.start, "d") + " - " + format(w.end, "d")),
                 datasets: [
                     {
-                        label: "Weekly Spending",
+                        // label: "Weekly Spending",
                         data: weeks.map(w => w.amount),
                         borderColor: "red",
                         borderWidth: 1
@@ -110,11 +116,21 @@ export function Weekly_Spending_Chart() {
 
     return (
         <Weekly_Spending_Chart_Wrapper>
+            <Chart_Title>Weekly Spending</Chart_Title>
             <Line options={options} data={chart_data} />
         </Weekly_Spending_Chart_Wrapper>
     )
 }
 
 const Weekly_Spending_Chart_Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
 
+const Chart_Title = styled.div`
+    color: #dddddd;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-size: 24px;
 `

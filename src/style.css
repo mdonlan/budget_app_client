@@ -2,7 +2,8 @@ html, body {
     margin: 0px;
     padding: 0px;
     /* background: #fbfbfb; */
-    background: #222222;
+    /* background: #222222; */
+    background: rgba(0, 32, 41, 0.8);
     color: #dddddd;
     height: 100%;
 }

@@ -161,7 +161,6 @@ export function Add_Transaction() {
 const Wrapper = styled.div``
 
 const Add_Transaction_Btn = styled.div`
-    background: #3271a8;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -170,8 +169,10 @@ const Add_Transaction_Btn = styled.div`
     margin: 8px;
     width: 200px;
 
+    background: #00607A;
+
     :hover {
-        background: #428ac9;
+        background: #0098c2;
     }
 `
 

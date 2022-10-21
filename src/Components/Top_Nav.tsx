@@ -34,7 +34,7 @@ export function Top_Nav(props) {
 }
 
 const Wrapper = styled.div`
-    background: #1c1c1c;
+    background: rgba(0, 32, 41, 1);
     height: 70px;
     display: flex;
     align-items: center;

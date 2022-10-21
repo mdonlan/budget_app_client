@@ -58,8 +58,10 @@ const Popular_Tags_Wrapper = styled.div`
 `
 
 const Title = styled.div`
-    color: #b5b5b5;
-    margin-bottom: 30px;
+    color: #dddddd;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-size: 24px;
 `;
 
 const Top = styled.div`
@@ -80,7 +82,7 @@ const Tag = styled.div`
     display: flex;
     justify-content: space-around;
     width: 75%;
-    margin-top: 3px;
+    // margin-top: 3px;
     padding: 5px;
     font-size: 18px;
 `
