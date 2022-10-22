@@ -9,6 +9,7 @@ import { validate_token } from '../api'
 import { Homepage } from './Homepage/Homepage'
 import { Protected_Route } from './Protected_Route'
 import { get_transactions, get_tags } from '../api';
+import { Tags } from './Tags';
 
 
 export function App() {
@@ -33,6 +34,7 @@ export function App() {
                     <Route path="/login" component={Login} /> 
                     <Route path="/homepage" component={Homepage} /> 
                     <Protected_Route exact path="/transactions" component={Transactions}/>
+                    <Protected_Route exact path="/tags" component={Tags}/>
                 </Switch>
             </Bottom>
         </Wrapper>

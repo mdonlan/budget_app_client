@@ -22,6 +22,7 @@ export function Top_Nav(props) {
                 <React.Fragment>
                     <Left>
                         <Styled_Link path={props.location.pathname} to="/transactions">Transactions</Styled_Link>
+                        <Styled_Link path={props.location.pathname} to="/tags">Tags</Styled_Link>
                         <Add_Transaction />
                     </Left>
                     <Right>
@@ -34,7 +35,7 @@ export function Top_Nav(props) {
 }
 
 const Wrapper = styled.div`
-    background: rgba(0, 32, 41, 1);
+    // background: rgba(0, 32, 41, 1);
     height: 70px;
     display: flex;
     align-items: center;
@@ -51,9 +52,9 @@ const Styled_Link = styled(Link)<{path: string}>`
     font-size: 18px;
     border-bottom: ${props => props.path == props.to ? "1px solid" : "none"};
     font-variant:  small-caps;
-    :hover {
-        color: white;
-    }
+    // :hover {
+    //     color: white;
+    // }
 `
 
 const Logout_Btn = styled.div`
@@ -76,6 +77,7 @@ const Left = styled.div`
     display: flex;
     align-items: center;
 `
+
 const Right = styled.div`
     display: flex;
     justify-content: flex-end;

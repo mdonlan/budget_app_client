@@ -167,12 +167,12 @@ const Add_Transaction_Btn = styled.div`
     padding: 8px;
     cursor: pointer;
     margin: 8px;
-    width: 200px;
+    // width: x;
 
-    background: #00607A;
+    background: #222222;
 
     :hover {
-        background: #0098c2;
+        background: #2e2d2d;
     }
 `
 

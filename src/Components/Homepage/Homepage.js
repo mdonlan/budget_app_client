@@ -196,41 +196,10 @@ export function Homepage() {
     // )
 }
 
-const Homepage_Wrapper = styled.div`
-    // display: flex;
-    // flex-wrap: wrap;
-    // display: grid;
-    // grid-template-columns: repeat(4, 1fr);
-    // // grid-template-rows: repeat(5, 275px);
-    // grid-auto-rows: minmax(100px, auto);
-    // grid-column-gap: 0px;
-    // grid-row-gap: 0px; 
-    // width: 100%;
-    // min-height: 100%;
-`
-
-const Homepage_Item = styled.div`
-    // display: flex;
-    // flex-direction: column;
-    // padding: 20px;
-    // padding-bottom: 50px;
-    // // background: rgba(255, 255, 255, 0.09);
-    // // width: 375px;
-    // margin-left: 10px;
-    // margin-right: 10px;
-    // border-radius: 3px;
-    // margin: 25px;
-    // // grid-column-start: ${props => props.col_start};
-    // // grid-column-end: ${props => props.col_end};
-    // // grid-area: ${props => props.area};
-    // // .div1 { grid-area: 2 / 2 / 3 / 3; } 
-    // // min-width: 0;
-    // // min-height: 0;
-`
+const Homepage_Wrapper = styled.div``
 
 const Layout_Item = styled.div`
-    background: rgba(0, 64, 82, 0.5);
-    // margin: 10px;
+    background: #222222;
 `
 const Active_Month = styled.div`
     margin-right: 20px;
