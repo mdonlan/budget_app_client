@@ -16,6 +16,8 @@ import RGL, { WidthProvider } from "react-grid-layout";
 // import "../../sty"
 import "react-grid-layout/css/styles.css";
 import { format, parse, parseISO } from 'date-fns';
+import { Transactions_Table } from '../Transactions_Table'
+import { RootState } from '../../store';
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -67,7 +69,8 @@ export function Homepage() {
     //     {i: "popular_tags", x: 0, y: 4, w: 4, h: 1}
     // ]);
 
-    const active_month = useSelector(state => state.default.active_month);
+    const transactions = useSelector((state: RootState) => state.default.transactions);
+    // const active_month = useSelector(state => state.default.active_month);
 
     useEffect(() => {
         // set_layout(gen_layout());
@@ -123,12 +126,23 @@ export function Homepage() {
     
     return (
         <Homepage_Wrapper>
-            <Top>
+
+            {/* // 1. current daily/week/month spending
+            // 2. recent transactions
+            // 3. recent tags */}
+
+            <Expenses />
+            {/* <Recent_Transactions /> */}
+            
+            <Transactions_Table transactions={transactions.slice(transactions.length - 6, transactions.length)}/>
+
+
+            {/* <Top>
                 <Active_Month>{format(parseISO(active_month), "MMMM yyyy")}</Active_Month>
                 <Active_Month_Btn>&lt;</Active_Month_Btn>
                 <Active_Month_Btn>&gt;</Active_Month_Btn>
-            </Top>
-            <ReactGridLayout
+            </Top> */}
+            {/* <ReactGridLayout
                 layout={layout}
                 onLayoutChange={onLayoutChange}
                 margin={[20, 20]}
@@ -136,7 +150,7 @@ export function Homepage() {
                 // {...this.props}
                 >
                 {generateDOM()}
-            </ReactGridLayout>
+            </ReactGridLayout> */}
         </Homepage_Wrapper>
     );
     
