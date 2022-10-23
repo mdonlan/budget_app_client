@@ -134,7 +134,7 @@ export function Homepage() {
             <Expenses />
             {/* <Recent_Transactions /> */}
             
-            <Transactions_Table transactions={transactions.slice(transactions.length - 6, transactions.length)}/>
+            <Recent_Transactions />
 
 
             {/* <Top>
@@ -210,7 +210,11 @@ export function Homepage() {
     // )
 }
 
-const Homepage_Wrapper = styled.div``
+const Homepage_Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
 
 const Layout_Item = styled.div`
     background: #222222;

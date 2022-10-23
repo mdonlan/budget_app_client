@@ -10,6 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.13.7",
+    "@fortawesome/fontawesome-svg-core": "^6.2.0",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@reduxjs/toolkit": "^1.8.1",
     "@types/styled-components": "^5.1.25",
     "chart.js": "^3.8.0",

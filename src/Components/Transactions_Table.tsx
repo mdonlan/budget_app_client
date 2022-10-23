@@ -25,7 +25,8 @@ export const Transactions_Table: React.FC<Props> = ({transactions = []}: Props) 
 }
 
 const Wrapper = styled.div`
-    margin-top: 50px;
+    // margin-top: 50px;
+    padding: 20px;
 `
 
 const Col_Headers = styled.div`

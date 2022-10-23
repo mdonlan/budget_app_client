@@ -5,6 +5,9 @@ import { delete_transaction } from '../api';
 import { Add_Transaction } from './Add_Transaction';
 import { RootState } from '../store';
 import { format, startOfDay } from 'date-fns';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+
 
 export function Transaction_Component(props) {
     const [hovered, set_hovered] = useState<boolean>(false);
@@ -25,7 +28,7 @@ export function Transaction_Component(props) {
                 )
             })}
            {hovered &&
-                <Delete_Btn onClick={() => {set_started_delete(true)}}>X</Delete_Btn>
+                <Delete_Btn icon={faCircleXmark} onClick={() => {set_started_delete(true)}}></Delete_Btn>
             }
             {started_delete &&
                 <div>
@@ -37,33 +40,24 @@ export function Transaction_Component(props) {
     )
 }
 
-const Delete_Btn = styled.div`
-    padding-left: 8px;
-    padding-right: 8px;
-    margin-left: 8px;
-    margin-right: 8px;
-    color: red;
-    cursor: pointer;
-    background: #333333;
-    position: absolute;
-    left: calc(100% - 100px);
-    top: 0px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`
-
 const Transaction_Wrapper = styled.div`
     display: flex;
-    // margin-top: 8px;
-    // margin-bottom: 8px;
-    // margin-left: 8px;
-    // padding: 12px;
     padding-top: 12px;
     padding-bottom: 12px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
+`
+
+const Delete_Btn = styled(FontAwesomeIcon)`
+    cursor: pointer;
+    position: absolute;
+    left: calc(100% - 35px);
+    color: red;
+    opacity: 0.4;
+
+    :hover {
+
+    }
 `
 
 const Transaction_Item = styled.div`

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { logout } from '../api'
 import { RootState } from '../store';
 import { Add_Transaction } from './Add_Transaction';
 
-export function Top_Nav(props) {
+export function Left_Nav(props) {
     const logged_in = useSelector<RootState>(state => state.default.logged_in);
+    const history = useHistory();
 
     return (
         <Wrapper>
@@ -20,14 +21,15 @@ export function Top_Nav(props) {
             }
             {logged_in &&
                 <React.Fragment>
-                    <Left>
+                    {/* <Left> */}
                         <Styled_Link path={props.location.pathname} to="/transactions">Transactions</Styled_Link>
                         <Styled_Link path={props.location.pathname} to="/tags">Tags</Styled_Link>
+                        <Styled_Link path={props.location.pathname} to="/add_transaction">New Transaction</Styled_Link>
                         {/* <Add_Transaction /> */}
-                    </Left>
-                    <Right>
+                    {/* </Left> */}
+                    {/* <Right> */}
                         <Logout_Btn onClick={() => {logout()}}>Log Out</Logout_Btn>
-                    </Right>
+                    {/* </Right> */}
                 </React.Fragment>
             }
         </Wrapper>
@@ -36,33 +38,36 @@ export function Top_Nav(props) {
 
 const Wrapper = styled.div`
     background: #222222;
-    height: 70px;
+    height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    // width: 100%;
+    padding-top: 50px;
 `
 
-const Styled_Link = styled(Link)<{path: string}>`
-    margin-left: 14px;
-    margin-right: 14px;
-    padding-left: 5px;
-    padding-right: 5px;
+export const Styled_Link = styled(Link)<{path: string}>`
+    padding-top: 10px;
+    padding-bottom: 10px;
     text-decoration: none;
     color: ${props => props.path == props.to ? "white" : "gray"};
+    background: ${props => props.path == props.to ? "#333333" : "#222222"};
     cursor: pointer;
     font-size: 18px;
-    border-bottom: ${props => props.path == props.to ? "1px solid" : "none"};
     font-variant:  small-caps;
-    // :hover {
-    //     color: white;
-    // }
+    :hover {
+        background: #333333;
+    }
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 const Logout_Btn = styled.div`
-    margin-left: 14px;
-    margin-right: 14px;
-    padding-left: 5px;
-    padding-right: 5px;
+    margin-top: 14px;
+    margin-bottom: 14px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     color: gray;
     cursor: pointer;
     font-size: 18px;

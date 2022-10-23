@@ -6,6 +6,7 @@ import { create_transaction } from '../api';
 import { RootState, Tag } from '../store';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Styled_Link } from './Left_Nav';
 
 interface Matching_Tag_Props {
     active: boolean;
@@ -13,7 +14,7 @@ interface Matching_Tag_Props {
 
 export function Add_Transaction() {
 
-    const [is_active, set_is_active] = useState(false);
+    // const [is_active, set_is_active] = useState(false);
     const transaction_ref = useRef(null);
     const existing_tags = useSelector((state: RootState) => state.default.tags);
 
@@ -37,9 +38,9 @@ export function Add_Transaction() {
         // get_accounts();
     }, []);
 
-    function clicked_add_transaction() {
-        set_is_active(true);
-    }
+    // function clicked_add_transaction() {
+    //     set_is_active(true);
+    // }
 
     function handle_change(e) {
         set_transaction({...transaction, [e.target.name]: e.target.value});
@@ -47,13 +48,13 @@ export function Add_Transaction() {
 
     function handle_submit(e) {
         create_transaction(transaction);
-        set_is_active(false);
+        // set_is_active(false);
         set_transaction({name: "", tags: [], value: 0, date: new Date()});
     }
 
-    function handle_cancel() {
-        set_is_active(false);
-    }
+    // function handle_cancel() {
+    //     set_is_active(false);
+    // }
 
     function new_tag_keydown(event) {
         if (event.keyCode == 13) { // enter
@@ -115,8 +116,8 @@ export function Add_Transaction() {
 
     return (
         <Wrapper >
-            <Add_Transaction_Btn onClick={clicked_add_transaction}>Add Transaction</Add_Transaction_Btn>
-            {is_active &&
+            {/* <Add_Transaction_Btn onClick={clicked_add_transaction}>Add Transaction</Add_Transaction_Btn> */}
+            {/* {is_active && */}
                 <New_Transaction ref={transaction_ref}>
                     <Row>
                         <Field_Name>Name</Field_Name>
@@ -151,29 +152,34 @@ export function Add_Transaction() {
                     {/* </Row> */}
                    
                     <Create_Btn onClick={handle_submit}>create</Create_Btn>
-                    <Cancel_Btn onClick={handle_cancel}>cancel</Cancel_Btn>
+                    {/* <Cancel_Btn onClick={handle_cancel}>cancel</Cancel_Btn> */}
                 </New_Transaction>
-            }
+            {/* } */}
         </Wrapper>
     )
 }
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+    width: 100%;
+`
 
 const Add_Transaction_Btn = styled.div`
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-decoration: none;
+    color: gray;
+    
+    cursor: pointer;
+    font-size: 18px;
+    font-variant:  small-caps;
+    :hover {
+        background: #333333;
+        color: white;
+    }
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 8px;
-    cursor: pointer;
-    margin: 8px;
-    // width: x;
-
-    background: #222222;
-
-    :hover {
-        background: #2e2d2d;
-    }
 `
 
 const New_Transaction = styled.div`

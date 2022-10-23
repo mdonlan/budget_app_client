@@ -14,7 +14,7 @@ export function Transactions() {
     return (
         <Wrapper>
             <Buttons>
-                <Add_Transaction />
+                {/* <Add_Transaction /> */}
                 {/* <Is_Deleting_Btn onClick={() => {set_is_deleting(!is_deleting)}}>{is_deleting ? "Stop Editing" : "Edit"}</Is_Deleting_Btn> */}
             </Buttons>
             {/* top row to show names of columns */}
