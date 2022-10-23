@@ -35,7 +35,7 @@ export function Top_Nav(props) {
 }
 
 const Wrapper = styled.div`
-    background: #222222;
+    background: ${props => props.theme.background};
     height: 70px;
     display: flex;
     align-items: center;

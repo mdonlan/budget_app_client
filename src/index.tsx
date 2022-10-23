@@ -6,11 +6,15 @@ import { store } from './store'
 import { Router } from 'react-router-dom'
 import "./style.css";
 import history from './history'
+import { ThemeProvider } from "styled-components";
+import { theme } from "./Theme";
 
 render(
     <Provider store={store}>
         <Router history={history}>
-            <App />
+            <ThemeProvider theme={theme}>
+                <App />
+            </ThemeProvider>
         </Router>
     </Provider>, 
     document.getElementById("root")

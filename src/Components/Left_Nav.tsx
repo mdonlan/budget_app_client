@@ -37,7 +37,7 @@ export function Left_Nav(props) {
 }
 
 const Wrapper = styled.div`
-    background: #222222;
+    background: ${props => props.theme.background};
     height: 100%;
     display: flex;
     flex-direction: column;

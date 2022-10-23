@@ -13,7 +13,12 @@ export function Transaction_Component(props) {
     const [hovered, set_hovered] = useState<boolean>(false);
     const [started_delete, set_started_delete] = useState<boolean>(false);
     return (
-        <Transaction_Wrapper key={props.t.id} onMouseEnter={() => {set_hovered(true)}} onMouseLeave={() => {set_hovered(false)}}>
+        <Transaction_Wrapper 
+            key={props.t.id} 
+            onMouseEnter={() => {set_hovered(true)}} 
+            onMouseLeave={() => {set_hovered(false)}}
+            hovered={hovered}
+        >
             <Transaction_Item>{props.t.name}</Transaction_Item>
             <Transaction_Item>{format(new Date(props.t.date), 'MM/dd/yyyy')}</Transaction_Item>
             <Transaction_Item>{props.t.value}</Transaction_Item>
@@ -40,12 +45,13 @@ export function Transaction_Component(props) {
     )
 }
 
-const Transaction_Wrapper = styled.div`
+const Transaction_Wrapper = styled.div<{hovered: boolean}>`
     display: flex;
     padding-top: 12px;
     padding-bottom: 12px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
+    background: ${props => props.hovered ? "#232323" : "none"};
 `
 
 const Delete_Btn = styled(FontAwesomeIcon)`

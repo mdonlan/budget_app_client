@@ -22,14 +22,18 @@ export function Tags() {
     return (
         <Wrapper>
             <Title>Tags</Title>
+            
+            {!active_tag &&
+                <No_Active_Tag>Select a tag to view related transactions</No_Active_Tag>
+            }
             {active_tag &&
-                <Active_Tag>Active Tag: {active_tag.value}</Active_Tag>
+                <Tag active={true}>Active Tag: {active_tag.value}</Tag>
             }
 
             <All_Tags>
                 {tags.map(tag => {
                     return (
-                        <Tag key={tag.id} onClick={() => {set_active_tag(tag)}}>{tag.value}</Tag>
+                        <Tag key={tag.id} active={active_tag ? active_tag.id == tag.id ? true : false : false} onClick={() => {set_active_tag(tag)}}>{tag.value}</Tag>
                     )
                 })}
             </All_Tags>
@@ -69,25 +73,23 @@ const All_Tags = styled.div`
     display: flex;
 `
 
-const Tag = styled.div`
-    background: #222222;
+const Tag = styled.div<{active: boolean}>`
+    background: ${props => props.active ? "#295dab" : props.theme.background};
     margin-left: 5px;
     margin-right: 5px;
     border-radius: 14px;
     padding: 8px;
     cursor: pointer;
-
+    margin-bottom: 12px;
+    
     :hover {
-        background: #333333;
+        background: ${props => props.active ? "#295dab" : "#333333"};
     }
 `
 
-const Active_Tag = styled(Tag)`
+const No_Active_Tag = styled.div`
     margin-bottom: 12px;
-    cursor: auto;
-    :hover {
-        background: #222222; // cancel from normal tag style
-    }
+    padding: 8px;
 `
 
 const Matching_Transactions = styled.div`
@@ -100,15 +102,8 @@ const Matching_Transactions_Title = styled.div`
     margin-bottom: 12px;
 `
 
-const Transaction = styled.div`
-    
-`
 const Col_Headers = styled.div`
     display: flex;
-    // margin-top: 8px;
-    // margin-bottom: 8px;
-    // margin-left: 8px;
-    // padding: 12px;
     padding-top: 12px;
     padding-bottom: 12px;
     border-bottom: 2px solid rgba(255, 255, 255, 0.6);

@@ -14,7 +14,7 @@ export interface Transaction {
     tags: string[];
     username: string;
     date: Date;
-}
+};
 
 export interface Initial_State {
     logged_in: boolean;
@@ -22,7 +22,7 @@ export interface Initial_State {
     transactions: Transaction[];
     tags: Tag[];
     active_month: string; // date string
-}
+};
 
 const initial_state: Initial_State = {
     logged_in: null,

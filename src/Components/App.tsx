@@ -17,10 +17,12 @@ import { Add_Transaction } from './Add_Transaction';
 export function App() {
     const location = useLocation();
 
-    useEffect(async () => {
-        await validate_token();
-        get_transactions();
-        get_tags();
+    useEffect(() => {
+        (async () => {
+            await validate_token();
+            await get_transactions();
+            await get_tags();
+        })()
     }, [])
 
     return (

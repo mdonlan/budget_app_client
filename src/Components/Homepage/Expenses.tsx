@@ -59,7 +59,7 @@ const Expenses_Title = styled.div`
     color: #dddddd;
     margin-top: 12px;
     margin-bottom: 12px;
-    font-size: 24px;
+    font-size: 32px;
 `
 
 const Expenses_Top = styled.div`
