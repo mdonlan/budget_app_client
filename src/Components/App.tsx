@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import styled from "styled-components"
-import { BrowserRouter as Router, Switch, Route, Link, useHistory, useLocation, Redirect } from "react-router-dom";
+import { HashRouter as Router, Switch, Route, Link, useHistory, useLocation, Redirect } from "react-router-dom";
 import { Register } from './Register'
 import { Login } from './Login'
 import { Top_Nav } from './Top_Nav'
@@ -27,26 +27,28 @@ export function App() {
 
     return (
         <Wrapper>
-            <Left>
-                <Left_Nav location={location}/>
-            </Left>
-            <Right>
-                <Top>
-                    {/* <Top_Nav location={location}/> */}
-                </Top>
-                <Bottom>
-                    <Switch>
-                        <Route exact path="/" component={Homepage} /*exact component={Budget} */ />
-                        {/* <Protected_Route exact path="/budget" component={Budget}/> */}
-                        <Route path="/register" component={Register} /> 
-                        <Route path="/login" component={Login} /> 
-                        <Route path="/homepage" component={Homepage} /> 
-                        <Protected_Route exact path="/transactions" component={Transactions}/>
-                        <Protected_Route exact path="/tags" component={Tags}/>
-                        <Protected_Route exact path="/add_transaction" component={Add_Transaction}/>
-                    </Switch>
-                </Bottom>
-            </Right>
+            <Router>
+                <Left>
+                    <Left_Nav location={location}/>
+                </Left>
+                <Right>
+                    <Top>
+                        {/* <Top_Nav location={location}/> */}
+                    </Top>
+                    <Bottom>
+                        <Switch>
+                            <Route exact path="/" component={Homepage} /*exact component={Budget} */ />
+                            {/* <Protected_Route exact path="/budget" component={Budget}/> */}
+                            <Route path="/register" component={Register} /> 
+                            <Route path="/login" component={Login} /> 
+                            <Route path="/homepage" component={Homepage} /> 
+                            <Protected_Route exact path="/transactions" component={Transactions}/>
+                            <Protected_Route exact path="/tags" component={Tags}/>
+                            <Protected_Route exact path="/add_transaction" component={Add_Transaction}/>
+                        </Switch>
+                    </Bottom>
+                </Right>
+            </Router>
         </Wrapper>
     )
 }

@@ -3,8 +3,12 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.tsx",
+  "homepage": "https://mdonlan.github.io/budget_app_client",
   "scripts": {
-    "start": "webpack serve --mode=development"
+    "build": "webpack --mode production",
+    "start": "webpack serve --mode=development",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "author": "",
   "license": "ISC",
@@ -47,6 +51,7 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-styled-components": "^1.12.0",
     "css-loader": "^5.2.4",
+    "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.2.0",
     "style-loader": "^2.0.0"
   }
