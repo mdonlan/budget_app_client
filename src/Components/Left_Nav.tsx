@@ -24,6 +24,7 @@ export function Left_Nav(props) {
                     {/* <Left> */}
                         <Styled_Link path={props.location.pathname} to="/transactions">Transactions</Styled_Link>
                         <Styled_Link path={props.location.pathname} to="/tags">Tags</Styled_Link>
+                        <Styled_Link path={props.location.pathname} to="/charts">Charts</Styled_Link>
                         <Styled_Link path={props.location.pathname} to="/add_transaction">New Transaction</Styled_Link>
                         {/* <Add_Transaction /> */}
                     {/* </Left> */}

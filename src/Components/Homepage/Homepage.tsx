@@ -3,13 +3,49 @@ import styled from 'styled-components';
 import { Expenses } from './Expenses';
 import { Recent_Transactions } from './Recent_Transactions';
 import { Recent_Tags } from './Recent_Tags';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { Login } from '../Login'
+import { Register } from '../Register';
+import { Time_Period_Data } from './Time_Period_Data';
+import { Time_Period } from '../../Types';
 
 export function Homepage() {
+    const logged_in = useSelector((state: RootState) => state.default.logged_in);
+
+    // if not logged in show either the Login or Register component
+
+    
+    const [show_login, set_show_login] = useState<boolean>(true);
+    
+
     return (
         <Homepage_Wrapper>
-            <Expenses />
-            <Recent_Transactions />
-            {/* <Recent_Tags /> */}
+            {logged_in &&
+                <>
+                    
+                    <Expenses/>
+                    <Recent_Transactions />
+                
+                    <Time_Period_Data/>
+                    
+                </>
+            }
+            {!logged_in &&
+                <Login_Or_Register>
+                    {show_login &&
+                        <Login />
+                    }
+                    {!show_login &&
+                        <Register />
+                    }
+                    <Bottom>
+                        <Button active={show_login} onClick={() => set_show_login(true)}>Login</Button>
+                        <Button active={!show_login} onClick={() => set_show_login(false)}>Register</Button>
+                    </Bottom>
+
+                </Login_Or_Register>
+            }
         </Homepage_Wrapper>
     );
 }
@@ -20,25 +56,27 @@ const Homepage_Wrapper = styled.div`
     align-items: center;
 `
 
-const Layout_Item = styled.div`
-    background: ${props => props.theme.background};
-`
-const Active_Month = styled.div`
-    margin-right: 20px;
-    font-size: 24px;
-    // font-variant: small-caps;
+const Login_Or_Register = styled.div`
+    height: 300px;
+    width: 300px;
+    margin-top: calc(50% - 150px);
+    background: #222222;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `
 
-const Top = styled.div`
+const Bottom = styled.div`
     display: flex;
-    margin-left: 30px;
+    width: 100%;
 `
 
-const Active_Month_Btn = styled.div`
-    line-height; 24px;
+const Button = styled.div<{active: boolean}>`
+    background: ${props => props.active ? "#2d65c4" : "#333333"};
+    width: 50%;
+    padding: 8px;
+    color: ${props => props.active ? "#dddddd" : "#6b6b6b"};
     display: flex;
+    justify-content: center;
     align-items: center;
-    margin-left: 3px;
-    marign-right: 3px;
-    cursor: pointer;
 `

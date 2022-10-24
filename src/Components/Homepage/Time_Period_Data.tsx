@@ -1,0 +1,75 @@
+import React, { useEffect, useState } from 'react';
+import { get_time_period_data } from '../../api';
+import styled from 'styled-components';
+import { Time_Period } from '../../Types';
+
+export function Time_Period_Data() {
+    // const [month_expenses, set_month_expenses] = useState<number>(0);
+    // const [week_expenses, set_week_expenses] = useState<number>(0);
+    // const [day_expenses, set_day_expenses] = useState<number>(0);
+    const [time_period, set_time_period] = useState<Time_Period>(Time_Period.WEEK);
+    const [time_period_data, set_time_period_data] = useState(null);
+
+    useEffect(() => {
+        (async () => {
+            const data = await get_time_period_data(time_period);
+            set_time_period_data(data);
+        })();
+    }, [time_period]);
+
+    return (
+        <Wrapper>
+            <Time_Periods>
+                <Time_Period_El active={time_period == Time_Period.DAY} onClick={() => set_time_period(Time_Period.DAY)}>Day</Time_Period_El>
+                <Time_Period_El active={time_period == Time_Period.WEEK} onClick={() => set_time_period(Time_Period.WEEK)}>Week</Time_Period_El>
+                <Time_Period_El active={time_period == Time_Period.MONTH} onClick={() => set_time_period(Time_Period.MONTH)}>Month</Time_Period_El>
+                <Time_Period_El active={time_period == Time_Period.YEAR} onClick={() => set_time_period(Time_Period.YEAR)}>Year</Time_Period_El>
+            </Time_Periods>
+            <Title>{Time_Period[time_period]}</Title>
+            {time_period_data &&
+                <Data>
+                    <Text># Transactions: {time_period_data.num_transactions}</Text>
+                    <Text>Spent ${time_period_data.money_spent}</Text>
+                </Data>
+            }
+        </Wrapper>
+    )
+}
+
+const Wrapper = styled.div`
+    margin-top: 50px;
+`
+
+const Title = styled.div`
+    font-size: 24px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    text-align: center;
+`
+
+const Time_Periods = styled.div`
+    display: flex;
+`
+
+const Time_Period_El = styled.div<{active: boolean}>`
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 12px;
+    cursor: pointer;
+
+    background: ${props => props.active ? "#2967b3" : '#222222'};
+
+    :hover {
+        background: #2967b3;
+    }
+`
+
+const Data = styled.div`
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+`
+
+const Text = styled.div`
+    margin: 8px;
+`

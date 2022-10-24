@@ -12,6 +12,7 @@ import { get_transactions, get_tags } from '../api';
 import { Tags } from './Tags';
 import { Left_Nav } from './Left_Nav'
 import { Add_Transaction } from './Add_Transaction';
+import { Charts } from './Charts'
 
 
 export function App() {
@@ -45,6 +46,7 @@ export function App() {
                             <Protected_Route exact path="/transactions" component={Transactions}/>
                             <Protected_Route exact path="/tags" component={Tags}/>
                             <Protected_Route exact path="/add_transaction" component={Add_Transaction}/>
+                            <Protected_Route exact path="/charts" component={Charts}/>
                         </Switch>
                     </Bottom>
                 </Right>

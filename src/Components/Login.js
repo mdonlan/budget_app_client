@@ -25,6 +25,7 @@ export function Login() {
 
     return (
         <Wrapper>
+            <Title>Login</Title>
             <Form onSubmit={handle_submit}>
                 <Styled_Input onChange={e => {set_username(e.target.value)}} value={username} placeholder='username'></Styled_Input>
                 <Styled_Input onChange={e => {set_password(e.target.value)}} value={password} placeholder='password' type='password'></Styled_Input>
@@ -39,9 +40,14 @@ export function Login() {
 
 const Wrapper = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
+`
+
+const Title = styled.div`
+    font-size: 32px;
+    margin-bottom: 24px;
 `
 
 const Form = styled.form`
@@ -62,6 +68,7 @@ const Styled_Input = styled.input`
     :focus {
         background: #272a2b;
     }
+    color: #dddddd;
 `
 
 const Login_Btn = styled.input`

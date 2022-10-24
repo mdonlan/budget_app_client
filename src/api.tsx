@@ -1,6 +1,7 @@
 import superagent from 'superagent'
 import { store, set_logged_in, set_token, set_transactions, set_tags } from './store'
 import history from './history'
+import { Time_Period } from './Types'
 
 let host = null;
 
@@ -181,6 +182,18 @@ export function get_amount_spent_by_tags() {
     .send({ token: token })
     .then(res => {
         console.log('get_amount_spend_by_tags call return')
+        return res.body;
+    })
+    .catch(e => console.log(e))
+}
+
+export function get_time_period_data(time_period: Time_Period) {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    return superagent.post(`${host}/get_time_period_data`)
+    .send({ token: token, time_period: time_period })
+    .then(res => {
+        console.log(res.body)
         return res.body;
     })
     .catch(e => console.log(e))

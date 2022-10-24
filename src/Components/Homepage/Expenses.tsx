@@ -10,15 +10,19 @@ export function Expenses() {
     useEffect(() => {
         async function get_data() {
             const month_data = await get_month_data();
-            set_month_expenses(month_data.transactions.reduce((total, t) => total + t.value, 0));
+            if (month_data) {
+                set_month_expenses(month_data.transactions.reduce((total, t) => total + t.value, 0));
+            }
 
             const week_data = await get_week_data();
-            // console.log('week data');
-            // console.log(week_data);
-            set_week_expenses(week_data.transactions.reduce((total, t) => total + t.value, 0));
+            if (week_data) {
+                set_week_expenses(week_data.transactions.reduce((total, t) => total + t.value, 0));
+            }
 
             const day_data = await get_day_data();
-            set_day_expenses(day_data.transactions.reduce((total, t) => total + t.value, 0));
+            if (day_data) {
+                set_day_expenses(day_data.transactions.reduce((total, t) => total + t.value, 0));
+            }
         }
         
         get_data();
