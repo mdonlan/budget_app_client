@@ -10,9 +10,20 @@ export function Transactions() {
 
     return (
         <Wrapper>
+            <Title>Transactions</Title>
             <Transactions_Table transactions={transactions}/>
         </Wrapper>
     )
 }
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+    height: 100%;
+    overflow-y: auto;
+    margin: 20px;
+`
+
+const Title = styled.div`
+    font-size: 32px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+`

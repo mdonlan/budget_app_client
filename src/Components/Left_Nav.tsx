@@ -42,7 +42,6 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 50px;
 `
 
 export const Styled_Link = styled(Link)<{path: string}>`
@@ -50,7 +49,7 @@ export const Styled_Link = styled(Link)<{path: string}>`
     padding-bottom: 10px;
     text-decoration: none;
     color: ${props => props.path == props.to ? "white" : "gray"};
-    background: ${props => props.path == props.to ? "#333333" : "#222222"};
+    background: ${props => props.path == props.to ? "#333333" : props.theme.background};
     cursor: pointer;
     font-size: 18px;
     font-variant:  small-caps;
