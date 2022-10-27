@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { get_amount_spent_by_tags } from '../../api';
 import styled from 'styled-components';
+import { Time_Period } from '../../Types';
 
 // interface Popular_Tag {
 //     value: string;
@@ -12,12 +13,12 @@ interface Spending_Tag {
     amount: number;
 };
 
-export function Spending_By_Tag() {
+export function Spending_By_Tag(props: {time_period: Time_Period}) {
     const [spending_tags, set_spending_tags] = useState<Spending_Tag[]>([]);
 
     useEffect(() => {
         async function get_data() {
-            const data = await get_amount_spent_by_tags();
+            const data = await get_amount_spent_by_tags(props.time_period);
             // console.log(data.spending_tags);
             set_spending_tags(data.spending_tags);
         }

@@ -175,11 +175,11 @@ export function get_popular_tags() {
     .catch(e => console.log(e))
 }
 
-export function get_amount_spent_by_tags() {
+export function get_amount_spent_by_tags(time_period: Time_Period) {
     const token = localStorage.getItem("token");
     if (!token) return;
     return superagent.post(`${host}/get_amount_spent_by_tags`)
-    .send({ token: token })
+    .send({ token: token, time_period: time_period })
     .then(res => {
         console.log('get_amount_spend_by_tags call return')
         return res.body;

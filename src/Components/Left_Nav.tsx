@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom'
@@ -5,6 +6,7 @@ import styled from 'styled-components'
 import { logout } from '../api'
 import { RootState } from '../store';
 import { Add_Transaction } from './Add_Transaction';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 export function Left_Nav(props) {
     const logged_in = useSelector<RootState>(state => state.default.logged_in);
@@ -24,8 +26,8 @@ export function Left_Nav(props) {
                     {/* <Left> */}
                         <Styled_Link path={props.location.pathname} to="/transactions">Transactions</Styled_Link>
                         <Styled_Link path={props.location.pathname} to="/tags">Tags</Styled_Link>
-                        <Styled_Link path={props.location.pathname} to="/charts">Charts</Styled_Link>
-                        <Styled_Link path={props.location.pathname} to="/add_transaction">New Transaction</Styled_Link>
+                        {/* <Styled_Link path={props.location.pathname} to="/charts">Charts</Styled_Link> */}
+                        <Styled_Link path={props.location.pathname} to="/add_transaction">New Transaction &nbsp;<FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon></Styled_Link>
                         {/* <Add_Transaction /> */}
                     {/* </Left> */}
                     {/* <Right> */}
@@ -56,6 +58,7 @@ export const Styled_Link = styled(Link)<{path: string}>`
     font-variant:  small-caps;
     :hover {
         background: #333333;
+        color: white;
     }
     width: 100%;
     display: flex;

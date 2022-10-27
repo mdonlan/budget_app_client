@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartData, ChartOptions } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { get_amount_spent_by_tags } from '../../api';
+import { Time_Period } from '../../Types';
 // import { startOfMonth, addWeeks, getWeekOfMonth, format, endOfMonth } from 'date-fns';
 
 
@@ -51,7 +52,7 @@ const plugin = {
     }
 }
 
-export function Spending_By_Tag_Chart() {
+export function Spending_By_Tag_Chart(props: {time_period: Time_Period}) {
 
     const [chart_data, set_chart_data] = useState<any>({
         labels: [],
@@ -59,13 +60,13 @@ export function Spending_By_Tag_Chart() {
     });
     const [options, set_options] = useState<ChartOptions>({
         maintainAspectRatio: false,
-        // responsive: false,
+        responsive: true,
     });
     // const chart_ref = useRef(null);
    
     useEffect(() => {
        async function get_data() {
-            const data = await get_amount_spent_by_tags();
+            const data = await get_amount_spent_by_tags(props.time_period);
             console.log("amount spent by tags")
             console.log(data);
             const tags = data.spending_tags;
@@ -114,12 +115,17 @@ export function Spending_By_Tag_Chart() {
 }
 
 const Spending_By_Tag_Chart_Wrapper = styled.div`
+    width: 50%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 `
 
-const Chart = styled.div``
+const Chart = styled.div`
+    width: 100%;
+    width: 100%;
+`
 
 const Title = styled.div`
     font-size: 24px;

@@ -67,6 +67,7 @@ const Left = styled.div`
 
 const Right = styled.div`
     width: 100%;
+    overflow: auto;
 `
 
 const Top = styled.div`

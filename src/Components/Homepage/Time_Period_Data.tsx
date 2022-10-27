@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { get_time_period_data } from '../../api';
 import styled from 'styled-components';
 import { Time_Period } from '../../Types';
+import { Weekly_Spending_Chart } from './Weekly_Spending_Chart';
+import { Spending_By_Tag_Chart } from './Spending_By_Tag_Chart';
+import { Spending_By_Transaction_Chart } from './Spending_By_Transaction_Chart';
 
 export function Time_Period_Data() {
     // const [month_expenses, set_month_expenses] = useState<number>(0);
@@ -28,8 +31,17 @@ export function Time_Period_Data() {
             <Title>{Time_Period[time_period]}</Title>
             {time_period_data &&
                 <Data>
-                    <Text># Transactions: {time_period_data.num_transactions}</Text>
-                    <Text>Spent ${time_period_data.money_spent}</Text>
+                    <Data_Text>
+                        <Text># Transactions: {time_period_data.num_transactions}</Text>
+                        <Text>Spent ${time_period_data.money_spent}</Text>
+                    </Data_Text>
+                    <Charts>
+                        <Spending_By_Tag_Chart time_period={time_period}/>
+                        <Spending_By_Transaction_Chart />
+                        {time_period == Time_Period.MONTH &&
+                            <Weekly_Spending_Chart />
+                        }
+                    </Charts>
                 </Data>
             }
         </Wrapper>
@@ -38,6 +50,10 @@ export function Time_Period_Data() {
 
 const Wrapper = styled.div`
     margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 `
 
 const Title = styled.div`
@@ -65,11 +81,26 @@ const Time_Period_El = styled.div<{active: boolean}>`
 `
 
 const Data = styled.div`
-    margin-top: 24px;
+    width: 100%;
+    margin-bottom: 25px;
+    margin-top: 25px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+`
+
+const Data_Text = styled.div`
+    display: flex;
+    margin-bottom: 25px;
 `
 
 const Text = styled.div`
     margin: 8px;
+`
+
+const Charts = styled.div`
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 `

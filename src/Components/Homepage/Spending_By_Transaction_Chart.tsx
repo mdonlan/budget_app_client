@@ -29,10 +29,15 @@ const plugin = {
 export function Spending_By_Transaction_Chart() {
     const [chart_data, set_chart_data] = useState<any>({
         labels: [],
-        datasets: []
+        datasets: [],
     });
     const [options, set_options] = useState<ChartOptions>({
         maintainAspectRatio: false,
+        // plugins: {
+        //     legend: {
+        //         display: false
+        //     }
+        // }
         // responsive: false,
     });
     // const chart_ref = useRef(null);
@@ -68,7 +73,7 @@ export function Spending_By_Transaction_Chart() {
                             'rgba(255, 159, 64, 1)',
                         ]
                     }
-                ]
+                ],
             }
         
             set_chart_data(new_chart_data);        
@@ -88,14 +93,19 @@ export function Spending_By_Transaction_Chart() {
 }
 
 const Spending_By_Transaction_Chart_Wrapper = styled.div`
-    // width: 100%;
-    // height: 100%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    width: 50%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 `
 
-const Chart = styled.div``
+const Chart = styled.div`
+    width: 100%;
+    width: 100%;
+`
 
 const Title = styled.div`
     font-size: 24px;

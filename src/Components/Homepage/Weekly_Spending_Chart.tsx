@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ChartOptions, ChartData, DatasetController } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ChartOptions, ChartData, Filler } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { get_month_data } from '../../api';
 import { startOfMonth, addWeeks, getWeekOfMonth, format, endOfMonth } from 'date-fns';
@@ -13,7 +13,8 @@ ChartJS.register(
     LineElement,
     // Title,
     Tooltip,
-    Legend
+    Legend,
+    Filler
 );
 
 interface Week {
@@ -33,10 +34,15 @@ export function Weekly_Spending_Chart() {
         labels: [],
         datasets: []
     });
-    const [options, set_options] = useState<any>({
+    const [options, set_options] = useState<ChartOptions>({
         plugins: {
             legend: {
                 display: false
+            },
+        },
+        elements: {
+            line: {
+                tension: 0.3
             }
         }
     });
@@ -52,7 +58,8 @@ export function Weekly_Spending_Chart() {
             const start_of_month = startOfMonth(new Date());
             const start_second_week = addWeeks(start_of_month, 1);
             const start_third_week = addWeeks(start_of_month, 2);
-            const start_last_week = addWeeks(start_of_month, 3);
+            const start_fouth_week = addWeeks(start_of_month, 3);
+            const start_fifth_week = addWeeks(start_of_month, 4);
 
             const first_week: Week = {
                 start: start_of_month,
@@ -72,26 +79,35 @@ export function Weekly_Spending_Chart() {
 
             const third_week: Week = {
                 start: start_third_week,
-                end: start_last_week,
+                end: start_fouth_week,
                 amount: 0,
                 name: "Third"
             };
             weeks.push(third_week);
             
-            const last_week: Week = {
-                start: start_last_week,
-                end: endOfMonth(new Date()),
+            const fourth_week: Week = {
+                start: start_fouth_week,
+                end: start_fifth_week,
                 amount: 0,
                 name: "Fourth"
             };
-            weeks.push(last_week);
+            weeks.push(fourth_week);
+
+            const fifth_week: Week = {
+                start: start_fifth_week,
+                end: endOfMonth(new Date()),
+                amount: 0,
+                name: "Fifth"
+            };
+            weeks.push(fifth_week);
            
-            // console.log(weeks)
+            console.log(weeks)
             
             
             transactions.forEach(t => {
                 const week_in_month = getWeekOfMonth(new Date(t.date));
-                // console.log(week_in_month)
+                console.log(week_in_month)
+                // weeks[3]
                 weeks[week_in_month - 1].amount += t.value;
             });
 
@@ -101,9 +117,10 @@ export function Weekly_Spending_Chart() {
                     {
                         // label: "Weekly Spending",
                         data: weeks.map(w => w.amount),
-                        borderColor: "red",
-                        borderWidth: 1
-                        // backgroundColor: "orange"
+                        borderColor: "green",
+                        borderWidth: 1,
+                        backgroundColor: "rgba(0, 200, 0, 0.2)",
+                        fill: true,
                     }
                 ]
             }
@@ -117,15 +134,26 @@ export function Weekly_Spending_Chart() {
     return (
         <Weekly_Spending_Chart_Wrapper>
             <Chart_Title>Weekly Spending</Chart_Title>
-            <Line options={options} data={chart_data} />
+            <Chart>
+                <Line options={options} data={chart_data} />
+            </Chart>
         </Weekly_Spending_Chart_Wrapper>
     )
 }
 
 const Weekly_Spending_Chart_Wrapper = styled.div`
+    margin-top: 25px;
+    margin-bottom: 25px;
+    width: 50%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+`
+
+const Chart = styled.div`
+    width: 100%;
+    width: 100%;
 `
 
 const Chart_Title = styled.div`

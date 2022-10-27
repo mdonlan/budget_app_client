@@ -31,7 +31,7 @@ export function Expenses() {
     return (
         <Expenses_Wrapper>
             <Expenses_Top>
-                <Expenses_Title>Total Expenses</Expenses_Title>
+                <Expenses_Title>Expenses</Expenses_Title>
             </Expenses_Top>
             <Expenses_Bot>
                 <Time_Period>
