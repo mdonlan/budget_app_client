@@ -33,7 +33,7 @@ export function Time_Period_Data() {
                 <Data>
                     <Data_Text>
                         <Text># Transactions: {time_period_data.num_transactions}</Text>
-                        <Text>Spent ${time_period_data.money_spent}</Text>
+                        <Text>Spent ${time_period_data.money_spent.toFixed(2)}</Text>
                     </Data_Text>
                     <Charts>
                         <Spending_By_Tag_Chart time_period={time_period}/>

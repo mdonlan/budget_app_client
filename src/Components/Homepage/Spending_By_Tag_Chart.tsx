@@ -52,6 +52,24 @@ const plugin = {
     }
 }
 
+export function random_hsla() {
+    //https://stackoverflow.com/questions/1484506/random-color-generator
+    // return 'hsla(' + (Math.random() * 360) + ', 100%, 50%, 0.4)';
+    return {
+        h: Math.random() * 360,
+        s: 100,
+        l: 50,
+        a: 0.2
+    }
+}
+
+export function hsla_to_str(hsla) {
+    // console.log('hlsa: ', hsla)
+    const str = `hsla(${hsla.h}, ${hsla.s}%, ${hsla.l}%, ${hsla.a})`;
+    // console.log(str)
+    return str;
+}
+
 export function Spending_By_Tag_Chart(props: {time_period: Time_Period}) {
 
     const [chart_data, set_chart_data] = useState<any>({
@@ -71,29 +89,38 @@ export function Spending_By_Tag_Chart(props: {time_period: Time_Period}) {
             console.log(data);
             const tags = data.spending_tags;
             
-            
+            const background_colors = tags.map((t, i) => random_hsla());
+            const border_colors = background_colors.map(color => {
+                const new_color = {...color};
+                new_color.a = 1;
+                return new_color;
+            })
+
             const new_chart_data: ChartData = {
                 labels: tags.map(t => t.name),
                 datasets: [
                     {
                         label: "Spending By Tag",
                         data: tags.map(t => t.amount),
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)',
-                        ]
+                        backgroundColor: background_colors.map(color => hsla_to_str(color)),
+                        borderColor: border_colors.map(color => hsla_to_str(color)),
+
+                        // backgroundColor: [
+                        //     'rgba(255, 99, 132, 0.2)',
+                        //     'rgba(54, 162, 235, 0.2)',
+                        //     'rgba(255, 206, 86, 0.2)',
+                        //     'rgba(75, 192, 192, 0.2)',
+                        //     'rgba(153, 102, 255, 0.2)',
+                        //     'rgba(255, 159, 64, 0.2)',
+                        // ],
+                        // borderColor: [
+                        //     'rgba(255, 99, 132, 1)',
+                        //     'rgba(54, 162, 235, 1)',
+                        //     'rgba(255, 206, 86, 1)',
+                        //     'rgba(75, 192, 192, 1)',
+                        //     'rgba(153, 102, 255, 1)',
+                        //     'rgba(255, 159, 64, 1)',
+                        // ]
                     }
                 ]
             }
@@ -115,6 +142,8 @@ export function Spending_By_Tag_Chart(props: {time_period: Time_Period}) {
 }
 
 const Spending_By_Tag_Chart_Wrapper = styled.div`
+    margin-top: 25px;
+    margin-bottom: 25px;
     width: 50%;
     height: 100%;
     display: flex;

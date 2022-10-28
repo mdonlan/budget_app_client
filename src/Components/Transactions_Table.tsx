@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Transaction_Component } from './Transaction';
+import { Transaction_Component } from './Transaction_Component';
 import { Transaction } from '../store'
 
 interface Props {

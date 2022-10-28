@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
 import { RootState } from '../store';
-import { Transaction_Component } from './Transaction';
+import { Transaction_Component } from './Transaction_Component';
 
 
 export function Tags() {
