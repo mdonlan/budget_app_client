@@ -7,6 +7,10 @@ import { Redirect, Route, useHistory } from 'react-router';
 export function Protected_Route(component, ...rest) {
     const logged_in = useSelector(state => state.default.logged_in);
 
+    useEffect(() => {
+
+    }, [logged_in]);
+
     return (
         <React.Fragment>
             {logged_in == null &&

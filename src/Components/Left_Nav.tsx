@@ -14,7 +14,7 @@ export function Left_Nav(props) {
 
     return (
         <Wrapper>
-            <Styled_Link path={props.location.pathname} to="/" >Home</Styled_Link>
+            <Styled_Link hash={props.location.hash} path={"#/"} to="/" >Home</Styled_Link>
             {!logged_in &&
                 <React.Fragment>
                     {/* <Styled_Link path={props.location.pathname} to="/register">Register</Styled_Link>
@@ -24,10 +24,10 @@ export function Left_Nav(props) {
             {logged_in &&
                 <React.Fragment>
                     {/* <Left> */}
-                        <Styled_Link path={props.location.pathname} to="/transactions">Transactions</Styled_Link>
-                        <Styled_Link path={props.location.pathname} to="/tags">Tags</Styled_Link>
+                        <Styled_Link hash={props.location.hash} path={"#/transactions"} to="/transactions">Transactions</Styled_Link>
+                        <Styled_Link hash={props.location.hash} path={"#/tags"} to="/tags">Tags</Styled_Link>
                         {/* <Styled_Link path={props.location.pathname} to="/charts">Charts</Styled_Link> */}
-                        <Styled_Link path={props.location.pathname} to="/add_transaction">New Transaction &nbsp;<FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon></Styled_Link>
+                        <Styled_Link hash={props.location.hash} path={"#/add_transaction"} to="/add_transaction">New Transaction &nbsp;<FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon></Styled_Link>
                         {/* <Add_Transaction /> */}
                     {/* </Left> */}
                     {/* <Right> */}
@@ -47,12 +47,12 @@ const Wrapper = styled.div`
     align-items: center;
 `
 
-export const Styled_Link = styled(Link)<{path: string}>`
+export const Styled_Link = styled(Link)<{hash: string, path: string}>`
     padding-top: 10px;
     padding-bottom: 10px;
     text-decoration: none;
-    color: ${props => props.path == props.to ? "white" : "gray"};
-    background: ${props => props.path == props.to ? "#333333" : props.theme.background};
+    color: ${props => props.path == props.hash ? "white" : "gray"};
+    background: ${props => props.path == props.hash ? "#333333" : props.theme.background};
     cursor: pointer;
     font-size: 18px;
     font-variant:  small-caps;

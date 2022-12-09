@@ -19,11 +19,11 @@ export function App() {
     const location = useLocation();
 
     useEffect(() => {
-        // (async () => {
-        //     await validate_token();
-        //     await get_transactions();
-        //     await get_tags();
-        // })()
+        (async () => {
+            await validate_token();
+            await get_transactions();
+            await get_tags();
+        })()
     }, [])
 
     return (
