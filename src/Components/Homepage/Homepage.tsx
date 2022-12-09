@@ -21,6 +21,7 @@ export function Homepage() {
 
     return (
         <Homepage_Wrapper>
+            <Logo src='/dist/logo.png'></Logo>
             {logged_in &&
                 <>
                     
@@ -56,6 +57,11 @@ const Homepage_Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+`
+
+const Logo = styled.img`
+    width: 30%;
+    margin-bottom: 50px;
 `
 
 const Login_Or_Register = styled.div`

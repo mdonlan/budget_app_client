@@ -47,6 +47,7 @@ const Wrapper = styled.div`
 
 const Title = styled.div`
     font-size: 32px;
+    margin-top: 12px;
     margin-bottom: 24px;
 `
 
