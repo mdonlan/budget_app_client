@@ -21,7 +21,7 @@ export function Homepage() {
 
     return (
         <Homepage_Wrapper>
-            <Logo src='/dist/logo.png'></Logo>
+            <Logo src='/logo.png'></Logo>
             {logged_in &&
                 <>
                     
