@@ -17,8 +17,8 @@ export function Left_Nav(props) {
             <Styled_Link path={props.location.pathname} to="/" >Home</Styled_Link>
             {!logged_in &&
                 <React.Fragment>
-                    <Styled_Link path={props.location.pathname} to="/register">Register</Styled_Link>
-                    <Styled_Link path={props.location.pathname} to="/login">Login</Styled_Link>
+                    {/* <Styled_Link path={props.location.pathname} to="/register">Register</Styled_Link>
+                    <Styled_Link path={props.location.pathname} to="/login">Login</Styled_Link> */}
                 </React.Fragment>
             }
             {logged_in &&

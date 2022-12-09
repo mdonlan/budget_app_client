@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ChartOptions, ChartData, DatasetController } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { get_week_data } from '../../api';
-import { startOfWeek, nextDay, isSameDay, toDate, startOfDay, format, subDays } from 'date-fns';
+import { get_week_data, get_year_data } from '../../api';
+import { startOfWeek, nextDay, isSameDay, toDate, startOfDay, format, subDays, getMonth, isSameMonth } from 'date-fns';
 import { Transaction } from '../../store';
 
 ChartJS.register(
@@ -21,13 +21,18 @@ interface Day_Of_Week {
 	amount: number
 };
 
+interface Month {
+    name: string;
+    amount: number;
+    month_index: number;
+};
+
 const starting_chart_data: ChartData = {
 	labels: [],
 	datasets: []
 };
 
-export function Daily_Spending_Chart() {
-
+export function Yearly_Spending_Chart() {
 	const [chart_data, set_chart_data] = useState<any>(starting_chart_data);
 	const [options, set_options] = useState<ChartOptions>({
 		plugins: {
@@ -44,49 +49,36 @@ export function Daily_Spending_Chart() {
 	const chart_ref = useRef(null);
 
 	useEffect(() => {
-		async function get_week_transactions() {
-			const data = await get_week_data();
+		async function get_data() {
+			const data = await get_year_data();
 			const transactions: Transaction[] = data.transactions;
 
-			const days = [];
-			const starting_day = subDays(startOfWeek(new Date()), 1);
+            const month_names = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+			const months: Month[] = [];
 
-			// console.log(starting_day)
-			// console.log(starting_day.getDay() - 1)
+            for (let i = 0; i < month_names.length; i++) {
+                const month: Month = {
+                    name: month_names[i],
+                    month_index: i,
+                    amount: 0
+                };
+                months.push(month);
+            }
 
-			for (let i = 0; i < 7; i++) {
-				let new_day: Day_Of_Week = {
-					date: nextDay(starting_day, i as Day),
-					amount: 0
-				}
-				days.push(new_day);
-			}
+            console.log(months)
 
-			// console.log("transactions");
-			// console.log(transactions);
-			// console.log("days")
-			// console.log(days)
 			transactions.forEach((t: Transaction) => {
-				days.forEach((d: Day_Of_Week) => {
-					const formattted_day_date = startOfDay(new Date(d.date));
-					const formattted_transaction_date = startOfDay(new Date(t.date));
-					// console.log("day date: " + formattted_day_date);
-					// console.log("transaction date: " + formattted_transaction_date);
-					if (isSameDay(startOfDay(new Date(d.date)), startOfDay(new Date(t.date)))) {
-						d.amount += t.value;
-					} else {
-					}
-				});
+                // console.log(t)
+				const month_index = getMonth(new Date(t.date));
+                console.log(month_index)
+                months[month_index].amount += t.value;
 			});
 
-			// console.log(days);
-
 			const new_chart_data: ChartData = {
-				labels: days.map(d => format(d.date, 'E')),
+				labels: months.map(m => m.name),
 				datasets: [
 					{
-						label: "Daily Spending",
-						data: days.map(d => d.amount),
+						data: months.map(m => m.amount),
 						borderColor: "rgba(84, 48, 217, 1)",
 						borderWidth: 1,
 						backgroundColor: "rgba(84, 48, 217, 0.2)",
@@ -94,17 +86,12 @@ export function Daily_Spending_Chart() {
 					}
 				]
 			}
-			// console.log(new_chart_data)
 
 			set_chart_data(new_chart_data);
-			// console.log(chart_ref)
 			chart_ref.current.update();
-			// console.log(chart_ref.current.data)
-
-
 		}
 
-		get_week_transactions();
+		get_data();
 	}, []);
 
 	return (

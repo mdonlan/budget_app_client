@@ -31,18 +31,22 @@ export async function register_user(data) {
 export async function validate_token() {
     console.log("attemping to validate token...");
     const token = localStorage.getItem("token");
-    const response = await superagent.post(`${host}/validate_token`).send({ token: token });
-    if (response.body.valid_token) {
-        console.log('token is valid');
-        store.dispatch(set_logged_in(true));
-        store.dispatch(set_token(token));
-        // return true;
-    } else {
-        console.log('token is NOT valid')
+    let response = null;
+    try {
+        response = await superagent.post(`${host}/validate_token`).send({ token: token });
+        if (response.body.valid_token) {
+            console.log('token is valid');
+            store.dispatch(set_logged_in(true));
+            store.dispatch(set_token(token));
+        } else {
+            console.log('token is NOT valid')
+            store.dispatch(set_logged_in(false));
+        }
+    } catch (e) {
+        console.log(e)
         store.dispatch(set_logged_in(false));
-        // store.dispatch(set_token(token));
-        // return false;
     }
+    
 }
 
 export function login(data) {
@@ -102,6 +106,17 @@ export function delete_transaction(transaction) {
         // console.log('completed post')
         get_transactions();
     })
+}
+
+export function get_year_data() {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    return superagent.post(`${host}/get_year_data`)
+    .send({ token: token })
+    .then(res => {
+        return res.body;
+    })
+    .catch(e => console.log(e))
 }
 
 export function get_month_data() {

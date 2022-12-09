@@ -5,6 +5,8 @@ import { Time_Period } from '../../Types';
 import { Weekly_Spending_Chart } from './Weekly_Spending_Chart';
 import { Spending_By_Tag_Chart } from './Spending_By_Tag_Chart';
 import { Spending_By_Transaction_Chart } from './Spending_By_Transaction_Chart';
+import { Daily_Spending_Chart } from './Daily_Spending_Chart';
+import { Yearly_Spending_Chart } from './Yearly_Spending_Chart';
 
 export function Time_Period_Data() {
     // const [month_expenses, set_month_expenses] = useState<number>(0);
@@ -40,6 +42,12 @@ export function Time_Period_Data() {
                         <Spending_By_Transaction_Chart />
                         {time_period == Time_Period.MONTH &&
                             <Weekly_Spending_Chart />
+                        }
+                        {time_period == Time_Period.WEEK &&
+                            <Daily_Spending_Chart />
+                        }
+                        {time_period == Time_Period.YEAR &&
+                            <Yearly_Spending_Chart />
                         }
                     </Charts>
                 </Data>

@@ -51,15 +51,16 @@ export function Homepage() {
 }
 
 const Homepage_Wrapper = styled.div`
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 `
 
 const Login_Or_Register = styled.div`
     height: 300px;
     width: 300px;
-    margin-top: calc(50% - 150px);
     background: #222222;
     display: flex;
     flex-direction: column;
