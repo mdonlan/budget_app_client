@@ -3,15 +3,24 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { delete_transaction } from '../api';
 import { Add_Transaction } from './Add_Transaction';
-import { RootState } from '../store';
+import {store, RootState, set_active_tag_name, Tag} from '../store';
 import { format, startOfDay } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import history  from '../history';
 
 
 export function Transaction_Component(props) {
     const [hovered, set_hovered] = useState<boolean>(false);
     const [started_delete, set_started_delete] = useState<boolean>(false);
+
+    function handle_tag_click(tag: Tag) {
+        console.log("about to set tag: ", tag);
+        store.dispatch(set_active_tag_name(tag));
+        history.push('tags');
+        // history.go(0);
+    }
+
     return (
         <Transaction_Wrapper 
             key={props.t.id} 
@@ -25,7 +34,7 @@ export function Transaction_Component(props) {
             {props.t.tags.map((tag, i) => {
                 return (
                     <Tag key={i}>
-                        <div>{tag}</div>
+                        <div onClick={() => {handle_tag_click(tag)}}>{tag}</div>
                         {i < props.t.tags.length &&
                             <div>,&nbsp;</div>
                         }

@@ -21,6 +21,7 @@ export interface Initial_State {
     token: string;
     transactions: Transaction[];
     tags: Tag[];
+    active_tag_name: string;
     active_month: string; // date string
 };
 
@@ -29,6 +30,7 @@ const initial_state: Initial_State = {
     token: null,
     transactions: [],
     tags: [],
+    active_tag_name: null,
     active_month: new Date(new Date().getFullYear(), new Date().getMonth()).toISOString() // first day of current month
 };
 
@@ -54,16 +56,9 @@ const default_slice = createSlice({
         set_tags: (state, action) => {
             state.tags = action.payload;
         },
-        // set_accounts: (state, action) => {
-        //     state.accounts = action.payload;
-        // },
-        // set_username: (state, action) => {
-        //     state.username = action.payload;
-        // },
-
-        // set_food_items_today: (state, action) => {
-        //     state.food_items_today = action.payload;
-        // }
+        set_active_tag_name: (state, action) => {
+            state.active_tag_name = action.payload;
+        }
     }
 });
 
@@ -76,13 +71,11 @@ const reducer = combineReducers({
 
 
 export const {
-    // set_balance,
     set_logged_in,
     set_token,
-    // set_categories,
     set_transactions,
-    set_tags
-    // set_accounts,
+    set_tags,
+    set_active_tag_name
 } = default_slice.actions;
 
 export default default_slice.reducer;

@@ -67,7 +67,8 @@ const Homepage_Wrapper = styled.div`
 `
 
 const Logo = styled.img`
-    width: 30%;
+    width: 25%;
+    margin-top: 24px;
     margin-bottom: 50px;
 `
 

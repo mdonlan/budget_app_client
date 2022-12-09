@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import styled from "styled-components"
-import { HashRouter as Router, Switch, Route, Link, useHistory, useLocation, Redirect } from "react-router-dom";
+import { Switch, Route, Link, useHistory, useLocation, Redirect } from "react-router-dom";
 import { Register } from './Register'
 import { Login } from './Login'
 import { Top_Nav } from './Top_Nav'
@@ -28,7 +28,7 @@ export function App() {
 
     return (
         <Wrapper>
-            <Router>
+            {/* <Router> */}
                 <Left>
                     <Left_Nav location={location}/>
                 </Left>
@@ -50,7 +50,7 @@ export function App() {
                         </Switch>
                     </Bottom>
                 </Right>
-            </Router>
+            {/* </Router> */}
         </Wrapper>
     )
 }

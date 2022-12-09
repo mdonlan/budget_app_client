@@ -1,18 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
-import { RootState } from '../store';
+import {store, RootState, Tag, set_active_tag_name } from '../store';
 import { Transaction_Component } from './Transaction_Component';
 
 
 export function Tags() {
-    const [active_tag, set_active_tag] = useState(null);
+    const active_tag: string = useSelector((state: RootState) => state.default.active_tag_name);
     const tags = useSelector((state: RootState) => state.default.tags);
     const transactions = useSelector((state: RootState) => state.default.transactions);
 
+    useEffect(() => {
+
+    }, [active_tag]);
+
     function is_matching_transaction(t) {
         for (let tag of t.tags) {
-            if (tag == active_tag.value) {
+            if (tag == active_tag) {
                 return true;
             }
         }
@@ -27,13 +31,13 @@ export function Tags() {
                 <No_Active_Tag>Select a tag to view related transactions</No_Active_Tag>
             }
             {active_tag &&
-                <Tag active={true}>Active Tag: {active_tag.value}</Tag>
+                <Tag_El active={true}>Active Tag: {active_tag}</Tag_El>
             }
 
             <All_Tags>
                 {tags.map(tag => {
                     return (
-                        <Tag key={tag.id} active={active_tag ? active_tag.id == tag.id ? true : false : false} onClick={() => {set_active_tag(tag)}}>{tag.value}</Tag>
+                        <Tag_El key={tag.id} active={active_tag ? active_tag == tag.value ? true : false : false} onClick={() => {store.dispatch(set_active_tag_name(tag.value))}}>{tag.value}</Tag_El>
                     )
                 })}
             </All_Tags>
@@ -73,7 +77,7 @@ const All_Tags = styled.div`
     display: flex;
 `
 
-const Tag = styled.div<{active: boolean}>`
+const Tag_El = styled.div<{active: boolean}>`
     background: ${props => props.active ? "#295dab" : props.theme.background};
     margin-left: 5px;
     margin-right: 5px;
