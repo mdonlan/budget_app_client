@@ -9,12 +9,19 @@ import { Login } from '../Login'
 import { Register } from '../Register';
 import { Time_Period_Data } from './Time_Period_Data';
 import { Time_Period } from '../../Types';
+import { get_transactions, get_tags, validate_token } from '../../api';
 
 export function Homepage() {
     const logged_in = useSelector((state: RootState) => state.default.logged_in);
 
     // if not logged in show either the Login or Register component
-
+    useEffect(() => {
+        (async () => {
+            await validate_token();
+            await get_transactions();
+            await get_tags();
+        })()
+    }, [logged_in])
     
     const [show_login, set_show_login] = useState<boolean>(true);
     
@@ -76,6 +83,7 @@ const Login_Or_Register = styled.div`
 const Bottom = styled.div`
     display: flex;
     width: 100%;
+    cursor: pointer;
 `
 
 const Button = styled.div<{active: boolean}>`

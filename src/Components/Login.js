@@ -17,7 +17,7 @@ export function Login() {
         const result = await login({ username: username, password: password });
         console.log(result)
         if (result.success) {
-            history.push('/');
+            // history.push('/');
         } else {
             set_login_error(result.message);
         }

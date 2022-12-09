@@ -264,7 +264,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-`;function Zm(){const t=g((e=>e.default.logged_in)),[n,r]=(0,e.useState)(!0);return e.createElement(Qm,null,e.createElement(Xm,{src:"/dist/logo.png"}),t&&e.createElement(e.Fragment,null,e.createElement($s,null),e.createElement(nl,null),e.createElement(Fm,null)),!t&&e.createElement(Km,null,n&&e.createElement(Xr,null),!n&&e.createElement(jr,null),e.createElement(Gm,null,e.createElement(Jm,{active:n,onClick:()=>r(!0)},"Login"),e.createElement(Jm,{active:!n,onClick:()=>r(!1)},"Register"))))}const Qm=We.div.withConfig({displayName:"Homepage.tsx-Homepage_Wrapper",componentId:"-4ra6u8"})`
+`;function Zm(){const t=g((e=>e.default.logged_in)),[n,r]=(0,e.useState)(!0);return e.createElement(Qm,null,e.createElement(Xm,{src:"/logo.png"}),t&&e.createElement(e.Fragment,null,e.createElement($s,null),e.createElement(nl,null),e.createElement(Fm,null)),!t&&e.createElement(Km,null,n&&e.createElement(Xr,null),!n&&e.createElement(jr,null),e.createElement(Gm,null,e.createElement(Jm,{active:n,onClick:()=>r(!0)},"Login"),e.createElement(Jm,{active:!n,onClick:()=>r(!1)},"Register"))))}const Qm=We.div.withConfig({displayName:"Homepage.tsx-Homepage_Wrapper",componentId:"-4ra6u8"})`
     min-height: 100%;
     display: flex;
     flex-direction: column;
