@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.tsx",
-  "homepage": "https://mdonlan.github.io/budget_app_client",
+  "homepage": "https://budget.michaeldonlan.com",
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack serve --mode=development",
