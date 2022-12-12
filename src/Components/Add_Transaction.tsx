@@ -25,6 +25,8 @@ export function Add_Transaction() {
         date: new Date()
     });
 
+    const [error, set_error] = useState<string>("");
+
     // const [startDate, setStartDate] = useState(new Date());
 
     // const [adding_new_tag, set_adding_new_tag] = useState(false);
@@ -47,9 +49,23 @@ export function Add_Transaction() {
     }
 
     function handle_submit(e) {
-        create_transaction(transaction);
-        // set_is_active(false);
-        set_transaction({name: "", tags: [], value: 0, date: new Date()});
+        let invalid: boolean = false;
+        
+        if (transaction.name == "") {
+            invalid = true;
+            set_error("No transaction name");
+        }
+
+        if (transaction.value == 0) {
+            invalid = true;
+            set_error("No transaction amount set");
+        }
+
+        if (!invalid) {
+            create_transaction(transaction);
+            set_transaction({name: "", tags: [], value: 0, date: new Date()});
+            set_error("");
+        } 
     }
 
     // function handle_cancel() {
@@ -115,10 +131,11 @@ export function Add_Transaction() {
     }
 
     return (
-        <Wrapper >
+        <Wrapper>
             {/* <Add_Transaction_Btn onClick={clicked_add_transaction}>Add Transaction</Add_Transaction_Btn> */}
             {/* {is_active && */}
                 <New_Transaction ref={transaction_ref}>
+                    <Title>New Transaction</Title>
                     <Row>
                         <Field_Name>Name</Field_Name>
                         <Name name="name" placeholder="transaction name" value={transaction.name} onChange={handle_change}/>    
@@ -144,7 +161,7 @@ export function Add_Transaction() {
                             })}
                         </Tags>
                         <div>
-                            <input value={current_tag} onChange={handle_new_tag_change} onKeyDown={new_tag_keydown} />
+                            <Tag_Input value={current_tag} onChange={handle_new_tag_change} onKeyDown={new_tag_keydown} />
                             {matching_tags.map((tag, i) => {
                                 return <Matching_Tag active={i == matching_tags_index ? true : false} key={i} onClick={() => {add_new_tag()}}>{tag}</Matching_Tag>
                             })}
@@ -152,6 +169,10 @@ export function Add_Transaction() {
                     {/* </Row> */}
                    
                     <Create_Btn onClick={handle_submit}>create</Create_Btn>
+
+                    {error.length > 0 &&
+                        <div>{error}</div>
+                    }
                     {/* <Cancel_Btn onClick={handle_cancel}>cancel</Cancel_Btn> */}
                 </New_Transaction>
             {/* } */}
@@ -160,34 +181,22 @@ export function Add_Transaction() {
 }
 
 const Wrapper = styled.div`
-    width: 100%;
-`
-
-const Add_Transaction_Btn = styled.div`
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-decoration: none;
-    color: gray;
-    
-    cursor: pointer;
-    font-size: 18px;
-    font-variant:  small-caps;
-    :hover {
-        background: #333333;
-        color: white;
-    }
-    width: 100%;
+    width: 100%; 
+    height: 100%;
+    // background: darkblue;
     display: flex;
     justify-content: center;
     align-items: center;
 `
 
 const New_Transaction = styled.div`
-    position: absolute;
-    top: calc(50% - 200px);
-    left: calc(50% - 200px);
+    // position: absolute;
+    // top: calc(50% - 200px);
+    // left: calc(50% - 200px);
     width: 400px;
-    height: 300px;
+    height: 400px;
+    // padding: 30px;
+    // width: 50%;
     background: #23292b;
     display: flex;
     flex-direction: column;
@@ -196,17 +205,37 @@ const New_Transaction = styled.div`
     z-index: 3;
 `
 
+const Title = styled.div`
+    font-size: 32px;
+    margin-bottom: 20px;
+`
+
 const Row = styled.div`
     display: flex;
-    margin-top: 8px;
-    padding: 8px;
     width: 75%;
+    height: 30px;
+    margin-bottom: 12px;
+
+    & .react-datepicker-wrapper {
+        width: 50%;
+    }
+
+    & .react-datepicker__input-container > input {
+        width: 100%;
+        height: 30px;
+        text-align: center;
+        border: none;
+        padding: 0px;
+        outline: none;
+        background: #384245;
+        color: #dddddd;
+    }
 `
 
 const Field_Name = styled.div`
-    margin-right: 8px;
     width: 50%;
     text-align: center;
+    // margin-bottom: 12px;
 `
 
 const styled_input = styled.input`
@@ -216,14 +245,20 @@ const styled_input = styled.input`
     outline: none;
     color: #dddddd;
     width: 50%;
+    padding: 0px;
+    text-align: center;
 `
 
 const styled_select = styled.select`
     width: 50%;
 `
 
-const Name = styled(styled_input)``
-const Amount = styled(styled_input)``
+const Name = styled(styled_input)`
+    width: 50%;
+`
+const Amount = styled(styled_input)`
+    width: 50%;
+`
 
 const Create_Btn = styled.div`
     padding: 8px;
@@ -256,6 +291,17 @@ const Tag = styled.div`
     :hover {
         background: #61a9e8;
     }
+`
+
+const Tag_Input = styled.input`
+    text-decoration: none;
+    border: none;
+    outline: none;
+    background: #384245;
+    color: #dddddd;
+    height: 30px;
+    padding: 0px;
+    text-align: center;
 `
 
 const Tag_Name = styled.div`

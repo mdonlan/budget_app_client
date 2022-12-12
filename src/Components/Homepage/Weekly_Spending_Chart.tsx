@@ -133,7 +133,7 @@ export function Weekly_Spending_Chart() {
 
     return (
         <Weekly_Spending_Chart_Wrapper>
-            <Chart_Title>Weekly Spending</Chart_Title>
+            <Chart_Title>Spending This Month</Chart_Title>
             <Chart>
                 <Line options={options} data={chart_data} />
             </Chart>

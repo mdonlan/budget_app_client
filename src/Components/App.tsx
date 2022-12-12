@@ -74,5 +74,6 @@ const Top = styled.div`
     
 `
 const Bottom = styled.div`
-    height: calc(100% - 70px);
+    // height: calc(100% - 70px);
+    height: 100%;
 `

@@ -109,7 +109,7 @@ export function Daily_Spending_Chart() {
 
 	return (
 		<Daily_Spending_Chart_Wrapper>
-			<Chart_Title>Daily Spending</Chart_Title>
+			<Chart_Title>Spending This Week</Chart_Title>
 			<Chart>
 				<Line data={chart_data} ref={chart_ref} options={options} />
 			</Chart>

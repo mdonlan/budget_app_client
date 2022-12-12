@@ -27,11 +27,15 @@ export function Tags() {
         <Wrapper>
             <Title>Tags</Title>
             
-            {!active_tag &&
+            {!active_tag && tags.length > 0 &&
                 <No_Active_Tag>Select a tag to view related transactions</No_Active_Tag>
             }
             {active_tag &&
                 <Tag_El active={true}>Active Tag: {active_tag}</Tag_El>
+            }
+
+            {tags.length == 0 &&
+                <div>Add some transactions with tags to view them here</div>
             }
 
             <All_Tags>
@@ -66,6 +70,8 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding-left: 10px;
+    padding-top: 10px;
 `
 
 const Title = styled.div`
