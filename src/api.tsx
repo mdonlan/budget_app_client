@@ -87,6 +87,23 @@ export function create_transaction(transaction) {
     })
 }
 
+
+export function update_transaction(transaction) {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    
+    transaction.date = transaction.date.toUTCString();
+    
+    superagent.post(`${host}/update_transaction`)
+    .send({transaction: transaction, token: token})
+    .then(() => {
+        // console.log('completed post')
+        console.log('updating transaction');
+        console.log(transaction);
+        get_transactions();
+    })
+}
+
 export function get_transactions() {
     const token = localStorage.getItem("token");
     if (!token) return;
@@ -206,6 +223,18 @@ export function get_time_period_data(time_period: Time_Period) {
     const token = localStorage.getItem("token");
     if (!token) return;
     return superagent.post(`${host}/get_time_period_data`)
+    .send({ token: token, time_period: time_period })
+    .then(res => {
+        console.log(res.body)
+        return res.body;
+    })
+    .catch(e => console.log(e))
+}
+
+export function get_transactions_by_time_period(time_period: Time_Period) {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    return superagent.post(`${host}/get_transactions_by_time_period`)
     .send({ token: token, time_period: time_period })
     .then(res => {
         console.log(res.body)

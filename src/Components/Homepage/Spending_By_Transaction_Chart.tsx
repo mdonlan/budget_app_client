@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartData, ChartOptions } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import { get_month_data } from '../../api';
+import { get_transactions_by_time_period } from '../../api';
 import { hsla_to_str, random_hsla } from './Spending_By_Tag_Chart'
+import { Time_Period } from '../../Types';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -27,7 +28,7 @@ const plugin = {
     }
 }
 
-export function Spending_By_Transaction_Chart() {
+export function Spending_By_Transaction_Chart(props: {time_period: Time_Period}) {
     const [chart_data, set_chart_data] = useState<any>({
         labels: [],
         datasets: [],
@@ -44,8 +45,9 @@ export function Spending_By_Transaction_Chart() {
     // const chart_ref = useRef(null);
    
     useEffect(() => {
-       async function get_data() {
-            const data = await get_month_data();
+        async function get_data() {
+            const data = await get_transactions_by_time_period(props.time_period);
+            // const data = await get_month_data();
             console.log("data for Spending_By_Transaction component")
             console.log(data);
             const transactions = data.transactions;
@@ -89,7 +91,7 @@ export function Spending_By_Transaction_Chart() {
        }
 
        get_data();
-    }, []);
+    }, [props.time_period]);
 
     return (
         <Spending_By_Transaction_Chart_Wrapper>

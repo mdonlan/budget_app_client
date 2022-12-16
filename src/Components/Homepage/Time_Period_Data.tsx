@@ -39,7 +39,7 @@ export function Time_Period_Data() {
                     </Data_Text>
                     <Charts>
                         <Spending_By_Tag_Chart time_period={time_period}/>
-                        <Spending_By_Transaction_Chart />
+                        <Spending_By_Transaction_Chart time_period={time_period}/>
                         {time_period == Time_Period.MONTH &&
                             <Weekly_Spending_Chart />
                         }

@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components'
-import { create_transaction } from '../api';
+import { create_transaction, update_transaction } from '../api';
 // import { Transactions } from './Transactions';
-import { RootState, Tag } from '../store';
+import { RootState, set_existing_transaction, Tag, Transaction } from '../store';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Styled_Link } from './Left_Nav';
+import { parseISO } from 'date-fns';
 
 interface Matching_Tag_Props {
     active: boolean;
@@ -17,13 +18,18 @@ export function Add_Transaction() {
     // const [is_active, set_is_active] = useState(false);
     const transaction_ref = useRef(null);
     const existing_tags = useSelector((state: RootState) => state.default.tags);
+    const existing_transaction = useSelector((state: RootState) => state.default.existing_transaction);
+    const dispatch = useDispatch();
 
-    const [transaction, set_transaction] = useState({
+    const [transaction, set_transaction] = useState<Transaction>({
         name: "",
         tags: [],
         value: 0,
-        date: new Date()
+        date: new Date(),
+        id: 0, // doesn't matter for client
+        username: "" // doesn't matter for client
     });
+    // const [transaction, set_transaction] = useState<Transaction>();
 
     const [error, set_error] = useState<string>("");
 
@@ -38,6 +44,22 @@ export function Add_Transaction() {
     useEffect(() => {
         // get_categories();
         // get_accounts();
+        if (existing_transaction) {
+            // console.log("\n existing transaction \n");
+            console.log(existing_transaction);
+            // set_transaction(existing_transaction);
+            set_transaction({
+                name: existing_transaction.name, 
+                tags: existing_transaction.tags, 
+                value: existing_transaction.value,
+                //
+                // TODO: FIX THIS
+                // this is gross -- this is becuase the type is supposed to be Date() but server returns string
+                date: parseISO(existing_transaction.date as unknown as string),
+                id: existing_transaction.id, 
+                username: existing_transaction.username
+            });
+        }
     }, []);
 
     // function clicked_add_transaction() {
@@ -62,8 +84,14 @@ export function Add_Transaction() {
         }
 
         if (!invalid) {
-            create_transaction(transaction);
-            set_transaction({name: "", tags: [], value: 0, date: new Date()});
+            if (existing_transaction) {
+                update_transaction(transaction);
+                dispatch(set_existing_transaction(null));
+            } else {
+                create_transaction(transaction);
+            }
+            
+            set_transaction({name: "", tags: [], value: 0, date: new Date(), id: 0, username: ""});
             set_error("");
         } 
     }

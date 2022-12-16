@@ -129,7 +129,7 @@ export function Spending_By_Tag_Chart(props: {time_period: Time_Period}) {
        }
 
        get_data();
-    }, []);
+    }, [props.time_period]);
 
     return (
         <Spending_By_Tag_Chart_Wrapper>

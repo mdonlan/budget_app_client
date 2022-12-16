@@ -1,24 +1,30 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { delete_transaction } from '../api';
 import { Add_Transaction } from './Add_Transaction';
-import {store, RootState, set_active_tag_name, Tag} from '../store';
+import {store, RootState, set_active_tag_name, Tag, set_existing_transaction} from '../store';
 import { format, startOfDay } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCircleXmark, faPen } from '@fortawesome/free-solid-svg-icons'
 import history  from '../history';
 
 
 export function Transaction_Component(props) {
     const [hovered, set_hovered] = useState<boolean>(false);
     const [started_delete, set_started_delete] = useState<boolean>(false);
+    const dispatch = useDispatch();
 
     function handle_tag_click(tag: Tag) {
         console.log("about to set tag: ", tag);
         store.dispatch(set_active_tag_name(tag));
         history.push('tags');
         // history.go(0);
+    }
+
+    function handle_edit() {
+        dispatch(set_existing_transaction(props.t));
+        history.push("/add_transaction");
     }
 
     return (
@@ -42,7 +48,10 @@ export function Transaction_Component(props) {
                 )
             })}
            {hovered &&
+                <>
+                <Edit_Btn icon={faPen} onClick={() => {handle_edit()}}></Edit_Btn>
                 <Delete_Btn icon={faCircleXmark} onClick={() => {set_started_delete(true)}}></Delete_Btn>
+                </>
             }
             {started_delete &&
                 <div>
@@ -68,6 +77,18 @@ const Delete_Btn = styled(FontAwesomeIcon)`
     position: absolute;
     left: calc(100% - 35px);
     color: red;
+    opacity: 0.4;
+
+    :hover {
+
+    }
+`
+
+const Edit_Btn = styled(FontAwesomeIcon)`
+    cursor: pointer;
+    position: absolute;
+    left: calc(100% - 65px);
+    color: gray;
     opacity: 0.4;
 
     :hover {

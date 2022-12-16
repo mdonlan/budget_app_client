@@ -23,6 +23,7 @@ export interface Initial_State {
     tags: Tag[];
     active_tag_name: string;
     active_month: string; // date string
+    existing_transaction: Transaction;
 };
 
 const initial_state: Initial_State = {
@@ -31,7 +32,8 @@ const initial_state: Initial_State = {
     transactions: [],
     tags: [],
     active_tag_name: null,
-    active_month: new Date(new Date().getFullYear(), new Date().getMonth()).toISOString() // first day of current month
+    active_month: new Date(new Date().getFullYear(), new Date().getMonth()).toISOString(), // first day of current month
+    existing_transaction: null
 };
 
 const default_slice = createSlice({
@@ -58,6 +60,9 @@ const default_slice = createSlice({
         },
         set_active_tag_name: (state, action) => {
             state.active_tag_name = action.payload;
+        },
+        set_existing_transaction: (state, action) => {
+            state.existing_transaction = action.payload;
         }
     }
 });
@@ -75,7 +80,8 @@ export const {
     set_token,
     set_transactions,
     set_tags,
-    set_active_tag_name
+    set_active_tag_name,
+    set_existing_transaction
 } = default_slice.actions;
 
 export default default_slice.reducer;
