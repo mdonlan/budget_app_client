@@ -7,6 +7,7 @@ import { Spending_By_Tag_Chart } from './Spending_By_Tag_Chart';
 import { Spending_By_Transaction_Chart } from './Spending_By_Transaction_Chart';
 import { Daily_Spending_Chart } from './Daily_Spending_Chart';
 import { Yearly_Spending_Chart } from './Yearly_Spending_Chart';
+import { Income_Expenses_Chart } from './Income_Expenses_Chart';
 
 export function Time_Period_Data() {
     // const [month_expenses, set_month_expenses] = useState<number>(0);
@@ -38,8 +39,9 @@ export function Time_Period_Data() {
                         <Text>Spent ${time_period_data.money_spent.toFixed(2)}</Text>
                     </Data_Text>
                     <Charts>
-                        <Spending_By_Tag_Chart time_period={time_period}/>
-                        <Spending_By_Transaction_Chart time_period={time_period}/>
+                        <Spending_By_Tag_Chart time_period={time_period} />
+                        <Spending_By_Transaction_Chart time_period={time_period} />
+                        <Income_Expenses_Chart time_period={time_period} />
                         {time_period == Time_Period.MONTH &&
                             <Weekly_Spending_Chart />
                         }

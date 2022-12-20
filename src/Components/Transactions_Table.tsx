@@ -13,6 +13,7 @@ export const Transactions_Table: React.FC<Props> = ({transactions = []}: Props) 
             <Col_Headers>
                 <Transaction_Col_Header>Name</Transaction_Col_Header>
                 <Transaction_Col_Header>Date</Transaction_Col_Header>
+                <Transaction_Col_Header>Inflow</Transaction_Col_Header>
                 <Transaction_Col_Header>Value</Transaction_Col_Header>
                 <Transaction_Col_Header>Tags</Transaction_Col_Header>
             </Col_Headers>

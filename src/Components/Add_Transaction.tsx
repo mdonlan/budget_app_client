@@ -27,7 +27,8 @@ export function Add_Transaction() {
         value: 0,
         date: new Date(),
         id: 0, // doesn't matter for client
-        username: "" // doesn't matter for client
+        username: "", // doesn't matter for client
+        is_inflow: false
     });
     // const [transaction, set_transaction] = useState<Transaction>();
 
@@ -57,7 +58,8 @@ export function Add_Transaction() {
                 // this is gross -- this is becuase the type is supposed to be Date() but server returns string
                 date: parseISO(existing_transaction.date as unknown as string),
                 id: existing_transaction.id, 
-                username: existing_transaction.username
+                username: existing_transaction.username,
+                is_inflow: existing_transaction.is_inflow
             });
         }
     }, []);
@@ -91,7 +93,7 @@ export function Add_Transaction() {
                 create_transaction(transaction);
             }
             
-            set_transaction({name: "", tags: [], value: 0, date: new Date(), id: 0, username: ""});
+            set_transaction({name: "", tags: [], value: 0, date: new Date(), id: 0, username: "", is_inflow: false});
             set_error("");
         } 
     }
@@ -166,7 +168,11 @@ export function Add_Transaction() {
                     <Title>New Transaction</Title>
                     <Row>
                         <Field_Name>Name</Field_Name>
-                        <Name name="name" placeholder="transaction name" value={transaction.name} onChange={handle_change}/>    
+                        <Name name="name" placeholder="transaction name" value={transaction.name} onChange={handle_change}/>
+                    </Row>
+                    <Row>
+                        <Field_Name>Inflow</Field_Name>
+                        <input type="checkbox" checked={transaction.is_inflow} onChange={() => {set_transaction({...transaction, ["is_inflow"]: !transaction.is_inflow})}}/>
                     </Row>
                     <Row>
                         <Field_Name>Date</Field_Name>

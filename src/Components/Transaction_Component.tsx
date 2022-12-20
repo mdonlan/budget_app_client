@@ -6,7 +6,7 @@ import { Add_Transaction } from './Add_Transaction';
 import {store, RootState, set_active_tag_name, Tag, set_existing_transaction} from '../store';
 import { format, startOfDay } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleXmark, faPen } from '@fortawesome/free-solid-svg-icons'
+import { faCircleXmark, faPen, faCheck } from '@fortawesome/free-solid-svg-icons'
 import history  from '../history';
 
 
@@ -36,6 +36,7 @@ export function Transaction_Component(props) {
         >
             <Transaction_Item>{props.t.name}</Transaction_Item>
             <Transaction_Item>{format(new Date(props.t.date), 'MM/dd/yyyy')}</Transaction_Item>
+            <Transaction_Item>{props.t.is_inflow ? <FontAwesomeIcon color='green' icon={faCheck}/> : ""}</Transaction_Item>
             <Transaction_Item>{props.t.value}</Transaction_Item>
             {props.t.tags.map((tag, i) => {
                 return (

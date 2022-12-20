@@ -5,6 +5,7 @@ import { Line } from 'react-chartjs-2';
 import { get_month_data } from '../../api';
 import { startOfMonth, addWeeks, getWeekOfMonth, format, endOfMonth } from 'date-fns';
 import { Transaction } from '../../store';
+import { Week } from '../../Types';
 
 ChartJS.register(
     CategoryScale,
@@ -17,12 +18,7 @@ ChartJS.register(
     Filler
 );
 
-interface Week {
-    start: Date;
-    end: Date;
-    amount: number;
-    name: string; // first, second, etc
-};
+
 
 // interface Month_Data {
 //     weeks: Week[];
@@ -64,7 +60,8 @@ export function Weekly_Spending_Chart() {
             const first_week: Week = {
                 start: start_of_month,
                 end: start_second_week,
-                amount: 0,
+                income: 0,
+                expenses: 0,
                 name: "First"
             };
             weeks.push(first_week);
@@ -72,7 +69,8 @@ export function Weekly_Spending_Chart() {
             const second_week: Week = {
                 start: start_second_week,
                 end: start_third_week,
-                amount: 0,
+                income: 0,
+                expenses: 0,
                 name: "Second"
             };
             weeks.push(second_week);
@@ -80,7 +78,8 @@ export function Weekly_Spending_Chart() {
             const third_week: Week = {
                 start: start_third_week,
                 end: start_fouth_week,
-                amount: 0,
+                income: 0,
+                expenses: 0,
                 name: "Third"
             };
             weeks.push(third_week);
@@ -88,7 +87,8 @@ export function Weekly_Spending_Chart() {
             const fourth_week: Week = {
                 start: start_fouth_week,
                 end: start_fifth_week,
-                amount: 0,
+                income: 0,
+                expenses: 0,
                 name: "Fourth"
             };
             weeks.push(fourth_week);
@@ -96,7 +96,8 @@ export function Weekly_Spending_Chart() {
             const fifth_week: Week = {
                 start: start_fifth_week,
                 end: endOfMonth(new Date()),
-                amount: 0,
+                income: 0,
+                expenses: 0,
                 name: "Fifth"
             };
             weeks.push(fifth_week);
@@ -106,17 +107,19 @@ export function Weekly_Spending_Chart() {
             
             transactions.forEach(t => {
                 const week_in_month = getWeekOfMonth(new Date(t.date));
-                console.log(week_in_month)
-                // weeks[3]
-                weeks[week_in_month - 1].amount += t.value;
+                if (t.is_inflow) {
+
+                } else {
+                    weeks[week_in_month - 1].expenses += t.value;
+                }
             });
 
             const new_chart_data: ChartData = {
                 labels: weeks.map(w => w.name + " - " + format(w.start, "d") + " - " + format(w.end, "d")),
                 datasets: [
                     {
-                        // label: "Weekly Spending",
-                        data: weeks.map(w => w.amount),
+                        label: "Weekly Expenses",
+                        data: weeks.map(w => w.expenses),
                         borderColor: "green",
                         borderWidth: 1,
                         backgroundColor: "rgba(0, 200, 0, 0.2)",

@@ -14,6 +14,7 @@ export interface Transaction {
     tags: string[];
     username: string;
     date: Date;
+    is_inflow: boolean;
 };
 
 export interface Initial_State {
