@@ -9,7 +9,7 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 export function Transactions() {
     const transactions = useSelector((state: RootState) => state.default.transactions);
-    const [is_deleting, set_is_deleting] = useState(false);
+    // const [is_deleting, set_is_deleting] = useState(false);
 
     return (
         <Wrapper>
@@ -24,7 +24,7 @@ export function Transactions() {
 }
 
 const Wrapper = styled.div`
-    height: 100%;
+    // height: 100%;
     overflow-y: auto;
     margin: 20px;
 `

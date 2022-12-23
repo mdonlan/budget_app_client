@@ -56,7 +56,7 @@ export function Transaction_Component(props) {
             }
             {started_delete &&
                 <div>
-                    <div onClick={() => {delete_transaction(props.t)}}>yes</div>
+                    <div onClick={() => {delete_transaction(props.t); set_started_delete(false);}}>yes</div>
                     <div onClick={() => {set_started_delete(false)}}>no</div>
                 </div>
             }

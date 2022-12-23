@@ -5,8 +5,10 @@ import { Pie } from 'react-chartjs-2';
 import { get_transactions_by_time_period } from '../../api';
 import { hsla_to_str, random_hsla } from './Spending_By_Tag_Chart'
 import { Time_Period } from '../../Types';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
+// Chart.register(ChartDataLabels);
 
 const plugin = {
     id: "test_plugin",
@@ -22,7 +24,7 @@ const plugin = {
           ctx.textAlign = 'center';
         //   ctx.textBaseline = 'middle';
           ctx.font = "24px 'Arial'";
-          ctx.fillText('No data to display', width / 2, height / 2);
+          ctx.fillText('Add some transactions to view', width / 2, height / 2);
           ctx.restore();
         }
     }
@@ -33,23 +35,34 @@ export function Spending_By_Transaction_Chart(props: {time_period: Time_Period})
         labels: [],
         datasets: [],
     });
+
     const [options, set_options] = useState<ChartOptions>({
         maintainAspectRatio: false,
-        // plugins: {
-        //     legend: {
-        //         display: false
-        //     }
-        // }
-        // responsive: false,
+        plugins: {
+            legend: {
+                display: false
+            },
+            datalabels: {
+                color: '#dddddd',
+                // align: 'end',
+                // anchor: 'end',
+                formatter: function(value, context) {
+                    const data = context.chart.data.datasets[0].data;
+                    const total = data.reduce((total: number, i: number) => {return total + i}, 0) as number;
+                    // show transaction name if value is > 8% of total, prevents overlapping labels
+                    if (value / total > 0.08) {
+                        return context.chart.data.labels[context.dataIndex];
+                    } else {
+                        return null;
+                    }
+                }
+            }
+        }
     });
-    // const chart_ref = useRef(null);
    
     useEffect(() => {
         async function get_data() {
             const data = await get_transactions_by_time_period(props.time_period);
-            // const data = await get_month_data();
-            console.log("data for Spending_By_Transaction component")
-            console.log(data);
             const transactions = data.transactions;
             
             const background_colors = transactions.map((t, i) => random_hsla());
@@ -64,7 +77,7 @@ export function Spending_By_Transaction_Chart(props: {time_period: Time_Period})
                 datasets: [
                     {
                         label: "Spending By Tag",
-                        data: transactions.map(t => t.value),
+                        data: transactions.map(t => !t.is_inflow ? t.value : 0),
                         backgroundColor: background_colors.map(color => hsla_to_str(color)),
                         borderColor: border_colors.map(color => hsla_to_str(color)),
                         // backgroundColor: [
@@ -97,7 +110,7 @@ export function Spending_By_Transaction_Chart(props: {time_period: Time_Period})
         <Spending_By_Transaction_Chart_Wrapper>
             <Title>Spending By Transaction</Title>
             <Chart>
-                <Pie plugins={[plugin]} width={null} height={null} options={options} data={chart_data} />
+                <Pie plugins={[plugin, ChartDataLabels]} width={null} height={null} options={options} data={chart_data} />
             </Chart>
         </Spending_By_Transaction_Chart_Wrapper>
     )
@@ -120,4 +133,5 @@ const Chart = styled.div`
 
 const Title = styled.div`
     font-size: 24px;
+    margin-bottom: 12px;
 `

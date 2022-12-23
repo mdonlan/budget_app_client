@@ -64,6 +64,7 @@ const Homepage_Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    // background: ${props => props.theme.background};
 `
 
 const Logo = styled.img`

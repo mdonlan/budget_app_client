@@ -31,7 +31,7 @@ export function Time_Period_Data() {
                 <Time_Period_El active={time_period == Time_Period.MONTH} onClick={() => set_time_period(Time_Period.MONTH)}>Month</Time_Period_El>
                 <Time_Period_El active={time_period == Time_Period.YEAR} onClick={() => set_time_period(Time_Period.YEAR)}>Year</Time_Period_El>
             </Time_Periods>
-            <Title>{Time_Period[time_period]}</Title>
+            {/* <Title>{Time_Period[time_period]}</Title> */}
             {time_period_data &&
                 <Data>
                     <Data_Text>
@@ -42,7 +42,7 @@ export function Time_Period_Data() {
                         <Spending_By_Tag_Chart time_period={time_period} />
                         <Spending_By_Transaction_Chart time_period={time_period} />
                         <Income_Expenses_Chart time_period={time_period} />
-                        {time_period == Time_Period.MONTH &&
+                        {/* {time_period == Time_Period.MONTH &&
                             <Weekly_Spending_Chart />
                         }
                         {time_period == Time_Period.WEEK &&
@@ -50,7 +50,7 @@ export function Time_Period_Data() {
                         }
                         {time_period == Time_Period.YEAR &&
                             <Yearly_Spending_Chart />
-                        }
+                        } */}
                     </Charts>
                 </Data>
             }

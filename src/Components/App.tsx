@@ -58,6 +58,7 @@ export function App() {
 const Wrapper = styled.div`
     display: flex;
     height: 100%;
+    background: ${props => props.theme.background};
 `
 
 const Left = styled.div`

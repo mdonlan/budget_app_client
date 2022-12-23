@@ -15,25 +15,27 @@ export function Expenses() {
         async function get_data() {
             const month_data = await get_month_data();
             if (month_data) {
-                const expenses = month_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? 0 : total + t.value; }, 0);
+                const expenses = month_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? total : total + t.value; }, 0);
+                console.log(month_data)
+                console.log("month expenses = " + expenses)
                 set_month_expenses(expenses);
-                const income = month_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? total + t.value : 0; }, 0);
+                const income = month_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? total + t.value : total; }, 0);
                 set_month_income(income);
             }
 
             const week_data = await get_week_data();
             if (week_data) {
-                const expenses = week_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? 0 : total + t.value; }, 0);
+                const expenses = week_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? total : total + t.value; }, 0);
                 set_week_expenses(expenses);
-                const income = week_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? total + t.value : 0; }, 0);
+                const income = week_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? total + t.value : total; }, 0);
                 set_week_income(income);
             }
 
             const day_data = await get_day_data();
             if (day_data) {
-                const expenses = day_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? 0 : total + t.value; }, 0);
+                const expenses = day_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? total : total + t.value; }, 0);
                 set_day_expenses(expenses);
-                const income = day_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? total + t.value : 0; }, 0);
+                const income = day_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? total + t.value : total; }, 0);
                 set_day_income(income);
             }
         }
@@ -86,13 +88,15 @@ const Expenses_Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: 75%;
+    // background: rgba(87, 88, 125, 0.10);
+    // padding: 30px;
 `
 
 const Expenses_Title = styled.div`
     color: #dddddd;
-    margin-top: 12px;
-    margin-bottom: 12px;
-    font-size: 32px;
+    // margin-top: 12px;
+    // margin-bottom: 12px;
+    font-size: 28px;
 `
 
 const Expenses_Top = styled.div`
@@ -110,6 +114,7 @@ const Expenses_Bot = styled.div`
 `
 
 const Title = styled.div`
+    font-size: 24px;
     width: 125px;
 `
 
@@ -132,6 +137,7 @@ const Time_Period = styled.div`
     width: 33%;
     padding-left: 5px;
     padding-right: 5px;
+    margin-bottom: 20px;
 `
 
 

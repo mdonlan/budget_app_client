@@ -28,6 +28,11 @@ const starting_chart_data: ChartData = {
 	datasets: []
 };
 
+const expenses_line_color = 'rgb(255, 0, 0)';
+const expenses_background_color = 'rgba(255, 0, 0, 0.2)';
+const income_line_color = 'rgb(0, 255, 0)';
+const income_background_color = 'rgba(0, 255, 0, 0.2)';
+
 export function Income_Expenses_Chart(props: {time_period: Time_Period}) {
 
 	const [chart_data, set_chart_data] = useState<any>(starting_chart_data);
@@ -82,18 +87,18 @@ export function Income_Expenses_Chart(props: {time_period: Time_Period}) {
                 {
                     label: "Weekly Expenses",
                     data: days.map(d => d.expenses),
-                    borderColor: "rgba(84, 48, 217, 1)",
-                    borderWidth: 1,
-                    backgroundColor: "rgba(84, 48, 217, 0.2)",
-                    fill: true
+                    borderColor: expenses_line_color,
+                    // borderWidth: 1,
+                    backgroundColor: expenses_background_color,
+                    fill: false
                 },
                 {
                     label: "Weekly Income",
                     data: days.map(d => d.income),
-                    borderColor: "rgb(53, 162, 235)",
-                    borderWidth: 1,
-                    backgroundColor: "rgba(53, 162, 235, 0.5)",
-                    fill: true
+                    borderColor: income_line_color,
+                    // borderWidth: 1,
+                    backgroundColor: income_background_color,
+                    fill: false
                 }
             ]
         }
@@ -176,25 +181,26 @@ export function Income_Expenses_Chart(props: {time_period: Time_Period}) {
                 {
                     label: "Weekly Expenses",
                     data: weeks.map(w => w.expenses),
-                    borderColor: "green",
-                    borderWidth: 1,
-                    backgroundColor: "rgba(0, 200, 0, 0.2)",
-                    fill: true,
+                    // borderColor: "green",
+                    // borderWidth: 1,
+                    backgroundColor: expenses_background_color,
+                    borderColor: expenses_line_color,
+                    fill: false,
                 },
                 {
                     label: "Weekly Income",
                     data: weeks.map(w => w.income),
-                    borderColor: "red",
-                    borderWidth: 1,
-                    backgroundColor: "rgba(200, 0, 0, 0.2)",
-                    fill: true,
+                    // borderColor: "red",
+                    // borderWidth: 1,
+                    backgroundColor: income_background_color,
+                    borderColor: income_line_color,
+                    fill: false,
                 }
             ]
         }
     
         set_chart_data(new_chart_data); 
         chart_ref.current.update();       
-    //    }
     }
     
 
@@ -213,10 +219,6 @@ export function Income_Expenses_Chart(props: {time_period: Time_Period}) {
                 console.log("setup week")
                 setup_week();
             }
-			
-            
-
-			
 		}
 
 		get_data();

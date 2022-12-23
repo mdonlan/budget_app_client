@@ -14,25 +14,17 @@ export function Left_Nav(props) {
 
     return (
         <Wrapper>
-            <Styled_Link path={props.location.pathname} to="/" >Home</Styled_Link>
-            {!logged_in &&
-                <React.Fragment>
-                    {/* <Styled_Link path={props.location.pathname} to="/register">Register</Styled_Link>
-                    <Styled_Link path={props.location.pathname} to="/login">Login</Styled_Link> */}
-                </React.Fragment>
-            }
             {logged_in &&
                 <React.Fragment>
-                    {/* <Left> */}
+                    <Top>
+                        <Styled_Link path={props.location.pathname} to="/" >Home</Styled_Link>
                         <Styled_Link path={props.location.pathname} to="/transactions">Transactions</Styled_Link>
                         <Styled_Link path={props.location.pathname} to="/tags">Tags</Styled_Link>
-                        {/* <Styled_Link path={props.location.pathname} to="/charts">Charts</Styled_Link> */}
                         <Styled_Link path={props.location.pathname} to="/add_transaction">New Transaction &nbsp;<FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon></Styled_Link>
-                        {/* <Add_Transaction /> */}
-                    {/* </Left> */}
-                    {/* <Right> */}
+                    </Top>
+                    <Bot>
                         <Logout_Btn onClick={() => {logout()}}>Log Out</Logout_Btn>
-                    {/* </Right> */}
+                    </Bot>
                 </React.Fragment>
             }
         </Wrapper>
@@ -40,19 +32,33 @@ export function Left_Nav(props) {
 }
 
 const Wrapper = styled.div`
-    background: ${props => props.theme.background};
+    background: ${props => props.theme.left_nav_background};
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 `
 
+const Top = styled.div`
+    height: 70%;
+    width: 100%;
+`;
+
+const Bot = styled.div`
+    height: 30%;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+`;
+
 export const Styled_Link = styled(Link)<{path: string}>`
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     text-decoration: none;
+    transition: 0.3s;
     color: ${props => props.path == props.to ? "white" : "gray"};
-    background: ${props => props.path == props.to ? "#333333" : props.theme.background};
+    background: ${props => props.path == props.to ? props.theme.background : props.theme.left_nav_background};
     cursor: pointer;
     font-size: 18px;
     font-variant:  small-caps;
@@ -67,16 +73,20 @@ export const Styled_Link = styled(Link)<{path: string}>`
 `
 
 const Logout_Btn = styled.div`
-    margin-top: 14px;
-    margin-bottom: 14px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    // margin-top: 14px;
+    // margin-bottom: 14px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     color: gray;
     cursor: pointer;
     font-size: 18px;
     font-variant:  small-caps;
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
 
     :hover {
+        background: #333333;
         color: white;
     }
 `

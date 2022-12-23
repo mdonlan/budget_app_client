@@ -15,7 +15,7 @@ export async function register_user(data) {
     return superagent.post(`${host}/register_user`)
     .send(data)
     .then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.body.token) {
             localStorage.setItem("token", res.body.token);
             store.dispatch(set_token(res.body.token));
@@ -35,11 +35,11 @@ export async function validate_token() {
     try {
         response = await superagent.post(`${host}/validate_token`).send({ token: token });
         if (response.body.valid_token) {
-            console.log('token is valid');
+            // console.log('token is valid');
             store.dispatch(set_logged_in(true));
             store.dispatch(set_token(token));
         } else {
-            console.log('token is NOT valid')
+            // console.log('token is NOT valid')
             store.dispatch(set_logged_in(false));
         }
     } catch (e) {
@@ -81,8 +81,8 @@ export function create_transaction(transaction) {
     .send({transaction: transaction, token: token})
     .then(() => {
         // console.log('completed post')
-        console.log('creating new transaction');
-        console.log(transaction);
+        // console.log('creating new transaction');
+        // console.log(transaction);
         get_transactions();
     })
 }
@@ -98,8 +98,8 @@ export function update_transaction(transaction) {
     .send({transaction: transaction, token: token})
     .then(() => {
         // console.log('completed post')
-        console.log('updating transaction');
-        console.log(transaction);
+        // console.log('updating transaction');
+        // console.log(transaction);
         get_transactions();
     })
 }
@@ -213,7 +213,7 @@ export function get_amount_spent_by_tags(time_period: Time_Period) {
     return superagent.post(`${host}/get_amount_spent_by_tags`)
     .send({ token: token, time_period: time_period })
     .then(res => {
-        console.log('get_amount_spend_by_tags call return')
+        // console.log('get_amount_spend_by_tags call return')
         return res.body;
     })
     .catch(e => console.log(e))
@@ -225,7 +225,7 @@ export function get_time_period_data(time_period: Time_Period) {
     return superagent.post(`${host}/get_time_period_data`)
     .send({ token: token, time_period: time_period })
     .then(res => {
-        console.log(res.body)
+        // console.log(res.body)
         return res.body;
     })
     .catch(e => console.log(e))
@@ -237,7 +237,7 @@ export function get_transactions_by_time_period(time_period: Time_Period) {
     return superagent.post(`${host}/get_transactions_by_time_period`)
     .send({ token: token, time_period: time_period })
     .then(res => {
-        console.log(res.body)
+        // console.log(res.body)
         return res.body;
     })
     .catch(e => console.log(e))

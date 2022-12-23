@@ -144,7 +144,7 @@ export function Add_Transaction() {
         const input_text = e.target.value;
         const matching = [];
         existing_tags.forEach(tag => {
-            if (tag.value.includes(input_text)) {
+            if (tag.value.includes(input_text) && input_text.length > 0) {
                 matching.push(tag.value);
             }
         })
@@ -194,12 +194,12 @@ export function Add_Transaction() {
                                 )
                             })}
                         </Tags>
-                        <div>
+                        <Matching_Tags_List>
                             <Tag_Input value={current_tag} onChange={handle_new_tag_change} onKeyDown={new_tag_keydown} />
                             {matching_tags.map((tag, i) => {
                                 return <Matching_Tag active={i == matching_tags_index ? true : false} key={i} onClick={() => {add_new_tag()}}>{tag}</Matching_Tag>
                             })}
-                        </div>
+                        </Matching_Tags_List>
                     {/* </Row> */}
                    
                     <Create_Btn onClick={handle_submit}>create</Create_Btn>
@@ -344,6 +344,11 @@ const Tag_Name = styled.div`
 
 const Tag_Remove_Btn = styled.div``
 
+const Matching_Tags_List = styled.div`
+    // overflow-y: auto;
+`
+
 const Matching_Tag = styled.div<Matching_Tag_Props>`
     background: ${props => props.active ? "blue" : "red"};
 `
+

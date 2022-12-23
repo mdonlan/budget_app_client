@@ -50,6 +50,6 @@ const Transaction_Col_Header = styled.div`
 `
 
 const Transactions_List = styled.div`
-    height: 100%;
-    overflow-y: auto;
+    // min-height: 100%;
+    // overflow-y: auto;
 `
