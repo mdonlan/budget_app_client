@@ -33,7 +33,7 @@ const expenses_background_color = 'rgba(255, 0, 0, 0.2)';
 const income_line_color = 'rgb(0, 255, 0)';
 const income_background_color = 'rgba(0, 255, 0, 0.2)';
 
-export function Income_Expenses_Chart(props: {time_period: Time_Period}) {
+export function Income_Expenses_Chart(props: {time_period: Time_Period, date: Date}) {
 
 	const [chart_data, set_chart_data] = useState<any>(starting_chart_data);
 	const [options, set_options] = useState<ChartOptions>({
@@ -51,7 +51,7 @@ export function Income_Expenses_Chart(props: {time_period: Time_Period}) {
 	const chart_ref = useRef(null);
 
     async function setup_week() {
-        const data = await get_week_data();
+        const data = await get_week_data(props.date);
         const transactions: Transaction[] = data.transactions;
 
         const days = [];
@@ -107,7 +107,7 @@ export function Income_Expenses_Chart(props: {time_period: Time_Period}) {
     }
 
     async function setup_month() {
-        const data = await get_month_data();
+        const data = await get_month_data(props.date);
         const transactions: Transaction[] = data.transactions;
 
         const weeks: Week[] = [];
@@ -223,7 +223,7 @@ export function Income_Expenses_Chart(props: {time_period: Time_Period}) {
 
 		get_data();
 
-	}, [props.time_period]);
+	}, [props.time_period, props.date]);
 
 	return (
 		<Daily_Spending_Chart_Wrapper>

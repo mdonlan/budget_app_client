@@ -35,7 +35,7 @@ export function Homepage() {
                     <Expenses/>
                     <Recent_Transactions />
                 
-                    <Time_Period_Data/>
+                    {/* <Time_Period_Data/> */}
                     
                 </>
             }

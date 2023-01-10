@@ -45,7 +45,7 @@ export function Daily_Spending_Chart() {
 
 	useEffect(() => {
 		async function get_week_transactions() {
-			const data = await get_week_data();
+			const data = await get_week_data(new Date);
 			const transactions: Transaction[] = data.transactions;
 
 			const days = [];

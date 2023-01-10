@@ -18,9 +18,9 @@ export function Spending_By_Tag(props: {time_period: Time_Period}) {
 
     useEffect(() => {
         async function get_data() {
-            const data = await get_amount_spent_by_tags(props.time_period);
-            // console.log(data.spending_tags);
-            set_spending_tags(data.spending_tags);
+            // const data = await get_amount_spent_by_tags(props.time_period, date);
+            // // console.log(data.spending_tags);
+            // set_spending_tags(data.spending_tags);
         }
         
         get_data();

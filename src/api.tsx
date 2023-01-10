@@ -136,11 +136,11 @@ export function get_year_data() {
     .catch(e => console.log(e))
 }
 
-export function get_month_data() {
+export function get_month_data(date: Date) {
     const token = localStorage.getItem("token");
     if (!token) return;
     return superagent.post(`${host}/get_month_data`)
-    .send({ token: token })
+    .send({ token: token, date: date })
     .then(res => {
         // console.log(res.body);
         return res.body;
@@ -148,11 +148,11 @@ export function get_month_data() {
     .catch(e => console.log(e))
 }
 
-export function get_week_data() {
+export function get_week_data(date: Date) {
     const token = localStorage.getItem("token");
     if (!token) return;
     return superagent.post(`${host}/get_week_data`)
-    .send({ token: token })
+    .send({ token: token, date: date })
     .then(res => {
         // console.log(res.body);
         return res.body;
@@ -207,11 +207,11 @@ export function get_popular_tags() {
     .catch(e => console.log(e))
 }
 
-export function get_amount_spent_by_tags(time_period: Time_Period) {
+export function get_amount_spent_by_tags(time_period: Time_Period, date: Date) {
     const token = localStorage.getItem("token");
     if (!token) return;
     return superagent.post(`${host}/get_amount_spent_by_tags`)
-    .send({ token: token, time_period: time_period })
+    .send({ token: token, time_period: time_period, date: date })
     .then(res => {
         // console.log('get_amount_spend_by_tags call return')
         return res.body;
@@ -219,11 +219,11 @@ export function get_amount_spent_by_tags(time_period: Time_Period) {
     .catch(e => console.log(e))
 }
 
-export function get_time_period_data(time_period: Time_Period) {
+export function get_time_period_data(time_period: Time_Period, date: Date) {
     const token = localStorage.getItem("token");
     if (!token) return;
     return superagent.post(`${host}/get_time_period_data`)
-    .send({ token: token, time_period: time_period })
+    .send({ token: token, time_period: time_period, date: date })
     .then(res => {
         // console.log(res.body)
         return res.body;
@@ -231,11 +231,11 @@ export function get_time_period_data(time_period: Time_Period) {
     .catch(e => console.log(e))
 }
 
-export function get_transactions_by_time_period(time_period: Time_Period) {
+export function get_transactions_by_time_period(time_period: Time_Period, date: Date) {
     const token = localStorage.getItem("token");
     if (!token) return;
     return superagent.post(`${host}/get_transactions_by_time_period`)
-    .send({ token: token, time_period: time_period })
+    .send({ token: token, time_period: time_period, date: date })
     .then(res => {
         // console.log(res.body)
         return res.body;

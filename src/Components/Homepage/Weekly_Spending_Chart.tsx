@@ -46,7 +46,7 @@ export function Weekly_Spending_Chart() {
    
     useEffect(() => {
        async function get_week_transactions() {
-            const data = await get_month_data();
+            const data = await get_month_data(new Date());
             const transactions: Transaction[] = data.transactions;
 
             const weeks: Week[] = [];

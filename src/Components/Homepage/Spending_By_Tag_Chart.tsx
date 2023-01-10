@@ -43,7 +43,7 @@ export function hsla_to_str(hsla) {
     return `hsla(${hsla.h}, ${hsla.s}%, ${hsla.l}%, ${hsla.a})`;
 }
 
-export function Spending_By_Tag_Chart(props: {time_period: Time_Period}) {
+export function Spending_By_Tag_Chart(props: {time_period: Time_Period, date: Date}) {
     const [chart_data, set_chart_data] = useState<any>({
         labels: [],
         datasets: []
@@ -74,7 +74,7 @@ export function Spending_By_Tag_Chart(props: {time_period: Time_Period}) {
    
     useEffect(() => {
        async function get_data() {
-            const data = await get_amount_spent_by_tags(props.time_period);
+            const data = await get_amount_spent_by_tags(props.time_period, props.date);
             console.log("amount spent by tags")
             console.log(data);
             const tags = data.spending_tags;
@@ -102,7 +102,7 @@ export function Spending_By_Tag_Chart(props: {time_period: Time_Period}) {
        }
 
        get_data();
-    }, [props.time_period]);
+    }, [props.time_period, props.date]);
 
     return (
         <Spending_By_Tag_Chart_Wrapper>

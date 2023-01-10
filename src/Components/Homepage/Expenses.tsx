@@ -13,7 +13,7 @@ export function Expenses() {
 
     useEffect(() => {
         async function get_data() {
-            const month_data = await get_month_data();
+            const month_data = await get_month_data(new Date());
             if (month_data) {
                 const expenses = month_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? total : total + t.value; }, 0);
                 console.log(month_data)
@@ -23,7 +23,7 @@ export function Expenses() {
                 set_month_income(income);
             }
 
-            const week_data = await get_week_data();
+            const week_data = await get_week_data(new Date);
             if (week_data) {
                 const expenses = week_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? total : total + t.value; }, 0);
                 set_week_expenses(expenses);

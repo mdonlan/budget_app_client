@@ -13,6 +13,7 @@ import { Tags } from './Tags';
 import { Left_Nav } from './Left_Nav'
 import { Add_Transaction } from './Add_Transaction';
 import { Charts } from './Charts'
+import { Time_Period_Data } from './Homepage/Time_Period_Data'
 
 
 export function App() {
@@ -47,6 +48,7 @@ export function App() {
                             <Protected_Route exact path="/tags" component={Tags}/>
                             <Protected_Route exact path="/add_transaction" component={Add_Transaction}/>
                             <Protected_Route exact path="/charts" component={Charts}/>
+                            <Protected_Route exact path="/details" component={Time_Period_Data}/>
                         </Switch>
                     </Bottom>
                 </Right>

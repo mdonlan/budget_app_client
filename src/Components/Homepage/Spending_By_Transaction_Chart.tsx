@@ -30,7 +30,7 @@ const plugin = {
     }
 }
 
-export function Spending_By_Transaction_Chart(props: {time_period: Time_Period}) {
+export function Spending_By_Transaction_Chart(props: {time_period: Time_Period, date: Date}) {
     const [chart_data, set_chart_data] = useState<any>({
         labels: [],
         datasets: [],
@@ -62,7 +62,7 @@ export function Spending_By_Transaction_Chart(props: {time_period: Time_Period})
    
     useEffect(() => {
         async function get_data() {
-            const data = await get_transactions_by_time_period(props.time_period);
+            const data = await get_transactions_by_time_period(props.time_period, props.date);
             const transactions = data.transactions;
             
             const background_colors = transactions.map((t, i) => random_hsla());
@@ -80,22 +80,6 @@ export function Spending_By_Transaction_Chart(props: {time_period: Time_Period})
                         data: transactions.map(t => !t.is_inflow ? t.value : 0),
                         backgroundColor: background_colors.map(color => hsla_to_str(color)),
                         borderColor: border_colors.map(color => hsla_to_str(color)),
-                        // backgroundColor: [
-                        //     'rgba(255, 99, 132, 0.2)',
-                        //     'rgba(54, 162, 235, 0.2)',
-                        //     'rgba(255, 206, 86, 0.2)',
-                        //     'rgba(75, 192, 192, 0.2)',
-                        //     'rgba(153, 102, 255, 0.2)',
-                        //     'rgba(255, 159, 64, 0.2)',
-                        // ],
-                        // borderColor: [
-                        //     'rgba(255, 99, 132, 1)',
-                        //     'rgba(54, 162, 235, 1)',
-                        //     'rgba(255, 206, 86, 1)',
-                        //     'rgba(75, 192, 192, 1)',
-                        //     'rgba(153, 102, 255, 1)',
-                        //     'rgba(255, 159, 64, 1)',
-                        // ]
                     }
                 ],
             }
@@ -104,7 +88,7 @@ export function Spending_By_Transaction_Chart(props: {time_period: Time_Period})
        }
 
        get_data();
-    }, [props.time_period]);
+    }, [props.time_period, props.date]);
 
     return (
         <Spending_By_Transaction_Chart_Wrapper>

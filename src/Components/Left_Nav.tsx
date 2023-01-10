@@ -21,6 +21,7 @@ export function Left_Nav(props) {
                         <Styled_Link path={props.location.pathname} to="/transactions">Transactions</Styled_Link>
                         <Styled_Link path={props.location.pathname} to="/tags">Tags</Styled_Link>
                         <Styled_Link path={props.location.pathname} to="/add_transaction">New Transaction &nbsp;<FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon></Styled_Link>
+                        <Styled_Link path={props.location.pathname} to="/details">Details</Styled_Link>
                     </Top>
                     <Bot>
                         <Logout_Btn onClick={() => {logout()}}>Log Out</Logout_Btn>
