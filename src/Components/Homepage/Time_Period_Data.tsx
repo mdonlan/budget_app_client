@@ -11,6 +11,8 @@ import { Income_Expenses_Chart } from './Income_Expenses_Chart';
 import { subMonths, addMonths, startOfMonth, format, startOfWeek, endOfMonth, endOfWeek, startOfYear, endOfYear, subWeeks, addWeeks, subYears, addYears } from 'date-fns';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 enum Change {
     PREV,
@@ -44,21 +46,22 @@ export function Time_Period_Data() {
     }
 
     function get_range() {
+        const date_format = "MMM dd yyyy";
         if (time_period == Time_Period.MONTH) {
-            return format(startOfMonth(date), "dd-MM-yyyy") + " to " + format(endOfMonth(date), "dd-MM-yyyy");
+            return format(startOfMonth(date), date_format) + " to " + format(endOfMonth(date), date_format);
         } else if (time_period == Time_Period.WEEK) {
-            return format(startOfWeek(date), "dd-MM-yyyy") + " to " + format(endOfWeek(date), "dd-MM-yyyy");
+            return format(startOfWeek(date), date_format) + " to " + format(endOfWeek(date), date_format);
         } else if (time_period == Time_Period.YEAR) {
-            return format(startOfYear(date), "dd-MM-yyyy") + " to " + format(endOfYear(date), "dd-MM-yyyy");
+            return format(startOfYear(date), date_format) + " to " + format(endOfYear(date), date_format);
         }
     }
 
     return (
         <Wrapper>
             <Select_Date>
-                <div onClick={() => {change_date(Change.PREV)}}>&lt;</div>
-                <div onClick={() => {change_date(Change.NEXT)}}>&gt;</div>
-                <DatePicker selected={date} onChange={(new_date: Date) => set_date(new_date) } />
+                <Change_Date_Btn onClick={() => {change_date(Change.PREV)}}><FontAwesomeIcon icon={faSquareCaretLeft} /></Change_Date_Btn>
+                <Change_Date_Btn onClick={() => {change_date(Change.NEXT)}}><FontAwesomeIcon icon={faSquareCaretRight} /></Change_Date_Btn>
+                <Styled_Date_Picker selected={date} onChange={(new_date: Date) => set_date(new_date) } />
             </Select_Date>
             <Time_Periods>
                 {/* <Time_Period_El active={time_period == Time_Period.DAY} onClick={() => set_time_period(Time_Period.DAY)}>Day</Time_Period_El> */}
@@ -70,23 +73,15 @@ export function Time_Period_Data() {
             {time_period_data &&
                 <Data>
                     <Data_Text>
-                        <div>{get_range()}</div>
+                        <Text>{get_range()}</Text>
                         <Text># Transactions: {time_period_data.num_transactions}</Text>
-                        <Text>Spent ${time_period_data.money_spent.toFixed(2)}</Text>
+                        <Text>Income ${time_period_data.income.toFixed(2)}</Text>
+                        <Text>Expenses ${time_period_data.expenses.toFixed(2)}</Text>
                     </Data_Text>
                     <Charts>
                         <Spending_By_Tag_Chart time_period={time_period} date={date}/>
                         <Spending_By_Transaction_Chart time_period={time_period} date={date}/>
                         <Income_Expenses_Chart time_period={time_period} date={date}/>
-                        {/* {time_period == Time_Period.MONTH &&
-                            <Weekly_Spending_Chart />
-                        }
-                        {time_period == Time_Period.WEEK &&
-                            <Daily_Spending_Chart />
-                        }
-                        {time_period == Time_Period.YEAR &&
-                            <Yearly_Spending_Chart />
-                        } */}
                     </Charts>
                 </Data>
             }
@@ -104,15 +99,31 @@ const Wrapper = styled.div`
 
 const Select_Date = styled.div`
     display: flex;
-    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
 `
 
-const Title = styled.div`
-    font-size: 24px;
-    margin-top: 24px;
-    margin-bottom: 24px;
-    text-align: center;
+const Styled_Date_Picker = styled(DatePicker)`
+    margin-left: 10px;
 `
+
+const Change_Date_Btn = styled.div`
+    margin: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    :hover {
+        color: #379e66;
+    }
+`
+
+// const Title = styled.div`
+//     font-size: 24px;
+//     margin-top: 24px;
+//     margin-bottom: 24px;
+//     text-align: center;
+// `
 
 const Time_Periods = styled.div`
     display: flex;
@@ -142,11 +153,15 @@ const Data = styled.div`
 
 const Data_Text = styled.div`
     display: flex;
-    margin-bottom: 25px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 35px;
 `
 
 const Text = styled.div`
-    margin: 8px;
+    margin-bottom: 8px;
+    font-size: 24px;
 `
 
 const Charts = styled.div`

@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom'
@@ -7,6 +6,7 @@ import { logout } from '../api'
 import { RootState } from '../store';
 import { Add_Transaction } from './Add_Transaction';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export function Left_Nav(props) {
     const logged_in = useSelector<RootState>(state => state.default.logged_in);

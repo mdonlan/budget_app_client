@@ -4,12 +4,17 @@ import styled from 'styled-components';
 import { Transaction } from '../../store';
 
 export function Expenses() {
-    const [month_expenses, set_month_expenses] = useState<number>(0);
-    const [week_expenses, set_week_expenses] = useState<number>(0);
     const [day_expenses, set_day_expenses] = useState<number>(0);
-    const [month_income, set_month_income] = useState<number>(0);
-    const [week_income, set_week_income] = useState<number>(0);
     const [day_income, set_day_income] = useState<number>(0);
+    const [day_result, set_day_result] = useState<number>(0);
+
+    const [month_expenses, set_month_expenses] = useState<number>(0);
+    const [month_income, set_month_income] = useState<number>(0);
+    const [month_result, set_month_result] = useState<number>(0);
+
+    const [week_expenses, set_week_expenses] = useState<number>(0);
+    const [week_income, set_week_income] = useState<number>(0);
+    const [week_result, set_week_result] = useState<number>(0);
 
     useEffect(() => {
         async function get_data() {
@@ -21,6 +26,7 @@ export function Expenses() {
                 set_month_expenses(expenses);
                 const income = month_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? total + t.value : total; }, 0);
                 set_month_income(income);
+                set_month_result(income - expenses);
             }
 
             const week_data = await get_week_data(new Date);
@@ -29,6 +35,7 @@ export function Expenses() {
                 set_week_expenses(expenses);
                 const income = week_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? total + t.value : total; }, 0);
                 set_week_income(income);
+                set_week_result(income - expenses);
             }
 
             const day_data = await get_day_data();
@@ -37,6 +44,7 @@ export function Expenses() {
                 set_day_expenses(expenses);
                 const income = day_data.transactions.reduce((total: number, t: Transaction) => { return t.is_inflow ? total + t.value : total; }, 0);
                 set_day_income(income);
+                set_day_result(income - expenses);
             }
         }
         
@@ -49,24 +57,9 @@ export function Expenses() {
                 <Expenses_Title>Income & Expenses</Expenses_Title>
             </Expenses_Top>
             <Expenses_Bot>
-               <Expenses_List>
-               <Title>Expenses</Title>
-                <Time_Period>
-                        <Expense_Time_Title>Day</Expense_Time_Title>
-                        <Expense_Value><Dollar_Sign>$</Dollar_Sign>{day_expenses.toFixed(2)}</Expense_Value>
-                    </Time_Period>
+                <Income_List>
+                <Title>Income</Title>
                     <Time_Period>
-                        <Expense_Time_Title>Week</Expense_Time_Title>
-                        <Expense_Value><Dollar_Sign>$</Dollar_Sign>{week_expenses.toFixed(2)}</Expense_Value>
-                    </Time_Period>
-                    <Time_Period>
-                        <Expense_Time_Title>Month</Expense_Time_Title>
-                        <Expense_Value><Dollar_Sign>$</Dollar_Sign>{month_expenses.toFixed(2)}</Expense_Value>
-                    </Time_Period>
-               </Expenses_List>
-               <Income_List>
-               <Title>Income</Title>
-                <Time_Period>
                         <Expense_Time_Title>Day</Expense_Time_Title>
                         <Expense_Value><Dollar_Sign>$</Dollar_Sign>{day_income.toFixed(2)}</Expense_Value>
                     </Time_Period>
@@ -79,6 +72,38 @@ export function Expenses() {
                         <Expense_Value><Dollar_Sign>$</Dollar_Sign>{month_income.toFixed(2)}</Expense_Value>
                     </Time_Period>
                </Income_List>
+               
+               <Expenses_List>
+               <Title>Expenses</Title>
+                <Time_Period>
+                        {/* <Expense_Time_Title>Day</Expense_Time_Title> */}
+                        <Expense_Value><Dollar_Sign>$</Dollar_Sign>{day_expenses.toFixed(2)}</Expense_Value>
+                    </Time_Period>
+                    <Time_Period>
+                        {/* <Expense_Time_Title>Week</Expense_Time_Title> */}
+                        <Expense_Value><Dollar_Sign>$</Dollar_Sign>{week_expenses.toFixed(2)}</Expense_Value>
+                    </Time_Period>
+                    <Time_Period>
+                        {/* <Expense_Time_Title>Month</Expense_Time_Title> */}
+                        <Expense_Value><Dollar_Sign>$</Dollar_Sign>{month_expenses.toFixed(2)}</Expense_Value>
+                    </Time_Period>
+               </Expenses_List>
+
+               <Results_List>
+               <Title></Title>
+                <Time_Period>
+                        {/* <Expense_Time_Title>Day</Expense_Time_Title> */}
+                        <Result_Value value={day_result}>{day_result.toFixed(2)}</Result_Value>
+                    </Time_Period>
+                    <Time_Period>
+                        {/* <Expense_Time_Title>Week</Expense_Time_Title> */}
+                        <Result_Value value={week_result}>{week_result.toFixed(2)}</Result_Value>
+                    </Time_Period>
+                    <Time_Period>
+                        {/* <Expense_Time_Title>Month</Expense_Time_Title> */}
+                        <Result_Value value={month_result}>{month_result.toFixed(2)}</Result_Value>
+                    </Time_Period>
+               </Results_List>
             </Expenses_Bot>
         </Expenses_Wrapper>
     )
@@ -130,6 +155,16 @@ const Income_List = styled.div`
     // justify-content: center;
 `
 
+const Results_List = styled.div`
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+`
+
+const Result_Value = styled.div<{value: number}>`
+    color: ${props => props.value > 0 ? "green" : "red"};
+`
+
 const Time_Period = styled.div`
     display: flex;
     flex-direction: column;
@@ -151,4 +186,5 @@ const Expense_Value = styled.div`
 
 const Dollar_Sign = styled.sup`
     font-size: 16px;
+    opacity: 0.7;
 `

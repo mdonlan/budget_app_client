@@ -28,9 +28,9 @@ const starting_chart_data: ChartData = {
 	datasets: []
 };
 
-const expenses_line_color = 'rgb(255, 0, 0)';
+const expenses_line_color = 'rgba(255, 0, 0, 0.7)';
 const expenses_background_color = 'rgba(255, 0, 0, 0.2)';
-const income_line_color = 'rgb(0, 255, 0)';
+const income_line_color = 'rgba(0, 255, 0, 0.7)';
 const income_background_color = 'rgba(0, 255, 0, 0.2)';
 
 export function Income_Expenses_Chart(props: {time_period: Time_Period, date: Date}) {
