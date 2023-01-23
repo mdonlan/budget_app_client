@@ -40,12 +40,14 @@ export function Transaction_Component(props) {
             <Transaction_Item>{props.t.value}</Transaction_Item>
             {props.t.tags.map((tag, i) => {
                 return (
-                    <Tag key={i}>
-                        <div onClick={() => {handle_tag_click(tag)}}>{tag}</div>
-                        {i < props.t.tags.length &&
+                    <>
+                        <Tag key={i}>
+                            <div onClick={() => {handle_tag_click(tag)}}>{tag}</div>
+                        </Tag>
+                        {/* {i < props.t.tags.length - 1 &&
                             <div>,&nbsp;</div>
-                        }
-                    </Tag>
+                        } */}
+                    </>
                 )
             })}
            {hovered &&
@@ -68,9 +70,11 @@ const Transaction_Wrapper = styled.div<{hovered: boolean}>`
     display: flex;
     padding-top: 12px;
     padding-bottom: 12px;
+    padding-left: 8px;
+    padding-right: 8px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
-    background: ${props => props.hovered ? "#232323" : "none"};
+    background: ${props => props.hovered ? "#414758" : "none"};
 `
 
 const Delete_Btn = styled(FontAwesomeIcon)`
@@ -99,9 +103,15 @@ const Edit_Btn = styled(FontAwesomeIcon)`
 
 const Transaction_Item = styled.div`
     width: 20%;
+    // padding-left: 30px;
 `
 
 const Tag = styled.div`
-    // margin-right: 15px;
     display: flex;
+    cursor: pointer;
+    padding: 3px;
+
+    :hover {
+        background: #363b4a;
+    }
 `
