@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { logout } from '../api'
 import { RootState } from '../store';
 import { Add_Transaction } from './Add_Transaction';
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlus, faHome, faList, faTag, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export function Left_Nav(props) {
@@ -17,11 +17,11 @@ export function Left_Nav(props) {
             {logged_in &&
                 <React.Fragment>
                     <Top>
-                        <Styled_Link path={props.location.pathname} to="/" >Home</Styled_Link>
-                        <Styled_Link path={props.location.pathname} to="/transactions">Transactions</Styled_Link>
-                        <Styled_Link path={props.location.pathname} to="/tags">Tags</Styled_Link>
-                        <Styled_Link path={props.location.pathname} to="/add_transaction">New Transaction &nbsp;<FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon></Styled_Link>
-                        <Styled_Link path={props.location.pathname} to="/details">Details</Styled_Link>
+                        <Styled_Link path={props.location.pathname} to="/" ><Styled_Icon icon={faHome} />Home</Styled_Link>
+                        <Styled_Link path={props.location.pathname} to="/transactions"><Styled_Icon icon={faList} />Transactions</Styled_Link>
+                        <Styled_Link path={props.location.pathname} to="/tags"><Styled_Icon icon={faTag} />Tags</Styled_Link>
+                        <Styled_Link path={props.location.pathname} to="/add_transaction"><Styled_Icon icon={faCirclePlus} />New Transaction </Styled_Link>
+                        <Styled_Link path={props.location.pathname} to="/details"><Styled_Icon icon={faCircleInfo} />Details</Styled_Link>
                     </Top>
                     <Bot>
                         <Logout_Btn onClick={() => {logout()}}>Log Out</Logout_Btn>
@@ -67,10 +67,15 @@ export const Styled_Link = styled(Link)<{path: string}>`
         background: #333333;
         color: white;
     }
-    width: 100%;
+    width: calc(100% - 20px);
     display: flex;
-    justify-content: center;
-    align-items: center;
+    padding-left: 20px;
+    // justify-content: center;
+    // align-items: center;
+`
+
+const Styled_Icon = styled(FontAwesomeIcon)`
+    margin-right: 10px;
 `
 
 const Logout_Btn = styled.div`

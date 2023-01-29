@@ -14,13 +14,10 @@ interface Matching_Tag_Props {
 };
 
 export function Add_Transaction() {
-
-    // const [is_active, set_is_active] = useState(false);
     const transaction_ref = useRef(null);
     const existing_tags = useSelector((state: RootState) => state.default.tags);
     const existing_transaction = useSelector((state: RootState) => state.default.existing_transaction);
     const dispatch = useDispatch();
-
     const [transaction, set_transaction] = useState<Transaction>({
         name: "",
         tags: [],
@@ -30,32 +27,20 @@ export function Add_Transaction() {
         username: "", // doesn't matter for client
         is_inflow: false
     });
-    // const [transaction, set_transaction] = useState<Transaction>();
-
     const [error, set_error] = useState<string>("");
-
-    // const [startDate, setStartDate] = useState(new Date());
-
-    // const [adding_new_tag, set_adding_new_tag] = useState(false);
     const [current_tag, set_current_tag] = useState("");
     const [matching_tags, set_matching_tags] = useState([]);
     const [active_matching_tag, set_active_matching_tag] = useState(null);
     const [matching_tags_index, set_matching_tags_index] = useState(0);
 
     useEffect(() => {
-        // get_categories();
-        // get_accounts();
         if (existing_transaction) {
-            // console.log("\n existing transaction \n");
-            console.log(existing_transaction);
-            // set_transaction(existing_transaction);
             set_transaction({
                 name: existing_transaction.name, 
                 tags: existing_transaction.tags, 
                 value: existing_transaction.value,
-                //
                 // TODO: FIX THIS
-                // this is gross -- this is becuase the type is supposed to be Date() but server returns string
+                // this is becuase the type is supposed to be Date() but server returns string
                 date: parseISO(existing_transaction.date as unknown as string),
                 id: existing_transaction.id, 
                 username: existing_transaction.username,
@@ -63,10 +48,6 @@ export function Add_Transaction() {
             });
         }
     }, []);
-
-    // function clicked_add_transaction() {
-    //     set_is_active(true);
-    // }
 
     function handle_change(e) {
         set_transaction({...transaction, [e.target.name]: e.target.value});
@@ -98,10 +79,6 @@ export function Add_Transaction() {
         } 
     }
 
-    // function handle_cancel() {
-    //     set_is_active(false);
-    // }
-
     function new_tag_keydown(event) {
         if (event.keyCode == 13) { // enter
             add_new_tag();
@@ -130,7 +107,6 @@ export function Add_Transaction() {
         const tags = transaction.tags;
         tags.push(tag);
         set_transaction({...transaction, tags: tags});
-        // set_adding_new_tag(false);
         clear_new_tag();
     }
 
@@ -162,54 +138,50 @@ export function Add_Transaction() {
 
     return (
         <Wrapper>
-            {/* <Add_Transaction_Btn onClick={clicked_add_transaction}>Add Transaction</Add_Transaction_Btn> */}
-            {/* {is_active && */}
-                <New_Transaction ref={transaction_ref}>
-                    <Title>New Transaction</Title>
-                    <Row>
-                        <Field_Name>Name</Field_Name>
-                        <Name name="name" placeholder="transaction name" value={transaction.name} onChange={handle_change}/>
-                    </Row>
-                    <Row>
-                        <Field_Name>Inflow</Field_Name>
-                        <input type="checkbox" checked={transaction.is_inflow} onChange={() => {set_transaction({...transaction, ["is_inflow"]: !transaction.is_inflow})}}/>
-                    </Row>
-                    <Row>
-                        <Field_Name>Date</Field_Name>
-                        <DatePicker selected={transaction.date} onChange={(date:Date) => set_transaction({...transaction, ["date"]: date}) } />
-                    </Row>
-                    <Row>
-                        <Field_Name>Amount</Field_Name>
-                        <Amount name="value" placeholder="value" value={transaction.value} onChange={handle_change}/>
-                    </Row>
-                    {/* <Row> */}
-                        <Field_Name>Tags</Field_Name>
-                        <Tags>
-                            {transaction.tags.map((tag, i) => {
-                                return (
-                                    <Tag key={i}>
-                                        <Tag_Name>{tag}</Tag_Name>
-                                        <Tag_Remove_Btn onClick={() => {remove_tag(tag)}} >x</Tag_Remove_Btn>
-                                    </Tag>
-                                )
-                            })}
-                        </Tags>
-                        <Matching_Tags_List>
-                            <Tag_Input value={current_tag} onChange={handle_new_tag_change} onKeyDown={new_tag_keydown} />
-                            {matching_tags.map((tag, i) => {
-                                return <Matching_Tag active={i == matching_tags_index ? true : false} key={i} onClick={() => {add_new_tag()}}>{tag}</Matching_Tag>
-                            })}
-                        </Matching_Tags_List>
-                    {/* </Row> */}
-                   
-                    <Create_Btn onClick={handle_submit}>create</Create_Btn>
+            <New_Transaction ref={transaction_ref}>
+                <Title>New Transaction</Title>
+                <Row>
+                    <Field_Name>Name</Field_Name>
+                    <Name name="name" placeholder="transaction name" value={transaction.name} onChange={handle_change}/>
+                </Row>
+                <Row>
+                    <Field_Name>Inflow</Field_Name>
+                    <input type="checkbox" checked={transaction.is_inflow} onChange={() => {set_transaction({...transaction, ["is_inflow"]: !transaction.is_inflow})}}/>
+                </Row>
+                <Row>
+                    <Field_Name>Date</Field_Name>
+                    <DatePicker selected={transaction.date} onChange={(date:Date) => set_transaction({...transaction, ["date"]: date}) } />
+                </Row>
+                <Row>
+                    <Field_Name>Amount</Field_Name>
+                    <Amount name="value" placeholder="value" value={transaction.value} onChange={handle_change}/>
+                </Row>
+                
+                <Tags_Title>Tags</Tags_Title>
+                <Tags>
+                    {transaction.tags.map((tag, i) => {
+                        return (
+                            <Tag key={i}>
+                                <Tag_Name>{tag}</Tag_Name>
+                                <Tag_Remove_Btn onClick={() => {remove_tag(tag)}} >x</Tag_Remove_Btn>
+                            </Tag>
+                        )
+                    })}
+                </Tags>
+                
+                <Matching_Tags_List>
+                    <Tag_Input value={current_tag} onChange={handle_new_tag_change} onKeyDown={new_tag_keydown} />
+                    {matching_tags.map((tag, i) => {
+                        return <Matching_Tag active={i == matching_tags_index ? true : false} key={i} onClick={() => {add_new_tag()}}>{tag}</Matching_Tag>
+                    })}
+                </Matching_Tags_List>
+                
+                <Create_Btn onClick={handle_submit}>create</Create_Btn>
 
-                    {error.length > 0 &&
-                        <div>{error}</div>
-                    }
-                    {/* <Cancel_Btn onClick={handle_cancel}>cancel</Cancel_Btn> */}
-                </New_Transaction>
-            {/* } */}
+                {error.length > 0 &&
+                    <div>{error}</div>
+                }
+            </New_Transaction>
         </Wrapper>
     )
 }
@@ -217,26 +189,22 @@ export function Add_Transaction() {
 const Wrapper = styled.div`
     width: 100%; 
     height: 100%;
-    // background: darkblue;
     display: flex;
     justify-content: center;
     align-items: center;
 `
 
 const New_Transaction = styled.div`
-    // position: absolute;
-    // top: calc(50% - 200px);
-    // left: calc(50% - 200px);
     width: 400px;
     height: 400px;
-    // padding: 30px;
-    // width: 50%;
-    background: #23292b;
+    background: ${props => props.theme.left_nav_background};
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 3;
+    // z-index: 3;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.6);
 `
 
 const Title = styled.div`
@@ -269,7 +237,6 @@ const Row = styled.div`
 const Field_Name = styled.div`
     width: 50%;
     text-align: center;
-    // margin-bottom: 12px;
 `
 
 const styled_input = styled.input`
@@ -281,10 +248,6 @@ const styled_input = styled.input`
     width: 50%;
     padding: 0px;
     text-align: center;
-`
-
-const styled_select = styled.select`
-    width: 50%;
 `
 
 const Name = styled(styled_input)`
@@ -301,11 +264,9 @@ const Create_Btn = styled.div`
     cursor: pointer;
 `
 
-const Cancel_Btn = styled.div`
-    padding: 8px;
-    margin: 8px;
-    background: #702618;
-    cursor: pointer;
+const Tags_Title = styled.div`
+    margin-top: 20px;
+    margin-bottom: 5px;
 `
 
 const Tags = styled.div`

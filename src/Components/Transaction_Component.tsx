@@ -6,7 +6,7 @@ import { Add_Transaction } from './Add_Transaction';
 import {store, RootState, set_active_tag_name, Tag, set_existing_transaction} from '../store';
 import { format, startOfDay } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleXmark, faPen, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCircleXmark, faPen, faCheck, faPiggyBank, faCreditCard } from '@fortawesome/free-solid-svg-icons'
 import history  from '../history';
 
 
@@ -34,22 +34,19 @@ export function Transaction_Component(props) {
             onMouseLeave={() => {set_hovered(false)}}
             hovered={hovered}
         >
-            <Transaction_Item>{props.t.name}</Transaction_Item>
+            <Transaction_Name>{props.t.name}</Transaction_Name>
             <Transaction_Item>{format(new Date(props.t.date), 'MM/dd/yyyy')}</Transaction_Item>
-            <Transaction_Item>{props.t.is_inflow ? <FontAwesomeIcon color='green' icon={faCheck}/> : ""}</Transaction_Item>
+            <Transaction_Inflow>{props.t.is_inflow ? <FontAwesomeIcon color='rgba(41, 194, 56, 0.6)' icon={faPiggyBank}/> : <FontAwesomeIcon color='rgba(194, 66, 41, 0.6)' icon={faCreditCard}/>}</Transaction_Inflow>
             <Transaction_Item>{props.t.value}</Transaction_Item>
-            {props.t.tags.map((tag, i) => {
-                return (
-                    <>
-                        <Tag key={i}>
-                            <div onClick={() => {handle_tag_click(tag)}}>{tag}</div>
-                        </Tag>
-                        {/* {i < props.t.tags.length - 1 &&
-                            <div>,&nbsp;</div>
-                        } */}
-                    </>
-                )
-            })}
+            <Tags_Wrapper>
+                {props.t.tags.map((tag, i) => {
+                    return (
+                            <Tag key={i}>
+                                <div onClick={() => {handle_tag_click(tag)}}>{tag}</div>
+                            </Tag>
+                    )
+                })}
+            </Tags_Wrapper>
            {hovered &&
                 <>
                 <Edit_Btn icon={faPen} onClick={() => {handle_edit()}}></Edit_Btn>
@@ -101,15 +98,33 @@ const Edit_Btn = styled(FontAwesomeIcon)`
     }
 `
 
+const Transaction_Name = styled.div`
+    width: calc(20% - 50px);
+    // text-align: center;
+    padding-left: 50px;
+`
+
+const Transaction_Inflow = styled.div`
+    width: 100px;
+    // padding-left: 50px;
+`
+
 const Transaction_Item = styled.div`
     width: 20%;
-    // padding-left: 30px;
+    text-align: center;
+`
+
+const Tags_Wrapper = styled.div`
+    display: flex;
+    width: 20%;
+    overflow: scroll;
 `
 
 const Tag = styled.div`
     display: flex;
     cursor: pointer;
     padding: 3px;
+    // width: 100%;
 
     :hover {
         background: #363b4a;
