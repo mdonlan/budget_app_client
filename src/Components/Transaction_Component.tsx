@@ -34,10 +34,11 @@ export function Transaction_Component(props) {
             onMouseLeave={() => {set_hovered(false)}}
             hovered={hovered}
         >
+            <Transaction_ID>{/*props.t.id*/}</Transaction_ID> {/* use this empty space for the first column */}
             <Transaction_Name>{props.t.name}</Transaction_Name>
             <Transaction_Item>{format(new Date(props.t.date), 'MM/dd/yyyy')}</Transaction_Item>
             <Transaction_Inflow>{props.t.is_inflow ? <FontAwesomeIcon color='rgba(41, 194, 56, 0.6)' icon={faPiggyBank}/> : <FontAwesomeIcon color='rgba(194, 66, 41, 0.6)' icon={faCreditCard}/>}</Transaction_Inflow>
-            <Transaction_Item>{props.t.value}</Transaction_Item>
+            <Transaction_Value>{props.t.value}</Transaction_Value>
             <Tags_Wrapper>
                 {props.t.tags.map((tag, i) => {
                     return (
@@ -98,19 +99,26 @@ const Edit_Btn = styled(FontAwesomeIcon)`
     }
 `
 
+const Transaction_ID = styled.div`
+    width: 100px;
+`
+
 const Transaction_Name = styled.div`
-    width: calc(20% - 50px);
-    // text-align: center;
-    padding-left: 50px;
+    width: 20%;
 `
 
 const Transaction_Inflow = styled.div`
     width: 100px;
-    // padding-left: 50px;
+    text-align: center;
 `
 
 const Transaction_Item = styled.div`
     width: 20%;
+    text-align: center;
+`
+
+const Transaction_Value = styled.div`
+    width: 150px;
     text-align: center;
 `
 
@@ -124,7 +132,6 @@ const Tag = styled.div`
     display: flex;
     cursor: pointer;
     padding: 3px;
-    // width: 100%;
 
     :hover {
         background: #363b4a;

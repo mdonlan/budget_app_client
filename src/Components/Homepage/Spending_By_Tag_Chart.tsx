@@ -73,11 +73,10 @@ export function Spending_By_Tag_Chart(props: {time_period: Time_Period, date: Da
     });
    
     useEffect(() => {
-       async function get_data() {
+        async function get_data() {
             const data = await get_amount_spent_by_tags(props.time_period, props.date);
-            console.log("amount spent by tags")
-            console.log(data);
             const tags = data.spending_tags;
+            console.log(tags)
             
             const background_colors = tags.map((t, i) => random_hsla());
             const border_colors = background_colors.map(color => {
@@ -91,7 +90,7 @@ export function Spending_By_Tag_Chart(props: {time_period: Time_Period, date: Da
                 datasets: [
                     {
                         label: "Spending By Tag",
-                        data: tags.map(t => !t.is_inflow ? t.amount : 0),
+                        data: tags.map(t => t.amount),
                         backgroundColor: background_colors.map(color => hsla_to_str(color)),
                         borderColor: border_colors.map(color => hsla_to_str(color)),
                     }

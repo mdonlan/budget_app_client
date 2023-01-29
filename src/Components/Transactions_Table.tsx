@@ -10,17 +10,25 @@ interface Props {
 };
 
 enum Sort_Type {
-    ID,
+    ID_NEW_TO_OLD,
+    ID_OLD_TO_NEW,
     DATE_NEW_TO_OLD,
-    DATE_OLD_TO_NEW
+    DATE_OLD_TO_NEW,
+    // ADDED_OLD_TO_NEW,
+    // ADDED_NEW_TO_OLD
 };
 
 export const Transactions_Table: React.FC<Props> = ({transactions = []}: Props) => {
-    const [table_sort_type, set_table_sort_type] = useState(Sort_Type.ID);
+    const [table_sort_type, set_table_sort_type] = useState(Sort_Type.ID_NEW_TO_OLD);
     const [sorted_transactions, set_sorted_transactions] = useState(transactions);
     const [date_sort, set_date_sort] = useState(Sort_Type.DATE_NEW_TO_OLD);
+    const [added_sort, set_added_sort] = useState(Sort_Type.ID_NEW_TO_OLD);
 
     function sort(sort_type) {
+
+        console.log(sort_type)
+
+        
         const copy = JSON.parse(JSON.stringify(transactions));
 
         if (sort_type == Sort_Type.DATE_NEW_TO_OLD) {
@@ -35,6 +43,16 @@ export const Transactions_Table: React.FC<Props> = ({transactions = []}: Props) 
             set_date_sort(Sort_Type.DATE_NEW_TO_OLD);
         }
 
+        if (sort_type == Sort_Type.ID_NEW_TO_OLD) {
+            copy.sort((a, b) => b.id - a.id);
+            set_table_sort_type(Sort_Type.ID_OLD_TO_NEW);
+            set_added_sort(Sort_Type.ID_OLD_TO_NEW);
+        } else if (sort_type == Sort_Type.ID_OLD_TO_NEW) {
+            copy.sort((a, b) => a.id - b.id);
+            set_table_sort_type(Sort_Type.ID_NEW_TO_OLD);
+            set_added_sort(Sort_Type.ID_NEW_TO_OLD);
+        }
+
         set_sorted_transactions(copy);
     }
 
@@ -45,6 +63,11 @@ export const Transactions_Table: React.FC<Props> = ({transactions = []}: Props) 
     return (
         <Wrapper>
             <Col_Headers>
+                <Transactions_Added_Header onClick={() => sort(added_sort)}>
+                    Added
+                    {table_sort_type == Sort_Type.ID_NEW_TO_OLD  && <Styled_Icon icon={faArrowDown} />}
+                    {table_sort_type == Sort_Type.ID_OLD_TO_NEW  && <Styled_Icon icon={faArrowUp} />}
+                </Transactions_Added_Header>
                 <Name_Header>Name</Name_Header>
                 <Date_Header onClick={() => sort(date_sort)}>
                     Date
@@ -52,7 +75,7 @@ export const Transactions_Table: React.FC<Props> = ({transactions = []}: Props) 
                     {table_sort_type == Sort_Type.DATE_OLD_TO_NEW  && <Styled_Icon icon={faArrowUp} />}
                 </Date_Header>
                 <Inflow_Header>Inflow</Inflow_Header>
-                <Transaction_Col_Header>Value</Transaction_Col_Header>
+                <Transaction_Value_Header>Value</Transaction_Value_Header>
                 <Transaction_Col_Header>Tags</Transaction_Col_Header>
             </Col_Headers>
 
@@ -71,7 +94,6 @@ const Wrapper = styled.div`
 
 const Col_Headers = styled.div`
     display: flex;
-    // justify-content: space-around;
     padding-top: 12px;
     padding-bottom: 12px;
     border-bottom: 2px solid rgba(255, 255, 255, 0.6);
@@ -81,24 +103,33 @@ const Col_Headers = styled.div`
 
 const Transaction_Col_Header = styled.div`
     font-size: 18px;
-    // width: 20%;
     font-variant: small-caps;
     display: flex;
-    // justify-content: center;
-    padding: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
+    justify-content: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
 `
 
 const Inflow_Header = styled(Transaction_Col_Header)`
-    width: 50px;
+    width: 100px;
 `
 
+
+const Transaction_Value_Header = styled(Transaction_Col_Header)`
+    width: 150px;
+`
+
+const Transactions_Added_Header = styled(Transaction_Col_Header)`
+    width: 100px;
+
+    :hover {
+        background: rgba(135, 135, 135, 0.2);
+    }
+`
 
 
 const Name_Header = styled(Transaction_Col_Header)`
     width: 20%;
-    // text-align: center;
     display: flex;
     justify-content: center;
 `
@@ -123,7 +154,5 @@ const Styled_Icon = styled(FontAwesomeIcon)`
 `
 
 const Transactions_List = styled.div`
-    // min-height: 100%;
-    // overflow-y: auto;
-    // padding-left: 100px;
+    
 `

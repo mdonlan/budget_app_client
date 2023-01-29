@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components'
-import { create_transaction, update_transaction } from '../api';
+import { create_transaction, get_tags, update_transaction } from '../api';
 // import { Transactions } from './Transactions';
 import { RootState, set_existing_transaction, Tag, Transaction } from '../store';
 import DatePicker from "react-datepicker";
@@ -70,12 +70,14 @@ export function Add_Transaction() {
             if (existing_transaction) {
                 update_transaction(transaction);
                 dispatch(set_existing_transaction(null));
+                get_tags();
             } else {
                 create_transaction(transaction);
             }
             
             set_transaction({name: "", tags: [], value: 0, date: new Date(), id: 0, username: "", is_inflow: false});
             set_error("");
+            set_current_tag("");
         } 
     }
 

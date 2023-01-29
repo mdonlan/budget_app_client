@@ -76,7 +76,7 @@ export function Spending_By_Transaction_Chart(props: {time_period: Time_Period, 
                 labels: transactions.map(t => t.name),
                 datasets: [
                     {
-                        label: "Spending By Tag",
+                        label: "Spending By Transaction",
                         data: transactions.map(t => !t.is_inflow ? t.value : 0),
                         backgroundColor: background_colors.map(color => hsla_to_str(color)),
                         borderColor: border_colors.map(color => hsla_to_str(color)),
