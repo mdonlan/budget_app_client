@@ -64,7 +64,7 @@ export const Transactions_Table: React.FC<Props> = ({transactions = []}: Props) 
         <Wrapper>
             <Col_Headers>
                 <Transactions_Added_Header onClick={() => sort(added_sort)}>
-                    Added
+                    ID
                     {table_sort_type == Sort_Type.ID_NEW_TO_OLD  && <Styled_Icon icon={faArrowDown} />}
                     {table_sort_type == Sort_Type.ID_OLD_TO_NEW  && <Styled_Icon icon={faArrowUp} />}
                 </Transactions_Added_Header>

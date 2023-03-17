@@ -34,7 +34,7 @@ export function Transaction_Component(props) {
             onMouseLeave={() => {set_hovered(false)}}
             hovered={hovered}
         >
-            <Transaction_ID>{/*props.t.id*/}</Transaction_ID> {/* use this empty space for the first column */}
+            <Transaction_ID>{props.t.id}</Transaction_ID>
             <Transaction_Name>{props.t.name}</Transaction_Name>
             <Transaction_Item>{format(new Date(props.t.date), 'MM/dd/yyyy')}</Transaction_Item>
             <Transaction_Inflow>{props.t.is_inflow ? <FontAwesomeIcon color='rgba(41, 194, 56, 0.6)' icon={faPiggyBank}/> : <FontAwesomeIcon color='rgba(194, 66, 41, 0.6)' icon={faCreditCard}/>}</Transaction_Inflow>

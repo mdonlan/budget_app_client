@@ -13,6 +13,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Transactions_Table } from '../Transactions_Table';
 
 enum Change {
     PREV,
@@ -83,6 +84,9 @@ export function Time_Period_Data() {
                         <Spending_By_Transaction_Chart time_period={time_period} date={date}/>
                         <Income_Expenses_Chart time_period={time_period} date={date}/>
                     </Charts>
+                    <Time_Period_Transactions>
+                        <Transactions_Table transactions={time_period_data.transactions}></Transactions_Table>
+                    </Time_Period_Transactions>
                 </Data>
             }
         </Wrapper>
@@ -169,4 +173,9 @@ const Charts = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+`
+
+const Time_Period_Transactions = styled.div`
+    width: 75%;
+    margin-top: 60px;
 `

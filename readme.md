@@ -1,4 +1,4 @@
-# Budget Website Client
+# Budget App Client
 
 This is the client side of a budget website, written using Typescript and React. The goal of this website is to help users keep track of their budget and expenses.
 
