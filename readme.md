@@ -8,7 +8,7 @@ You can check out a live demo of this application [here](https://budget.michaeld
 
 ## Dependencies
 
-This project depends on the [Budget App Server](https://github.com/mdonlan/budget_app_server), which provides the backend functionality for this website. Before running this client application, you need to install and run the server application. Follow the instructions in the server's README file to get it up and running.
+This project depends on [Budget App Server](https://github.com/mdonlan/budget_app_server), which provides the backend functionality for this website. Before running this client application, you need to install and run the server application. Follow the instructions in the server's README file to get it up and running.
 
 ## Features
 
@@ -26,5 +26,3 @@ To get started with this project locally, follow these steps:
 3. Make sure that the [Budget App Server](https://github.com/mdonlan/budget_app_server) is up and running, following the instructions in its README file.
 4. Start the development server using `npm start`.
 5. Open `http://localhost:8080` in your browser to view the website.
-
-That's it! You should now be able to use the Budget Website Client to track your expenses and income on your local machine.
